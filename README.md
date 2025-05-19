@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/63ecedec-90ce-4fcc-b2f6-ea253331b583/deploy-status)](https://app.netlify.com/projects/songram-app/deploys)
+
 # Songram - AI-Powered Music Creation Platform
 
 Songram is a futuristic social platform that combines music creation with social media, allowing users to create, share, and discover music in a completely new way.
