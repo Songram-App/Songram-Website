@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/WelcomePage.scss';
 
 // Add necessary type declarations for MailChimp
@@ -13,7 +12,6 @@ declare global {
 }
 
 const WelcomePage: React.FC = () => {
-  const navigate = useNavigate();
   const [activeFeature, setActiveFeature] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioVisualizerRef = useRef<number | null>(null);
@@ -295,7 +293,6 @@ const WelcomePage: React.FC = () => {
       script.onload = () => {
         // Initialize MailChimp validation
         if (window.jQuery) {
-          const $ = window.jQuery;
           window.fnames = new Array();
           window.ftypes = new Array();
           window.fnames[0] = 'EMAIL';
@@ -340,7 +337,7 @@ const WelcomePage: React.FC = () => {
             onClick={openSignupModal}
             aria-label="Create a new account by joining our mailing list"
           >
-            Join Now
+            Join Waitlist
           </button>
         </nav>
 
