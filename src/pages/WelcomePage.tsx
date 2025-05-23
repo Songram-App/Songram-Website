@@ -661,7 +661,7 @@ const WelcomePage: React.FC = () => {
                     <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
                     <div id="mc_embed_signup">
                       <form action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-                        <div id="mc_embed_signup_scroll"><h2 id="signup-modal-title">Join Now</h2>
+                        <div id="mc_embed_signup_scroll"><h2 id="signup-modal-title">Join Waitlist</h2>
                           <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
                           <div class="mc-field-group">
                             <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
