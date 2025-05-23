@@ -1,14 +1,23 @@
 import React, { useEffect, useRef, useState, KeyboardEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/WelcomePage.scss';
 
+// Add necessary type declarations for MailChimp
+declare global {
+  interface Window {
+    jQuery: any;
+    $: any;
+    fnames: any[];
+    ftypes: any[];
+  }
+}
+
 const WelcomePage: React.FC = () => {
-  const navigate = useNavigate();
   const [activeFeature, setActiveFeature] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const audioVisualizerRef = useRef<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const intervalRef = useRef<number | null>(null);
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   const features = [
     {
@@ -254,6 +263,61 @@ const WelcomePage: React.FC = () => {
     setIsPlaying(!isPlaying);
   };
 
+  // Function to open the signup modal
+  const openSignupModal = () => {
+    setShowSignupModal(true);
+  };
+
+  // Function to close the signup modal
+  const closeSignupModal = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setShowSignupModal(false);
+    }
+  };
+
+  // Function to handle escape key press to close modal
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape') {
+      setShowSignupModal(false);
+    }
+  };
+
+  useEffect(() => {
+    // Load MailChimp validation script when modal is opened
+    if (showSignupModal) {
+      const script = document.createElement('script');
+      script.src = '//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js';
+      script.async = true;
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        // Initialize MailChimp validation
+        if (window.jQuery) {
+          window.fnames = new Array();
+          window.ftypes = new Array();
+          window.fnames[0] = 'EMAIL';
+          window.ftypes[0] = 'email';
+          window.fnames[1] = 'FNAME';
+          window.ftypes[1] = 'text';
+          window.fnames[2] = 'LNAME';
+          window.ftypes[2] = 'text';
+          window.fnames[3] = 'ADDRESS';
+          window.ftypes[3] = 'address';
+          window.fnames[4] = 'PHONE';
+          window.ftypes[4] = 'phone';
+          window.fnames[5] = 'BIRTHDAY';
+          window.ftypes[5] = 'birthday';
+          window.fnames[6] = 'COMPANY';
+          window.ftypes[6] = 'text';
+        }
+      };
+
+      return () => {
+        document.body.removeChild(script);
+      };
+    }
+  }, [showSignupModal]);
+
   return (
     <div className="welcome-page">
       <canvas ref={canvasRef} className="background-canvas" aria-hidden="true" />
@@ -269,18 +333,11 @@ const WelcomePage: React.FC = () => {
 
         <nav className="cta-buttons" aria-label="Sign in options">
           <button 
-            className="btn-login" 
-            onClick={() => navigate('/login')}
-            aria-label="Log in to your account"
-          >
-            Log In
-          </button>
-          <button 
             className="btn-signup" 
-            onClick={() => navigate('/signup')}
-            aria-label="Create a new account"
+            onClick={openSignupModal}
+            aria-label="Create a new account by joining our mailing list"
           >
-            Sign Up
+            Join Waitlist
           </button>
         </nav>
 
@@ -446,6 +503,58 @@ const WelcomePage: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {/* MailChimp Signup Modal */}
+        {showSignupModal && (
+          <div 
+            className="signup-modal-overlay" 
+            onClick={closeSignupModal}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+            role="dialog"
+            aria-labelledby="signup-modal-title"
+            aria-modal="true"
+          >
+            <div className="signup-modal-content" onClick={e => e.stopPropagation()}>
+              <button 
+                className="modal-close-btn" 
+                onClick={() => setShowSignupModal(false)}
+                aria-label="Close signup form"
+              >
+                ×
+              </button>
+              <div 
+                id="mc_embed_signup"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+                    <div id="mc_embed_signup">
+                      <form action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                        <div id="mc_embed_signup_scroll"><h2 id="signup-modal-title">Join Now</h2>
+                          <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                          <div class="mc-field-group">
+                            <label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label>
+                            <input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required value="">
+                          </div>
+                          <div id="mce-responses" class="clear">
+                            <div class="response" id="mce-error-response" style="display: none;"></div>
+                            <div class="response" id="mce-success-response" style="display: none;"></div>
+                          </div>
+                          <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                            <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabindex="-1" value="">
+                          </div>
+                          <div class="clear">
+                            <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  `
+                }}
+              />
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
