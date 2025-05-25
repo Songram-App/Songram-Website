@@ -111,10 +111,6 @@ const WelcomePage: React.FC = () => {
     setIsSubmitting(false);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
   const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -220,23 +216,8 @@ const WelcomePage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobileMenuOpen]);
-
-  // Updated button styles for experimentation
-  const buttonBaseStyles = "relative glass-button bg-gradient-primary border-0 font-semibold tracking-wide overflow-hidden group";
-  const buttonHoverEffects = "hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 transition-all duration-300";
-
   return (
-    <div className="min-h-screen bg-gradient-dark relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-dark relative overflow-hidden px-10 py-12 font-sans">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
@@ -245,91 +226,77 @@ const WelcomePage: React.FC = () => {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-50 mx-6 mt-6">
-        <div className="glass-panel px-8 py-6 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-primary opacity-20 animate-pulse"></div>
-          <div className="absolute inset-1 bg-gradient-dark rounded-2xl"></div>
-
-          <div className="relative flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <span className="text-3xl font-bold text-gradient glow-text tracking-wider">SONGRAM</span>
-                <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-transparent"></div>
-              </div>
-            </div>
-
-            <div className="hidden md:flex items-center space-x-6">
-              <a href="#features" className="relative text-white opacity-90 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
-                <span className="relative z-10">Features</span>
-                <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
-              </a>
-              <a href="#testimonials" className="relative text-white opacity-90 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
-                <span className="relative z-10">Reviews</span>
-                <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
-              </a>
-              <button 
-                onClick={openSignupModal}
-                className={`${buttonBaseStyles} ${buttonHoverEffects} px-8 py-4 text-lg`}
-              >
-                JOIN WAITLIST
-              </button>
-            </div>
-
-            <div className="md:hidden">
-              <button
-                onClick={toggleMobileMenu}
-                className="p-2 focus:outline-none group bg-transparent"
-                aria-label="Open menu"
-              >
-                <div className="w-6 h-6 flex flex-col justify-between">
-                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
-                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
-                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="fixed inset-0 z-50 flex items-end bg-black/50">
-            <div className="w-full bg-gradient-dark rounded-t-3xl p-6">
-              <button
-                onClick={toggleMobileMenu}
-                className="text-white text-3xl focus:outline-none hover:text-primary transition-transform transform hover:rotate-90"
-                aria-label="Close menu"
-              >
-                ×
-              </button>
-              <div className="flex flex-col items-center space-y-6 text-center">
-                <a
-                  href="#features"
-                  className="text-white text-xl font-semibold hover:text-primary transition-colors"
-                  onClick={toggleMobileMenu}
-                >
-                  Features
-                </a>
-                <a
-                  href="#testimonials"
-                  className="text-white text-xl font-semibold hover:text-primary transition-colors"
-                  onClick={toggleMobileMenu}
-                >
-                  Reviews
-                </a>
-                <button
-                  onClick={() => {
-                    toggleMobileMenu();
-                    openSignupModal();
-                  }}
-                  className={`${buttonBaseStyles} ${buttonHoverEffects} text-lg px-4 py-2`}
-                >
-                  Join Waitlist
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
+      <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
+  <div className="max-w-screen-xl mx-auto px-8 py-6 flex justify-between items-center">
+    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
+      SONGRAM
+    </span>
+    <div className="hidden md:flex items-center space-x-8">
+      <a
+        href="#features"
+        className="text-white text-lg hover:text-yellow-400 transition inline-flex items-center"
+      >
+        Features
+      </a>
+      <a
+        href="#testimonials"
+        className="text-white text-lg hover:text-yellow-400 transition inline-flex items-center"
+      >
+        Reviews
+      </a>
+      <button
+        onClick={openSignupModal}
+        className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
+      >
+        Join Waitlist
+      </button>
+    </div>
+    <button
+      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      className="md:hidden text-white focus:outline-none"
+    >
+      <svg
+        className="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M4 6h16M4 12h16m-7 6h7"
+        ></path>
+      </svg>
+    </button>
+  </div>
+  {isMobileMenuOpen && (
+    <div className="md:hidden bg-gray-800 text-white">
+      <a
+        href="#features"
+        className="block px-6 py-3 hover:bg-gray-700"
+      >
+        Features
+      </a>
+      <a
+        href="#testimonials"
+        className="block px-6 py-3 hover:bg-gray-700"
+      >
+        Reviews
+      </a>
+      <button
+        onClick={() => {
+          setIsMobileMenuOpen(false);
+          openSignupModal();
+        }}
+        className="block w-full text-left px-6 py-3 hover:bg-gray-700"
+      >
+        Join Waitlist
+      </button>
+    </div>
+  )}
+</nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
@@ -343,7 +310,7 @@ const WelcomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
         <button 
           onClick={openSignupModal}
-          className={`${buttonBaseStyles} ${buttonHoverEffects} px-8 py-4 text-lg`}
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
         >
           JOIN WAITLIST
         </button>
@@ -359,7 +326,7 @@ const WelcomePage: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
             Features
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <FeatureCard key={index} feature={feature} isActive={currentFeature === index} />
             ))}
@@ -493,7 +460,7 @@ const WelcomePage: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
             What Creators Say
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
@@ -532,9 +499,9 @@ const WelcomePage: React.FC = () => {
       {/* Signup Modal */}
       {showSignupModal && (
         <div className="signup-modal-overlay" onClick={closeSignupModal}>
-          <div className="signup-modal-content w-full max-w-md mx-auto bg-gradient-dark p-6 rounded-lg shadow-lg" onClick={e => e.stopPropagation()}>
+          <div className="signup-modal-content" onClick={e => e.stopPropagation()}>
             <button 
-              className="modal-close-btn absolute top-4 right-4 text-white text-2xl"
+              className="modal-close-btn" 
               onClick={closeSignupModal}
               aria-label="Close signup form"
             >
@@ -562,13 +529,6 @@ const WelcomePage: React.FC = () => {
                         placeholder="Enter your email address"
                       />
                     </div>
-                    
-                    {/* Error message for email input */}
-                    {emailError && (
-                      <div className="mt-2 text-red-500 text-sm text-center">
-                        {emailError}
-                      </div>
-                    )}
                     
                     {/* Hidden honeypot field */}
                     <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
