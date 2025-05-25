@@ -181,31 +181,24 @@ const WelcomePage: React.FC = () => {
     );
   };
 
-  const FeatureCard: React.FC<{ feature: Feature; isActive: boolean }> = ({ feature, isActive }) => (
-    <div
-      className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl floating-element ${
-        isActive ? 'ring-2 ring-primary/50 bg-primary/10' : ''
-      }`}
-      aria-pressed={isActive}
-    >
-      {feature.icon}
-      <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
-      <p className="text-white/70">{feature.description}</p>
-    </div>
-  );
-
   const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
-    <div className="glass-panel p-8 floating-element hover:scale-105 transition-all duration-300">
+    <div className="glass-panel p-8 hover:scale-105 transition-all duration-300">
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
           {testimonial.avatar}
         </div>
         <div>
-          <h4 className="text-white font-semibold">{testimonial.name}</h4>
-          <p className="text-white/60 text-sm">{testimonial.role}</p>
+          <h4 className="text-lg sm:text-xl text-white font-semibold">
+            {testimonial.name}
+          </h4>
+          <p className="text-sm sm:text-base text-white/60">
+            {testimonial.role}
+          </p>
         </div>
       </div>
-      <p className="text-white/80 italic">"{testimonial.content}"</p>
+      <p className="text-sm sm:text-base text-white/80 italic">
+        "{testimonial.content}"
+      </p>
     </div>
   );
 
@@ -217,7 +210,7 @@ const WelcomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans">
+    <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans overflow-hidden">
 
       {/* Navigation */}
       <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg mt-0">
@@ -240,7 +233,7 @@ const WelcomePage: React.FC = () => {
       </a>
       <button
         onClick={openSignupModal}
-        className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+        className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
       >
         Join Waitlist
       </button>
@@ -248,31 +241,43 @@ const WelcomePage: React.FC = () => {
     <button
       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       className="md:hidden text-white focus:outline-none"
+      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
     >
+      {isMobileMenuOpen ? '×' : '☰'} {/* Display appropriate icon for open/close state */}
     </button>
   </div>
   {isMobileMenuOpen && (
-    <div className="md:hidden bg-gray-800 text-white">
+    <div className="md:hidden bg-gray-900 text-white fixed inset-0 z-40 flex flex-col items-center justify-center space-y-6">
       <a
         href="#features"
-        className="block px-6 py-3 hover:bg-gray-700"
+        className="text-lg font-semibold hover:text-yellow-400 transition"
+        onClick={() => setIsMobileMenuOpen(false)}
       >
         Features
       </a>
       <a
         href="#testimonials"
-        className="block px-6 py-3 hover:bg-gray-700"
+        className="text-lg font-semibold hover:text-yellow-400 transition"
+        onClick={() => setIsMobileMenuOpen(false)}
       >
         Reviews
       </a>
+      {/* Mobile Menu Join Waitlist Button */}
       <button
         onClick={() => {
           setIsMobileMenuOpen(false);
           openSignupModal();
         }}
-        className="block w-full text-left px-6 py-3 hover:bg-gray-700"
+        className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
       >
         Join Waitlist
+      </button>
+      <button
+        onClick={() => setIsMobileMenuOpen(false)}
+        className="absolute top-4 right-4 text-white text-2xl focus:outline-none"
+        aria-label="Close menu"
+      >
+        ×
       </button>
     </div>
   )}
@@ -281,16 +286,16 @@ const WelcomePage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
         Where <span className="text-gradient glow-text">AI</span> meets <span className="text-gradient glow-text">Creativity</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
+          <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
         Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
         <button 
           onClick={openSignupModal}
-          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+          className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
         >
           JOIN WAITLIST
         </button>
@@ -300,15 +305,26 @@ const WelcomePage: React.FC = () => {
 
       {/* Features Section */}
       <section id="features" className="relative z-10 px-6 py-24">
-        {/* Animated Gradient Background Glow */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1d1d1d] to-black blur-3xl opacity-70 pointer-events-none" aria-hidden="true"></div>
-        <div className="max-w-6xl mx-auto relative">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
             Features
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <FeatureCard key={index} feature={feature} isActive={currentFeature === index} />
+              <div
+                key={index}
+                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
+                  currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
+                }`}
+              >
+                {feature.icon}
+                <h3 className="text-lg sm:text-xl font-semibold mb-3 text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-sm sm:text-base text-white/70">
+                  {feature.description}
+                </p>
+              </div>
             ))}
           </div>
         </div>
@@ -437,7 +453,7 @@ const WelcomePage: React.FC = () => {
       {/* Testimonials */}
       <section id="testimonials" className="relative z-10 px-6 py-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
             What Creators Say
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
