@@ -4,12 +4,33 @@ import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal } from "phospho
 const WelcomePage: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
 
-  const features = [
+  interface Feature {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+  }
+
+  interface Testimonial {
+    name: string;
+    role: string;
+    content: string;
+    avatar: string;
+  }
+
+  interface Track {
+    title: string;
+    artist: string;
+    genre: string;
+    duration: string;
+    likes: string;
+    comments: string;
+  }
+
+  const features: Feature[] = [
     {
       title: "Create Music",
       description: "Generate/add beats, melodies. Write/Generate Lyrics and polish your tracks with just text prompt",
@@ -32,7 +53,7 @@ const WelcomePage: React.FC = () => {
     }
   ];
 
-  const testimonials = [
+  const testimonials: Testimonial[] = [
     {
       name: "Alex Chen",
       role: "Music Producer",
@@ -53,7 +74,7 @@ const WelcomePage: React.FC = () => {
     }
   ];
 
-  const tracks = [
+  const tracks: Track[] = [
     {
       title: "Urban Vibes",
       artist: "BeatCreator",
@@ -150,17 +171,38 @@ const WelcomePage: React.FC = () => {
     );
   };
 
+  const FeatureCard: React.FC<{ feature: Feature; isActive: boolean }> = ({ feature, isActive }) => (
+    <div
+      className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl floating-element ${
+        isActive ? 'ring-2 ring-primary/50 bg-primary/10' : ''
+      }`}
+      aria-pressed={isActive}
+    >
+      {feature.icon}
+      <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
+      <p className="text-white/70">{feature.description}</p>
+    </div>
+  );
+
+  const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
+    <div className="glass-panel p-8 floating-element hover:scale-105 transition-all duration-300">
+      <div className="flex items-center mb-4">
+        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
+          {testimonial.avatar}
+        </div>
+        <div>
+          <h4 className="text-white font-semibold">{testimonial.name}</h4>
+          <p className="text-white/60 text-sm">{testimonial.role}</p>
+        </div>
+      </div>
+      <p className="text-white/80 italic">"{testimonial.content}"</p>
+    </div>
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFeature((prev) => (prev + 1) % features.length);
     }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -254,21 +296,7 @@ const WelcomePage: React.FC = () => {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl floating-element ${
-                  currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
-                }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="mb-4">
-                  {React.cloneElement(feature.icon, {
-                    className: "mx-auto text-primary drop-shadow-glow",
-                  })}
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
-                <p className="text-white/70">{feature.description}</p>
-              </div>
+              <FeatureCard key={index} feature={feature} isActive={currentFeature === index} />
             ))}
           </div>
         </div>
@@ -402,24 +430,7 @@ const WelcomePage: React.FC = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className={`glass-panel p-8 floating-element hover:scale-105 transition-all duration-300 ${
-                  currentTestimonial === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
-                }`}
-                style={{ animationDelay: `${index * 0.3}s` }}
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                    <p className="text-white/60 text-sm">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="text-white/80 italic">"{testimonial.content}"</p>
-              </div>
+              <TestimonialCard key={index} testimonial={testimonial} />
             ))}
           </div>
         </div>
