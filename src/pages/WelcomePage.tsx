@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal } from "phosphor-react";
 
 const WelcomePage: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
@@ -12,22 +13,22 @@ const WelcomePage: React.FC = () => {
     {
       title: "Create Music",
       description: "Generate/add beats, melodies. Write/Generate Lyrics and polish your tracks with just text prompt",
-      icon: "🎵"
+      icon: <MusicNotes size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Social Sharing",
       description: "Share your creations with a global community",
-      icon: "🌐"
+      icon: <ShareNetwork size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Real-time Collaboration",
       description: "Create music together with artists worldwide",
-      icon: "🤝"
+      icon: <UsersThree size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Accessible Tools",
       description: "Easy to use, no need to be a professional to create music",
-      icon: "🎛️"
+      icon: <SlidersHorizontal size={40} weight="duotone" className="mx-auto text-primary" />
     }
   ];
 
@@ -226,39 +227,45 @@ const WelcomePage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-fade-in">
-            <span className="text-gradient glow-text">SONGRAM</span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
+        Where <span className="text-gradient glow-text">AI</span> meets <span className="text-gradient glow-text">Creativity</span>
           </h1>
           <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
-            Where AI meets creativity. Create, collaborate, and share music like never before with our revolutionary platform.
+        Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <button 
-              onClick={openSignupModal}
-              className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
-            >
-              JOIN WAITLIST
-            </button>
+        <button 
+          onClick={openSignupModal}
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
+        >
+          JOIN WAITLIST
+        </button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative z-10 px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
+      <section id="features" className="relative z-10 px-6 py-24">
+        {/* Animated Gradient Background Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1d1d1d] to-black blur-3xl opacity-70 pointer-events-none" aria-hidden="true"></div>
+        <div className="max-w-6xl mx-auto relative">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
             Features
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`glass-panel p-8 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 floating-element ${
+                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl floating-element ${
                   currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
                 }`}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
+                <div className="mb-4">
+                  {React.cloneElement(feature.icon, {
+                    className: "mx-auto text-primary drop-shadow-glow",
+                  })}
+                </div>
                 <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
                 <p className="text-white/70">{feature.description}</p>
               </div>
@@ -521,9 +528,9 @@ const WelcomePage: React.FC = () => {
           <div className="flex items-center justify-center space-x-3 mb-6">
             <span className="text-xl font-bold text-gradient">Songram</span>
           </div>
-          <p className="text-white/60">
-            © 2024 Songram. Revolutionizing music creation with AI.
-          </p>
+            <p className="text-white/60">
+            © {new Date().getFullYear()} Songram. Revolutionizing music creation with AI.
+            </p>
         </div>
       </footer>
     </div>
