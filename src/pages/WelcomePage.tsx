@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal } from "phosphor-react";
+import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
@@ -7,6 +8,7 @@ const WelcomePage: React.FC = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   interface Feature {
     title: string;
@@ -109,28 +111,40 @@ const WelcomePage: React.FC = () => {
     setIsSubmitting(false);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const [emailError, setEmailError] = useState<string | null>(null);
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    
+
+    const email = formData.get('EMAIL') as string;
+
+    if (!validator.isEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+
+    setEmailError(null);
+    setIsSubmitting(true);
+
     try {
-      // Submit to MailChimp in the background
       await fetch(form.action, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors' // This prevents CORS issues but we won't get response data
+        mode: 'no-cors'
       });
-      
-      // Show thank you message after a brief delay
+
       setTimeout(() => {
         setIsSubmitting(false);
         setShowThankYou(true);
       }, 1000);
     } catch (error) {
-      // Even if there's an error, show thank you (since no-cors mode doesn't give us response)
       setTimeout(() => {
         setIsSubmitting(false);
         setShowThankYou(true);
@@ -206,6 +220,21 @@ const WelcomePage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen]);
+
+  // Updated button styles for experimentation
+  const buttonBaseStyles = "relative glass-button bg-gradient-primary border-0 font-semibold tracking-wide overflow-hidden group";
+  const buttonHoverEffects = "hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 transition-all duration-300";
+
   return (
     <div className="min-h-screen bg-gradient-dark relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -218,11 +247,9 @@ const WelcomePage: React.FC = () => {
       {/* Navigation */}
       <nav className="relative z-50 mx-6 mt-6">
         <div className="glass-panel px-8 py-6 relative overflow-hidden">
-          {/* Animated gradient border */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-primary opacity-20 animate-pulse"></div>
           <div className="absolute inset-1 bg-gradient-dark rounded-2xl"></div>
-          
-          {/* Content */}
+
           <div className="relative flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -230,40 +257,78 @@ const WelcomePage: React.FC = () => {
                 <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-transparent"></div>
               </div>
             </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="relative text-white opacity-80 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
+
+            <div className="hidden md:flex items-center space-x-6">
+              <a href="#features" className="relative text-white opacity-90 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
                 <span className="relative z-10">Features</span>
                 <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
               </a>
-              <a href="#testimonials" className="relative text-white opacity-80 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
+              <a href="#testimonials" className="relative text-white opacity-90 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
                 <span className="relative z-10">Reviews</span>
                 <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
               </a>
-              
-              {/* Enhanced Join Now button */}
               <button 
                 onClick={openSignupModal}
-                className="relative glass-button bg-gradient-primary border-0 px-6 py-3 font-semibold tracking-wide overflow-hidden group"
+                className={`${buttonBaseStyles} ${buttonHoverEffects} px-8 py-4 text-lg`}
               >
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <span className="relative z-10">Join Waitlist</span>
+                JOIN WAITLIST
               </button>
             </div>
-            
-            {/* Mobile menu button */}
+
             <div className="md:hidden">
-              <button className="glass-button p-3">
-                <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-                  <div className="w-full h-0.5 bg-white"></div>
-                  <div className="w-full h-0.5 bg-white"></div>
-                  <div className="w-full h-0.5 bg-white"></div>
+              <button
+                onClick={toggleMobileMenu}
+                className="p-2 focus:outline-none group bg-transparent"
+                aria-label="Open menu"
+              >
+                <div className="w-6 h-6 flex flex-col justify-between">
+                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
+                  <div className="w-full h-0.5 bg-gradient-to-r from-primary to-purple-500 rounded-full group-hover:scale-110 transition-transform duration-300"></div>
                 </div>
               </button>
             </div>
           </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 flex items-end bg-black/50">
+            <div className="w-full bg-gradient-dark rounded-t-3xl p-6">
+              <button
+                onClick={toggleMobileMenu}
+                className="text-white text-3xl focus:outline-none hover:text-primary transition-transform transform hover:rotate-90"
+                aria-label="Close menu"
+              >
+                ×
+              </button>
+              <div className="flex flex-col items-center space-y-6 text-center">
+                <a
+                  href="#features"
+                  className="text-white text-xl font-semibold hover:text-primary transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  Features
+                </a>
+                <a
+                  href="#testimonials"
+                  className="text-white text-xl font-semibold hover:text-primary transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  Reviews
+                </a>
+                <button
+                  onClick={() => {
+                    toggleMobileMenu();
+                    openSignupModal();
+                  }}
+                  className={`${buttonBaseStyles} ${buttonHoverEffects} text-lg px-4 py-2`}
+                >
+                  Join Waitlist
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -278,7 +343,7 @@ const WelcomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
         <button 
           onClick={openSignupModal}
-          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
+          className={`${buttonBaseStyles} ${buttonHoverEffects} px-8 py-4 text-lg`}
         >
           JOIN WAITLIST
         </button>
@@ -294,7 +359,7 @@ const WelcomePage: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
             Features
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <FeatureCard key={index} feature={feature} isActive={currentFeature === index} />
             ))}
@@ -428,7 +493,7 @@ const WelcomePage: React.FC = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
             What Creators Say
           </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
             ))}
@@ -467,9 +532,9 @@ const WelcomePage: React.FC = () => {
       {/* Signup Modal */}
       {showSignupModal && (
         <div className="signup-modal-overlay" onClick={closeSignupModal}>
-          <div className="signup-modal-content" onClick={e => e.stopPropagation()}>
+          <div className="signup-modal-content w-full max-w-md mx-auto bg-gradient-dark p-6 rounded-lg shadow-lg" onClick={e => e.stopPropagation()}>
             <button 
-              className="modal-close-btn" 
+              className="modal-close-btn absolute top-4 right-4 text-white text-2xl"
               onClick={closeSignupModal}
               aria-label="Close signup form"
             >
@@ -497,6 +562,13 @@ const WelcomePage: React.FC = () => {
                         placeholder="Enter your email address"
                       />
                     </div>
+                    
+                    {/* Error message for email input */}
+                    {emailError && (
+                      <div className="mt-2 text-red-500 text-sm text-center">
+                        {emailError}
+                      </div>
+                    )}
                     
                     {/* Hidden honeypot field */}
                     <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
