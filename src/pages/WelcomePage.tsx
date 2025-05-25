@@ -217,17 +217,11 @@ const WelcomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-dark relative overflow-hidden px-10 py-12 font-sans">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-      </div>
+    <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans">
 
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
-  <div className="max-w-screen-xl mx-auto px-8 py-6 flex justify-between items-center">
+      <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg mt-0">
+  <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
     <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
       SONGRAM
     </span>
@@ -246,7 +240,7 @@ const WelcomePage: React.FC = () => {
       </a>
       <button
         onClick={openSignupModal}
-        className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
+        className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
       >
         Join Waitlist
       </button>
@@ -255,20 +249,6 @@ const WelcomePage: React.FC = () => {
       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       className="md:hidden text-white focus:outline-none"
     >
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4 6h16M4 12h16m-7 6h7"
-        ></path>
-      </svg>
     </button>
   </div>
   {isMobileMenuOpen && (
@@ -310,7 +290,7 @@ const WelcomePage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
         <button 
           onClick={openSignupModal}
-          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
         >
           JOIN WAITLIST
         </button>

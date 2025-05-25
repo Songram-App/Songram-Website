@@ -17,6 +17,7 @@ body {
   color: white;
   overflow-x: hidden;
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 /* Tailwind-like utility classes */
