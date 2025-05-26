@@ -517,6 +517,9 @@ const WelcomePage: React.FC = () => {
                         className="w-full px-4 py-3 bg-black/50 border border-primary/50 rounded-lg text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                         placeholder="Enter your email address"
                       />
+                      {emailError && (
+                        <p className="text-red-500 text-sm mt-2">{emailError}</p>
+                      )}
                     </div>
                     
                     {/* Hidden honeypot field */}
