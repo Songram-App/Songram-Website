@@ -233,25 +233,35 @@ const WelcomePage: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen relative px-10 py-10 font-sans overflow-hidden">
-
       {/* Navigation */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${
           isScrolled
-            ? theme === 'light'
-              ? 'bg-[#f9f9f9] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border-b border-black/10' // Light mode scroll effect
-              : 'bg-[#0a0a0f] shadow-[0_4px_6px_-1px_rgba(136,99,237,0.3)] border-b border-[#8863ed]/30' // Dark mode scroll effect
-            : 'bg-transparent'
+            ? theme === "light"
+              ? "bg-[#f9f9f9] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border-b border-black/10" // Light mode scroll effect
+              : "bg-[#0a0a0f] shadow-[0_4px_6px_-1px_rgba(136,99,237,0.3)] border-b border-[#8863ed]/30" // Dark mode scroll effect
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
           <span
             className={`text-2xl font-bold tracking-widest ${
-              theme === 'light'
-                ? 'text-black'
-                : 'text-white'
+              theme === "light" ? "text-black" : "text-white"
             }`}
           >
             SONGRAM
@@ -277,10 +287,22 @@ const WelcomePage: React.FC = () => {
             </button>
             <button
               onClick={toggleTheme}
-              style={{ background: 'none', border: 'none', padding: 0, marginLeft: 16, cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                marginLeft: 16,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+              }}
+              aria-label={
+                theme === "dark"
+                  ? "Switch to light mode"
+                  : "Switch to dark mode"
+              }
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun size={32} weight="duotone" color="#8863ed" />
               ) : (
                 <Moon size={32} weight="duotone" color="#222" />
@@ -290,18 +312,23 @@ const WelcomePage: React.FC = () => {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden bg-transparent border-none p-2"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? (
-              <X size={32} color={theme === 'dark' ? '#fff' : '#000'} /> // Dynamic color for X icon
+              <X size={32} color={theme === "dark" ? "#fff" : "#000"} /> // Dynamic color for X icon
             ) : (
-              <List size={32} color={theme === 'dark' ? '#fff' : '#000'} /> // Dynamic color for List icon
+              <List size={32} color={theme === "dark" ? "#fff" : "#000"} /> // Dynamic color for List icon
             )}
           </button>
         </div>
         {isMobileMenuOpen && (
-          <div className={`fixed inset-0 z-40 flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${theme === 'light' ? 'bg-white text-black' : 'bg-[#1a1a2e] text-white'}`}>
- 
+          <div
+            className={`fixed inset-0 z-40 flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${
+              theme === "light"
+                ? "bg-white text-black"
+                : "bg-[#1a1a2e] text-white"
+            }`}
+          >
             <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
               <a
                 href="#features"
@@ -329,25 +356,33 @@ const WelcomePage: React.FC = () => {
               <button
                 onClick={toggleTheme}
                 style={{
-                  background: 'none',
-                  border: 'none',
+                  background: "none",
+                  border: "none",
                   padding: 0,
                   marginTop: 28,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '100%',
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
                 }}
-                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                aria-label={
+                  theme === "dark"
+                    ? "Switch to light mode"
+                    : "Switch to dark mode"
+                }
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <Sun size={36} weight="duotone" color="#8863ed" />
                 ) : (
                   <Moon size={36} weight="duotone" color="#222" />
                 )}
-                <span className="ml-3 text-xl font-semibold">
-                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                <span
+                  className={`ml-3 text-xl font-semibold ${
+                    theme === "dark" ? "text-white" : "text-black"
+                  }`}
+                >
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </span>
               </button>
             </nav>
@@ -359,18 +394,24 @@ const WelcomePage: React.FC = () => {
       <section className="relative z-10 px-6 py-20 text-center">
         <div className="max-w-6xl mx-auto hero-padding">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
-        Where <span className="text-gradient glow-text">AI</span> meets <span className="text-gradient glow-text">Creativity</span>
+            Where <span className="text-gradient glow-text">AI</span> meets{" "}
+            <span className="text-gradient glow-text">Creativity</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
-        Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential.
+            Create, collaborate, and share music like never before. Songram
+            empowers you to turn ideas into tracks, connect with artists, and
+            unleash your musical potential.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
-        <button 
-          onClick={openSignupModal}
-          className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
-        >
-          JOIN WAITLIST
-        </button>
+          <div
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up"
+            style={{ animationDelay: "0.3s" }}
+          >
+            <button
+              onClick={openSignupModal}
+              className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+            >
+              JOIN WAITLIST
+            </button>
           </div>
         </div>
       </section>
@@ -378,16 +419,38 @@ const WelcomePage: React.FC = () => {
       {/* Features Section */}
       <section id="features" className="relative z-10 px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent ${theme === 'light' ? 'text-black !bg-none !text-black' : ''}`}>Features</h2>
+          <h2
+            className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent ${
+              theme === "light" ? "text-black !bg-none !text-black" : ""
+            }`}
+          >
+            Features
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''} ${theme === 'light' ? '!bg-white !border-gray-200' : ''}`}
+                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
+                  currentFeature === index
+                    ? "ring-2 ring-primary/50 bg-primary/10"
+                    : ""
+                } ${theme === "light" ? "!bg-white !border-gray-200" : ""}`}
               >
                 {feature.icon}
-                <h3 className={`text-lg sm:text-xl font-semibold mb-3 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{feature.title}</h3>
-                <p className={`text-sm sm:text-base ${theme === 'light' ? 'text-black/70' : 'text-white/70'}`}>{feature.description}</p>
+                <h3
+                  className={`text-lg sm:text-xl font-semibold mb-3 ${
+                    theme === "light" ? "text-black" : "text-white"
+                  }`}
+                >
+                  {feature.title}
+                </h3>
+                <p
+                  className={`text-sm sm:text-base ${
+                    theme === "light" ? "text-black/70" : "text-white/70"
+                  }`}
+                >
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -408,11 +471,15 @@ const WelcomePage: React.FC = () => {
                   <div className="nav-item">Profile</div>
                 </div>
               </div>
-              
+
               <div className="feed-content">
                 {tracks.map((track, index) => (
                   <div key={index} className="track-card">
-                    <div className={`track-card-content ${index === 0 ? 'active' : ''}`}>
+                    <div
+                      className={`track-card-content ${
+                        index === 0 ? "active" : ""
+                      }`}
+                    >
                       <div className="track-card-header">
                         <div className="artist-info">
                           <div className="artist-avatar"></div>
@@ -422,23 +489,23 @@ const WelcomePage: React.FC = () => {
                           {track.genre} • {track.duration}
                         </div>
                       </div>
-                      
+
                       <div className="track-title">{track.title}</div>
-                      
+
                       <div className="waveform">
                         {Array.from({ length: 30 }).map((_, i) => (
-                          <div 
-                            key={i} 
-                            className="bar" 
-                            style={{ 
+                          <div
+                            key={i}
+                            className="bar"
+                            style={{
                               height: `${20 + Math.sin(i * 0.3) * 15}px`,
                               animationDelay: `${i * 0.05}s`,
-                              opacity: index === 0 ? 1 : 0.6
+                              opacity: index === 0 ? 1 : 0.6,
                             }}
                           ></div>
                         ))}
                       </div>
-                      
+
                       <div className="track-footer">
                         <div className="track-stats">
                           <div className="stat">
@@ -450,14 +517,32 @@ const WelcomePage: React.FC = () => {
                             <span>{track.comments}</span>
                           </div>
                         </div>
-                        <div 
-                          className="track-play" 
+                        <div
+                          className="track-play"
                           onClick={togglePlay}
-                          aria-label={index === 0 ? (isPlaying ? "Pause" : "Play") : "Play"}
+                          aria-label={
+                            index === 0
+                              ? isPlaying
+                                ? "Pause"
+                                : "Play"
+                              : "Play"
+                          }
                         >
-                          <Icon 
-                            name={index === 0 ? (isPlaying ? "pause" : "play") : "play"} 
-                            title={index === 0 ? (isPlaying ? "Pause" : "Play") : "Play"}
+                          <Icon
+                            name={
+                              index === 0
+                                ? isPlaying
+                                  ? "pause"
+                                  : "play"
+                                : "play"
+                            }
+                            title={
+                              index === 0
+                                ? isPlaying
+                                  ? "Pause"
+                                  : "Play"
+                                : "Play"
+                            }
                           />
                         </div>
                       </div>
@@ -465,7 +550,7 @@ const WelcomePage: React.FC = () => {
                   </div>
                 ))}
               </div>
-              
+
               <div className="player-bar">
                 <div className="now-playing">
                   <div className="track-thumbnail"></div>
@@ -477,22 +562,22 @@ const WelcomePage: React.FC = () => {
                 <div className="player-controls">
                   <div className="mini-waveform">
                     {Array.from({ length: 20 }).map((_, i) => (
-                      <div 
-                        key={i} 
+                      <div
+                        key={i}
                         className="mini-bar"
-                        style={{ 
-                          height: `${10 + Math.sin(i * 0.5) * 8}px`
+                        style={{
+                          height: `${10 + Math.sin(i * 0.5) * 8}px`,
                         }}
                       ></div>
                     ))}
                   </div>
-                  <div 
-                    className="play-button" 
+                  <div
+                    className="play-button"
                     onClick={togglePlay}
                     aria-label={isPlaying ? "Pause" : "Play"}
                   >
-                    <Icon 
-                      name={isPlaying ? "pause" : "play"} 
+                    <Icon
+                      name={isPlaying ? "pause" : "play"}
                       title={isPlaying ? "Pause" : "Play"}
                     />
                   </div>
@@ -507,22 +592,33 @@ const WelcomePage: React.FC = () => {
           </div>
           <div className="laptop-base"></div>
         </div>
-        
+
         <div className="app-description">
           <h2 id="app-preview-title">Create, Share, Connect</h2>
-          <p>Make music with AI assistance, share it with your followers, and discover new artists - all in one place.</p>
+          <p>
+            Make music with AI assistance, share it with your followers, and
+            discover new artists - all in one place.
+          </p>
         </div>
       </section>
 
       {/* Testimonials */}
       <section id="testimonials" className="relative z-10 px-6 py-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient ${theme === 'light' ? 'text-black !bg-none !text-black' : ''}`}>
+          <h2
+            className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient ${
+              theme === "light" ? "text-black !bg-none !text-black" : ""
+            }`}
+          >
             What Creators Say
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} theme={theme} />
+              <TestimonialCard
+                key={index}
+                testimonial={testimonial}
+                theme={theme}
+              />
             ))}
           </div>
         </div>
@@ -531,22 +627,27 @@ const WelcomePage: React.FC = () => {
       {/* AI Showcase Section */}
       <section className="relative z-10 px-6 py-20">
         <div className="ai-showcase" aria-labelledby="ai-showcase-title">
-          <h2 id="ai-showcase-title" className="text-4xl md:text-5xl font-bold text-center mb-8 text-gradient">
+          <h2
+            id="ai-showcase-title"
+            className="text-4xl md:text-5xl font-bold text-center mb-8 text-gradient"
+          >
             AI Music Generation Demo
           </h2>
           <div className="ai-generation">
             <div className="prompt" aria-label="Example AI prompt">
               "Create a synthwave beat with dreamy vocals"
             </div>
-            <div className="arrow" aria-hidden="true">→</div>
+            <div className="arrow" aria-hidden="true">
+              →
+            </div>
             <div className="result" aria-label="AI generated result">
               <div className="ai-beat-visualizer">
                 {Array.from({ length: 16 }).map((_, i) => (
-                  <div 
-                    key={i} 
-                    className="beat-segment" 
+                  <div
+                    key={i}
+                    className="beat-segment"
                     style={{
-                      animationDelay: `${i * 0.125}s`
+                      animationDelay: `${i * 0.125}s`,
                     }}
                   ></div>
                 ))}
@@ -559,9 +660,16 @@ const WelcomePage: React.FC = () => {
       {/* Signup Modal */}
       {showSignupModal && (
         <div className="signup-modal-overlay" onClick={closeSignupModal}>
-          <div className={`signup-modal-content${theme === 'light' ? ' bg-white' : ''}`} onClick={e => e.stopPropagation()}>
-            <button 
-              className={`modal-close-btn${theme === 'light' ? ' text-black' : ''}`} 
+          <div
+            className={`signup-modal-content${
+              theme === "light" ? " bg-white" : ""
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className={`modal-close-btn${
+                theme === "light" ? " text-black" : ""
+              }`}
               onClick={closeSignupModal}
               aria-label="Close signup form"
             >
@@ -569,37 +677,69 @@ const WelcomePage: React.FC = () => {
             </button>
             {!showThankYou ? (
               <div id="mc_embed_signup">
-                <h2 className={`text-2xl font-bold text-center mb-6 text-gradient${theme === 'light' ? ' text-black !bg-none !text-black' : ''}`}>Join the Waitlist</h2>
-                <form onSubmit={handleFormSubmit} action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0" method="post">
+                <h2
+                  className={`text-2xl font-bold text-center mb-6 text-gradient${
+                    theme === "light" ? " text-black !bg-none !text-black" : ""
+                  }`}
+                >
+                  Join the Waitlist
+                </h2>
+                <form
+                  onSubmit={handleFormSubmit}
+                  action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0"
+                  method="post"
+                >
                   <div className="mb-4">
                     <div className="mb-4 space-y-4">
-                      <label htmlFor="mce-EMAIL" className={`block mb-2${theme === 'light' ? ' text-black' : ' text-white'}`}>
+                      <label
+                        htmlFor="mce-EMAIL"
+                        className={`block mb-2${
+                          theme === "light" ? " text-black" : " text-white"
+                        }`}
+                      >
                         Email Address <span className="text-primary">*</span>
                       </label>
-                      <input 
-                        type="email" 
-                        name="EMAIL" 
-                        id="mce-EMAIL" 
-                        required 
-                        className={`w-full px-4 py-3 border border-primary/50 rounded-lg focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30${theme === 'light' ? ' bg-white text-black' : ' bg-black/50 text-white'}`}
+                      <input
+                        type="email"
+                        name="EMAIL"
+                        id="mce-EMAIL"
+                        required
+                        className={`w-full px-4 py-3 border border-primary/50 rounded-lg focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30${
+                          theme === "light"
+                            ? " bg-white text-black"
+                            : " bg-black/50 text-white"
+                        }`}
                         placeholder="Enter your email address"
                       />
                       {emailError && (
-                        <p className="text-red-500 text-sm mt-2">{emailError}</p>
+                        <p className="text-red-500 text-sm mt-2">
+                          {emailError}
+                        </p>
                       )}
                     </div>
-                    
+
                     {/* Hidden honeypot field */}
-                    <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
-                      <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} />
-                    </div>
-                    
-                    <button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className={`w-40 font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed${theme === 'light' ? ' bg-primary text-white hover:shadow-lg hover:shadow-primary/30' : ' bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/30'}`}
+                    <div
+                      style={{ position: "absolute", left: "-5000px" }}
+                      aria-hidden="true"
                     >
-                      {isSubmitting ? 'Joining...' : 'JOIN'}
+                      <input
+                        type="text"
+                        name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97"
+                        tabIndex={-1}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className={`w-40 font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed${
+                        theme === "light"
+                          ? " bg-primary text-white hover:shadow-lg hover:shadow-primary/30"
+                          : " bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/30"
+                      }`}
+                    >
+                      {isSubmitting ? "Joining..." : "JOIN"}
                     </button>
                   </div>
                 </form>
@@ -607,13 +747,31 @@ const WelcomePage: React.FC = () => {
             ) : (
               <div className="text-center py-8">
                 <div className="mb-6">
-                  <h2 className={`text-2xl font-bold text-gradient mb-2${theme === 'light' ? ' text-black !bg-none !text-black' : ''}`}>Thank you for joining!</h2>
+                  <h2
+                    className={`text-2xl font-bold text-gradient mb-2${
+                      theme === "light"
+                        ? " text-black !bg-none !text-black"
+                        : ""
+                    }`}
+                  >
+                    Thank you for joining!
+                  </h2>
                   <br />
-                  <p className={theme === 'light' ? 'text-black/80' : 'text-white/80'}>We'll notify you when Songram launches.</p>
+                  <p
+                    className={
+                      theme === "light" ? "text-black/80" : "text-white/80"
+                    }
+                  >
+                    We'll notify you when Songram launches.
+                  </p>
                 </div>
-                <button 
+                <button
                   onClick={closeSignupModal}
-                  className={`glass-button border-0 px-6 py-3 font-semibold${theme === 'light' ? ' bg-primary text-white' : ' bg-gradient-primary text-white'}`}
+                  className={`glass-button border-0 px-6 py-3 font-semibold${
+                    theme === "light"
+                      ? " bg-primary text-white"
+                      : " bg-gradient-primary text-white"
+                  }`}
                 >
                   Close
                 </button>
@@ -629,9 +787,10 @@ const WelcomePage: React.FC = () => {
           <div className="flex items-center justify-center space-x-3 mb-6">
             <span className="text-xl font-bold text-gradient">Songram</span>
           </div>
-            <p className="text-white/60">
-            © {new Date().getFullYear()} Songram. Revolutionizing music creation with AI.
-            </p>
+          <p className="text-white/60">
+            © {new Date().getFullYear()} Songram. Revolutionizing music creation
+            with AI.
+          </p>
         </div>
       </footer>
     </div>
