@@ -196,7 +196,7 @@ body {
 
 @media (max-width: 767px) {
   .hero-padding {
-    padding-top: 4rem;
+    padding-top: 3rem;
     padding-bottom: 5rem;
   }
 }
@@ -899,7 +899,6 @@ body {
 
 @media (max-width: 768px) {
   .ai-showcase {
-    margin: 2rem 0;
     padding: 1.5rem 0.5rem;
     border-radius: 14px;
   }
