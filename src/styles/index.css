@@ -48,7 +48,6 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
   background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
   color: white;
-  overflow-x: hidden;
   min-height: 100vh;
   scroll-behavior: smooth;
 }
@@ -69,15 +68,7 @@ nav {
 /* --- Navbar adjustments for better visibility and stacking --- */
 nav {
   z-index: 1000; /* Ensure navbar is above all other elements */
-  background: linear-gradient(to right, rgba(36, 36, 36, 0.9), rgba(48, 48, 48, 0.9));
-  color: white;
 }
-
-/* Ensure text does not blend with the navbar */
-nav a {
-  color: white;
-}
-
 
 
 /* Prevent accidental override of nav position */
@@ -103,6 +94,15 @@ nav {
 
 /* Mobile menu styles */
 .mobile-menu {
+  display: none; /* Default hidden */
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-menu.active {
+  display: flex; /* Show mobile menu on small screens when active */
+}
+
+.mobile-menu {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,6 +110,7 @@ nav {
   gap: 1.5rem;
   padding: 2rem;
   text-align: center;
+  color: var(--mobile-menu-text-color, inherit); /* Dynamic text color */
 }
 
 .mobile-menu a {
@@ -120,9 +121,6 @@ nav {
   transition: color 0.3s ease;
 }
 
-.mobile-menu a:hover {
-  color: #FFD600;
-}
 
 .mobile-menu button {
   font-size: 1.25rem;
@@ -135,6 +133,18 @@ nav {
 .mobile-menu button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure smooth transition for mobile menu visibility */
+.mobile-menu {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hide mobile menu on desktop view */
+@media (min-width: 768px) {
+  .mobile-menu {
+    display: none !important;
+  }
 }
 
 /* Tailwind-like utility classes */
@@ -514,7 +524,6 @@ nav {
   font-family: 'Inter', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #8863ed 0%, #a084f0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1309,18 +1318,39 @@ html.light #mc_embed_signup .text-primary {
 
 :root {
   --navbar-bg-color-light: #f9f9f9; /* Light mode background */
-  --navbar-bg-color-dark: #16213e; /* Dark mode background */
+  --navbar-bg-color-dark: #090c14; /* Dark mode background */
 }
 
 html.light {
-  --navbar-bg-color: var(--navbar-bg-color-light);
+  --navbar-bg-color: #eeeae3;
+  --navbar-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) !important; /* subtle bottom shadow line */
 }
-
 html.dark {
   --navbar-bg-color: var(--navbar-bg-color-dark);
 }
 
 nav {
   /* Adjusted background colors for light and dark modes */
-  background: var(--navbar-bg-color, linear-gradient(to right, rgba(36, 36, 36, 0.9), rgba(48, 48, 48, 0.9)));
+  background: var(--navbar-bg-color, inear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%));
+}
+
+/* Navigation link styles for light and dark modes */
+nav a {
+  transition: color 0.3s ease;
+}
+
+/* Dark mode styles */
+html.dark nav a {
+  color: white;
+}
+
+
+
+/* Light mode styles */
+html.light nav a {
+  color: black;
+}
+
+html.light nav a:hover {
+  color: #8863ed; /* Purple on hover */
 }

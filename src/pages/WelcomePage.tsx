@@ -209,23 +209,29 @@ const WelcomePage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.toggle('light', theme === 'light');
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Navbar appears only after scrolling 50px
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light');
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
     <div className="min-h-screen relative px-10 py-10 font-sans overflow-hidden">
@@ -235,13 +241,19 @@ const WelcomePage: React.FC = () => {
         className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${
           isScrolled
             ? theme === 'light'
-              ? 'bg-[#f9f9f9] shadow-md border-b border-gray-200' // Matches light mode background
-              : 'bg-[#16213e] shadow-md border-b border-gray-700' // Matches dark mode background
+              ? 'bg-[#f9f9f9] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border-b border-black/10' // Light mode scroll effect
+              : 'bg-[#0a0a0f] shadow-[0_4px_6px_-1px_rgba(136,99,237,0.3)] border-b border-[#8863ed]/30' // Dark mode scroll effect
             : 'bg-transparent'
         }`}
       >
         <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
-          <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
+          <span
+            className={`text-2xl font-bold tracking-widest ${
+              theme === 'light'
+                ? 'text-black'
+                : 'text-white'
+            }`}
+          >
             SONGRAM
           </span>
           <div className="hidden md:flex items-center space-x-8">
@@ -277,10 +289,14 @@ const WelcomePage: React.FC = () => {
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden bg-transparent border-none p-2 focus:outline-none text-black dark:text-white border-0"
+            className="md:hidden bg-transparent border-none p-2"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMobileMenuOpen ? <X size={32} /> : <List size={32} />}
+            {isMobileMenuOpen ? (
+              <X size={32} color={theme === 'dark' ? '#fff' : '#000'} /> // Dynamic color for X icon
+            ) : (
+              <List size={32} color={theme === 'dark' ? '#fff' : '#000'} /> // Dynamic color for List icon
+            )}
           </button>
         </div>
         {isMobileMenuOpen && (
@@ -289,14 +305,14 @@ const WelcomePage: React.FC = () => {
             <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
               <a
                 href="#features"
-                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
               </a>
               <a
                 href="#testimonials"
-                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Reviews
@@ -306,17 +322,27 @@ const WelcomePage: React.FC = () => {
                   openSignupModal();
                   setIsMobileMenuOpen(false);
                 }}
-                className="glass-button text-xl px-10 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300 w-full mt-2"
+                className="glass-button text-xl px-10 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300 w-full mt-2 dark:text-white"
               >
                 Join Waitlist
               </button>
               <button
                 onClick={toggleTheme}
-                style={{ background: 'none', border: 'none', padding: 0, marginTop: 28, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  marginTop: 28,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                }}
                 aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {theme === 'dark' ? (
-                  <Sun size={36} weight="duotone" color="#FFD600" />
+                  <Sun size={36} weight="duotone" color="#8863ed" />
                 ) : (
                   <Moon size={36} weight="duotone" color="#222" />
                 )}
