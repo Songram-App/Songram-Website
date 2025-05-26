@@ -53,6 +53,90 @@ body {
   scroll-behavior: smooth;
 }
 
+/* --- Fix for fixed nav bar stacking --- */
+body, .min-h-screen {
+  padding-top: 76px !important; /* Adjust if nav height changes */
+}
+
+nav {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure navbar is above all other elements */
+}
+
+/* --- Navbar adjustments for better visibility and stacking --- */
+nav {
+  z-index: 1000; /* Ensure navbar is above all other elements */
+  background: linear-gradient(to right, rgba(36, 36, 36, 0.9), rgba(48, 48, 48, 0.9));
+  color: white;
+}
+
+/* Ensure text does not blend with the navbar */
+nav a {
+  color: white;
+}
+
+
+
+/* Prevent accidental override of nav position */
+.mobile-nav-fix {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+/* Optional: Remove any margin-top or padding-top on nav itself */
+nav {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* --- Navbar styles for scroll behavior and transitions --- */
+nav {
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile menu styles */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.mobile-menu a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobile-menu a:hover {
+  color: #FFD600;
+}
+
+.mobile-menu button {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-menu button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Tailwind-like utility classes */
 .min-h-screen { min-height: 100vh; }
 .relative { position: relative; }
@@ -1221,4 +1305,22 @@ html.light .modal-close-btn {
 
 html.light #mc_embed_signup .text-primary {
   color: #8863ed !important;
+}
+
+:root {
+  --navbar-bg-color-light: #f9f9f9; /* Light mode background */
+  --navbar-bg-color-dark: #16213e; /* Dark mode background */
+}
+
+html.light {
+  --navbar-bg-color: var(--navbar-bg-color-light);
+}
+
+html.dark {
+  --navbar-bg-color: var(--navbar-bg-color-dark);
+}
+
+nav {
+  /* Adjusted background colors for light and dark modes */
+  background: var(--navbar-bg-color, linear-gradient(to right, rgba(36, 36, 36, 0.9), rgba(48, 48, 48, 0.9)));
 }

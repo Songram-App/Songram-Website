@@ -12,6 +12,7 @@ const WelcomePage: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>(
     localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
   );
+  const [isScrolled, setIsScrolled] = useState(false);
 
   interface Feature {
     title: string;
@@ -217,11 +218,28 @@ const WelcomePage: React.FC = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50); // Navbar appears only after scrolling 50px
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen relative px-10 py-10 font-sans overflow-hidden">
 
       {/* Navigation */}
-      <nav className="mobile-nav-fix bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${
+          isScrolled
+            ? theme === 'light'
+              ? 'bg-[#f9f9f9] shadow-md border-b border-gray-200' // Matches light mode background
+              : 'bg-[#16213e] shadow-md border-b border-gray-700' // Matches dark mode background
+            : 'bg-transparent'
+        }`}
+      >
         <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
           <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
             SONGRAM
@@ -229,13 +247,13 @@ const WelcomePage: React.FC = () => {
           <div className="hidden md:flex items-center space-x-8">
             <a
               href="#features"
-              className="text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
+              className="text-black dark:text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
             >
               Features
             </a>
             <a
               href="#testimonials"
-              className="text-white text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
+              className="text-black dark:text-white text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
             >
               Reviews
             </a>
@@ -251,7 +269,7 @@ const WelcomePage: React.FC = () => {
               aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? (
-                <Sun size={32} weight="duotone" color="#FFD600" />
+                <Sun size={32} weight="duotone" color="#8863ed" />
               ) : (
                 <Moon size={32} weight="duotone" color="#222" />
               )}
@@ -259,36 +277,52 @@ const WelcomePage: React.FC = () => {
           </div>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-     className="md:hidden bg-transparent border-none p-2 focus:outline-none text-white border-0"
-      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
-    >
-      {isMobileMenuOpen ? <X size={32} /> : <List size={32} />} {/* Display appropriate icon for open/close state */}
-    </button>
+            className="md:hidden bg-transparent border-none p-2 focus:outline-none text-black dark:text-white border-0"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {isMobileMenuOpen ? <X size={32} /> : <List size={32} />}
+          </button>
         </div>
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
-            <nav className="flex flex-col items-center space-y-6">
+          <div className={`fixed inset-0 z-40 flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${theme === 'light' ? 'bg-white text-black' : 'bg-[#1a1a2e] text-white'}`}>
+ 
+            <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
               <a
                 href="#features"
-                className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
-
+                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
               </a>
               <a
                 href="#testimonials"
-                className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
-
+                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Reviews
               </a>
               <button
                 onClick={() => {
                   openSignupModal();
+                  setIsMobileMenuOpen(false);
                 }}
-                className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
+                className="glass-button text-xl px-10 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300 w-full mt-2"
               >
                 Join Waitlist
+              </button>
+              <button
+                onClick={toggleTheme}
+                style={{ background: 'none', border: 'none', padding: 0, marginTop: 28, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {theme === 'dark' ? (
+                  <Sun size={36} weight="duotone" color="#FFD600" />
+                ) : (
+                  <Moon size={36} weight="duotone" color="#222" />
+                )}
+                <span className="ml-3 text-xl font-semibold">
+                  {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                </span>
               </button>
             </nav>
           </div>
