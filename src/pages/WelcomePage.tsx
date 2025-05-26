@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal } from "phosphor-react";
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X } from "phosphor-react";
 import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
@@ -247,45 +247,46 @@ const WelcomePage: React.FC = () => {
     </button>
   </div>
   {isMobileMenuOpen && (
-    <div className="md:hidden bg-gray-900 text-white fixed inset-0 z-40 flex flex-col items-center justify-center space-y-6">
-      <a
-        href="#features"
-        className="text-lg font-semibold hover:text-yellow-400 transition"
-        onClick={() => setIsMobileMenuOpen(false)}
-      >
-        Features
-      </a>
-      <a
-        href="#testimonials"
-        className="text-lg font-semibold hover:text-yellow-400 transition"
-        onClick={() => setIsMobileMenuOpen(false)}
-      >
-        Reviews
-      </a>
-      {/* Mobile Menu Join Waitlist Button */}
-      <button
-        onClick={() => {
-          setIsMobileMenuOpen(false);
-          openSignupModal();
-        }}
-        className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
-      >
-        Join Waitlist
-      </button>
+    <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
       <button
         onClick={() => setIsMobileMenuOpen(false)}
-        className="absolute top-4 right-4 text-white text-2xl focus:outline-none"
+        className="absolute top-6 left-6 text-white bg-transparent appearance-none border-none p-2 rounded-full focus:outline-none hover:text-yellow-400 transition duration-300"
         aria-label="Close menu"
       >
-        ×
+        <X size={32} />
       </button>
+      <nav className="flex flex-col items-center space-y-6">
+        <a
+          href="#features"
+          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Features
+        </a>
+        <a
+          href="#testimonials"
+          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Reviews
+        </a>
+        <button
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            openSignupModal();
+          }}
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
+        >
+          Join Waitlist
+        </button>
+      </nav>
     </div>
   )}
 </nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto hero-padding">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
         Where <span className="text-gradient glow-text">AI</span> meets <span className="text-gradient glow-text">Creativity</span>
           </h1>
