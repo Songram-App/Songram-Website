@@ -1,5 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* Base link styling */
+a {
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+/* Underline animation on hover */
+a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #8863ed;
+  transition: width 0.3s ease;
+}
+
+a:hover {
+  color: #8863ed;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -17,6 +50,7 @@ body {
   color: white;
   overflow-x: hidden;
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
 /* Tailwind-like utility classes */
@@ -159,6 +193,31 @@ body {
 .-translate-x-full { transform: translateX(-100%); }
 
 /* Responsive classes */
+
+@media (max-width: 767px) {
+  .mobile-nav-fix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-padding {
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
 @media (min-width: 768px) {
   .md\:flex { display: flex; }
   .md\:hidden { display: none; }
@@ -825,6 +884,71 @@ body {
   50% { 
     transform: scaleY(1.3);
     opacity: 1;
+  }
+}
+
+/* Responsive styles for AI showcase */
+@media (max-width: 1024px) {
+  .ai-showcase {
+    padding: 2rem 1rem;
+    max-width: 100%;
+  }
+  .ai-generation {
+    gap: 1.2rem;
+  }
+  .prompt,
+  .result {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  .ai-beat-visualizer {
+    height: 80px;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-showcase {
+    padding: 1.5rem 0.5rem;
+    border-radius: 14px;
+  }
+  .ai-generation {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .arrow {
+    transform: rotate(90deg);
+    align-self: center;
+    margin: 1rem 0;
+  }
+  .prompt,
+  .result {
+    font-size: 0.98rem;
+    padding: 1rem 0.7rem;
+    border-radius: 10px;
+  }
+  .ai-beat-visualizer {
+    height: 60px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-showcase {
+    margin: 1rem 0;
+    padding: 0.7rem 0.2rem;
+    border-radius: 8px;
+  }
+  .prompt,
+  .result {
+    font-size: 0.92rem;
+    padding: 0.7rem 0.3rem;
+    border-radius: 6px;
+  }
+  .ai-beat-visualizer {
+    height: 36px;
+    gap: 2px;
   }
 }
 

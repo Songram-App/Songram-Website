@@ -1,37 +1,61 @@
 import React, { useState, useEffect } from 'react';
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List } from "phosphor-react";
+import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const features = [
+  interface Feature {
+    title: string;
+    description: string;
+    icon: JSX.Element;
+  }
+
+  interface Testimonial {
+    name: string;
+    role: string;
+    content: string;
+    avatar: string;
+  }
+
+  interface Track {
+    title: string;
+    artist: string;
+    genre: string;
+    duration: string;
+    likes: string;
+    comments: string;
+  }
+
+  const features: Feature[] = [
     {
       title: "Create Music",
       description: "Generate/add beats, melodies. Write/Generate Lyrics and polish your tracks with just text prompt",
-      icon: "🎵"
+      icon: <MusicNotes size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Social Sharing",
       description: "Share your creations with a global community",
-      icon: "🌐"
+      icon: <ShareNetwork size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Real-time Collaboration",
       description: "Create music together with artists worldwide",
-      icon: "🤝"
+      icon: <UsersThree size={40} weight="duotone" className="mx-auto text-primary" />
     },
     {
       title: "Accessible Tools",
       description: "Easy to use, no need to be a professional to create music",
-      icon: "🎛️"
+      icon: <SlidersHorizontal size={40} weight="duotone" className="mx-auto text-primary" />
     }
   ];
 
-  const testimonials = [
+  const testimonials: Testimonial[] = [
     {
       name: "Alex Chen",
       role: "Music Producer",
@@ -52,7 +76,7 @@ const WelcomePage: React.FC = () => {
     }
   ];
 
-  const tracks = [
+  const tracks: Track[] = [
     {
       title: "Urban Vibes",
       artist: "BeatCreator",
@@ -87,28 +111,36 @@ const WelcomePage: React.FC = () => {
     setIsSubmitting(false);
   };
 
+  const [emailError, setEmailError] = useState<string | null>(null);
+
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    
+
+    const email = formData.get('EMAIL') as string;
+
+    if (!validator.isEmail(email)) {
+      setEmailError('Please enter a valid email address.');
+      return;
+    }
+
+    setEmailError(null);
+    setIsSubmitting(true);
+
     try {
-      // Submit to MailChimp in the background
       await fetch(form.action, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors' // This prevents CORS issues but we won't get response data
+        mode: 'no-cors'
       });
-      
-      // Show thank you message after a brief delay
+
       setTimeout(() => {
         setIsSubmitting(false);
         setShowThankYou(true);
       }, 1000);
     } catch (error) {
-      // Even if there's an error, show thank you (since no-cors mode doesn't give us response)
       setTimeout(() => {
         setIsSubmitting(false);
         setShowThankYou(true);
@@ -149,6 +181,27 @@ const WelcomePage: React.FC = () => {
     );
   };
 
+  const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
+    <div className="glass-panel p-8 hover:scale-105 transition-all duration-300">
+      <div className="flex items-center mb-4">
+        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
+          {testimonial.avatar}
+        </div>
+        <div>
+          <h4 className="text-lg sm:text-xl text-white font-semibold">
+            {testimonial.name}
+          </h4>
+          <p className="text-sm sm:text-base text-white/60">
+            {testimonial.role}
+          </p>
+        </div>
+      </div>
+      <p className="text-sm sm:text-base text-white/80 italic">
+        "{testimonial.content}"
+      </p>
+    </div>
+  );
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFeature((prev) => (prev + 1) % features.length);
@@ -156,111 +209,114 @@ const WelcomePage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gradient-dark relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
-      </div>
+    <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans overflow-hidden">
 
       {/* Navigation */}
-      <nav className="relative z-50 mx-6 mt-6">
-        <div className="glass-panel px-8 py-6 relative overflow-hidden">
-          {/* Animated gradient border */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-primary opacity-20 animate-pulse"></div>
-          <div className="absolute inset-1 bg-gradient-dark rounded-2xl"></div>
-          
-          {/* Content */}
-          <div className="relative flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <span className="text-3xl font-bold text-gradient glow-text tracking-wider">SONGRAM</span>
-                <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-transparent"></div>
-              </div>
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="relative text-white opacity-80 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
-                <span className="relative z-10">Features</span>
-                <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
-              </a>
-              <a href="#testimonials" className="relative text-white opacity-80 hover:opacity-100 transition-all duration-300 hover:text-primary group px-4 py-2">
-                <span className="relative z-10">Reviews</span>
-                <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-300"></div>
-              </a>
-              
-              {/* Enhanced Join Now button */}
-              <button 
-                onClick={openSignupModal}
-                className="relative glass-button bg-gradient-primary border-0 px-6 py-3 font-semibold tracking-wide overflow-hidden group"
-              >
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-30 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <span className="relative z-10">Join Waitlist</span>
-              </button>
-            </div>
-            
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button className="glass-button p-3">
-                <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-                  <div className="w-full h-0.5 bg-white"></div>
-                  <div className="w-full h-0.5 bg-white"></div>
-                  <div className="w-full h-0.5 bg-white"></div>
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
+<nav className="mobile-nav-fix bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
+  <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
+    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
+      SONGRAM
+    </span>
+    <div className="hidden md:flex items-center space-x-8">
+      <a
+        href="#features"
+        className="text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
+      >
+        Features
+      </a>
+      <a
+        href="#testimonials"
+        className="text-white  text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
+      >
+        Reviews
+      </a>
+      <button
+        onClick={openSignupModal}
+        className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+      >
+        Join Waitlist
+      </button>
+    </div>
+    <button
+      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+     className="md:hidden bg-transparent border-none p-2 focus:outline-none text-white border-0"
+      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
+    >
+      {isMobileMenuOpen ? <X size={32} /> : <List size={32} />} {/* Display appropriate icon for open/close state */}
+    </button>
+  </div>
+  {isMobileMenuOpen && (
+    <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
+      <nav className="flex flex-col items-center space-y-6">
+        <a
+          href="#features"
+          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+
+        >
+          Features
+        </a>
+        <a
+          href="#testimonials"
+          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+
+        >
+          Reviews
+        </a>
+        <button
+          onClick={() => {
+            openSignupModal();
+          }}
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
+        >
+          Join Waitlist
+        </button>
       </nav>
+    </div>
+  )}
+</nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-fade-in">
-            <span className="text-gradient glow-text">SONGRAM</span>
+        <div className="max-w-6xl mx-auto hero-padding">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
+        Where <span className="text-gradient glow-text">AI</span> meets <span className="text-gradient glow-text">Creativity</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
-            Where AI meets creativity. Create, collaborate, and share music like never before with our revolutionary platform.
+          <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
+        Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <button 
-              onClick={openSignupModal}
-              className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105"
-            >
-              JOIN WAITLIST
-            </button>
+        <button 
+          onClick={openSignupModal}
+          className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+        >
+          JOIN WAITLIST
+        </button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative z-10 px-6 py-20">
+      <section id="features" className="relative z-10 px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
             Features
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`glass-panel p-8 text-center transition-all duration-500 hover:scale-105 hover:bg-white/15 floating-element ${
+                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
                   currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
                 }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
-                <p className="text-white/70">{feature.description}</p>
+                {feature.icon}
+                <h3 className="text-lg sm:text-xl font-semibold mb-3 text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-sm sm:text-base text-white/70">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -390,29 +446,12 @@ const WelcomePage: React.FC = () => {
       {/* Testimonials */}
       <section id="testimonials" className="relative z-10 px-6 py-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
             What Creators Say
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className={`glass-panel p-8 floating-element hover:scale-105 transition-all duration-300 ${
-                  currentTestimonial === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
-                }`}
-                style={{ animationDelay: `${index * 0.3}s` }}
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                    <p className="text-white/60 text-sm">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="text-white/80 italic">"{testimonial.content}"</p>
-              </div>
+              <TestimonialCard key={index} testimonial={testimonial} />
             ))}
           </div>
         </div>
@@ -478,6 +517,9 @@ const WelcomePage: React.FC = () => {
                         className="w-full px-4 py-3 bg-black/50 border border-primary/50 rounded-lg text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
                         placeholder="Enter your email address"
                       />
+                      {emailError && (
+                        <p className="text-red-500 text-sm mt-2">{emailError}</p>
+                      )}
                     </div>
                     
                     {/* Hidden honeypot field */}
@@ -521,9 +563,9 @@ const WelcomePage: React.FC = () => {
           <div className="flex items-center justify-center space-x-3 mb-6">
             <span className="text-xl font-bold text-gradient">Songram</span>
           </div>
-          <p className="text-white/60">
-            © 2024 Songram. Revolutionizing music creation with AI.
-          </p>
+            <p className="text-white/60">
+            © {new Date().getFullYear()} Songram. Revolutionizing music creation with AI.
+            </p>
         </div>
       </footer>
     </div>
