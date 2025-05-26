@@ -1108,3 +1108,117 @@ body {
   transform: translateY(-3px) !important;
   box-shadow: 0 0 20px rgba(136, 99, 237, 0.5) !important;
 }
+
+/* Light mode styles */
+html.light body {
+  background: #eeeae3 !important;
+  color: #111 !important;
+}
+
+html.light .app-ui,
+html.light .app-header,
+html.light .app-logo,
+html.light .track-title,
+html.light .track-meta,
+html.light .stat,
+html.light .player-bar,
+html.light .app-description,
+html.light .artist-name,
+html.light .track-info .current-track-title,
+html.light .track-info .current-track-artist,
+html.light .nav-item,
+html.light .feed-content,
+html.light .modal-close-btn,
+html.light .prompt,
+html.light .result {
+  color: #111 !important;
+}
+
+html.light .app-logo,
+html.light .text-gradient {
+  background: none !important;
+  color: #111 !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+html.light .laptop-screen,
+html.light .app-ui {
+  background: #fff !important;
+}
+
+html.light .track-title,
+html.light .track-meta,
+html.light .stat span,
+html.light .stat svg,
+html.light .artist-name,
+html.light .track-info .current-track-title,
+html.light .track-info .current-track-artist,
+html.light .nav-item,
+html.light .app-description h2,
+html.light .app-description p {
+  color: #111 !important;
+}
+
+html.light .stat svg,
+html.light .track-play svg,
+html.light .play-button svg {
+  color: #111 !important;
+}
+
+html.light .track-play,
+html.light .play-button,
+html.light .track-card,
+html.light .player-bar,
+html.light .prompt,
+html.light .result {
+  background: #f5f5f5 !important;
+  border-color: #ccc !important;
+  box-shadow: none !important;
+}
+
+html.light .nav-item,
+html.light nav a {
+  color: #111 !important;
+}
+
+html.light .signup-modal-content,
+html.light #mc_embed_signup {
+  background: #fff !important;
+  color: #111 !important;
+}
+
+html.light #mc_embed_signup label,
+html.light #mc_embed_signup h2 {
+  color: #111 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
+}
+
+html.light #mc_embed_signup input[type="email"] {
+  background: #fff !important;
+  color: #111 !important;
+  border: 1px solid #bbb !important;
+}
+
+html.light #mc_embed_signup input[type="email"]::placeholder {
+  color: #888 !important;
+}
+
+html.light #mc_embed_signup .button,
+html.light .glass-button {
+  background: #8863ed !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+html.light .modal-close-btn {
+  color: #111 !important;
+}
+
+html.light #mc_embed_signup .text-primary {
+  color: #8863ed !important;
+}

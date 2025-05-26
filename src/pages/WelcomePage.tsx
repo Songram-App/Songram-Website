@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List } from "phosphor-react";
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List, Sun, Moon } from "phosphor-react";
 import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
@@ -9,6 +9,9 @@ const WelcomePage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
+  );
 
   interface Feature {
     title: string;
@@ -181,22 +184,18 @@ const WelcomePage: React.FC = () => {
     );
   };
 
-  const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
+  const TestimonialCard: React.FC<{ testimonial: Testimonial, theme?: 'light' | 'dark' }> = ({ testimonial, theme }) => (
     <div className="glass-panel p-8 hover:scale-105 transition-all duration-300">
       <div className="flex items-center mb-4">
         <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
           {testimonial.avatar}
         </div>
         <div>
-          <h4 className="text-lg sm:text-xl text-white font-semibold">
-            {testimonial.name}
-          </h4>
-          <p className="text-sm sm:text-base text-white/60">
-            {testimonial.role}
-          </p>
+          <h4 className={`text-lg sm:text-xl font-semibold ${theme === 'light' ? 'text-black' : 'text-white'}`}>{testimonial.name}</h4>
+          <p className={`text-sm sm:text-base ${theme === 'light' ? 'text-black/60' : 'text-white/60'}`}>{testimonial.role}</p>
         </div>
       </div>
-      <p className="text-sm sm:text-base text-white/80 italic">
+      <p className={`text-sm sm:text-base italic ${theme === 'light' ? 'text-black/80' : 'text-white/80'}`}>
         "{testimonial.content}"
       </p>
     </div>
@@ -209,72 +208,92 @@ const WelcomePage: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans overflow-hidden">
+    <div className="min-h-screen relative px-10 py-10 font-sans overflow-hidden">
 
       {/* Navigation */}
-<nav className="mobile-nav-fix bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
-  <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
-    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
-      SONGRAM
-    </span>
-    <div className="hidden md:flex items-center space-x-8">
-      <a
-        href="#features"
-        className="text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
-      >
-        Features
-      </a>
-      <a
-        href="#testimonials"
-        className="text-white  text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
-      >
-        Reviews
-      </a>
-      <button
-        onClick={openSignupModal}
-        className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
-      >
-        Join Waitlist
-      </button>
-    </div>
-    <button
-      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      <nav className="mobile-nav-fix bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
+        <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
+          <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
+            SONGRAM
+          </span>
+          <div className="hidden md:flex items-center space-x-8">
+            <a
+              href="#features"
+              className="text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
+            >
+              Features
+            </a>
+            <a
+              href="#testimonials"
+              className="text-white text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
+            >
+              Reviews
+            </a>
+            <button
+              onClick={openSignupModal}
+              className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+            >
+              Join Waitlist
+            </button>
+            <button
+              onClick={toggleTheme}
+              style={{ background: 'none', border: 'none', padding: 0, marginLeft: 16, cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? (
+                <Sun size={32} weight="duotone" color="#FFD600" />
+              ) : (
+                <Moon size={32} weight="duotone" color="#222" />
+              )}
+            </button>
+          </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
      className="md:hidden bg-transparent border-none p-2 focus:outline-none text-white border-0"
       aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
     >
       {isMobileMenuOpen ? <X size={32} /> : <List size={32} />} {/* Display appropriate icon for open/close state */}
     </button>
-  </div>
-  {isMobileMenuOpen && (
-    <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
-      <nav className="flex flex-col items-center space-y-6">
-        <a
-          href="#features"
-          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+        </div>
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
+            <nav className="flex flex-col items-center space-y-6">
+              <a
+                href="#features"
+                className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
 
-        >
-          Features
-        </a>
-        <a
-          href="#testimonials"
-          className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
+              >
+                Features
+              </a>
+              <a
+                href="#testimonials"
+                className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
 
-        >
-          Reviews
-        </a>
-        <button
-          onClick={() => {
-            openSignupModal();
-          }}
-          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
-        >
-          Join Waitlist
-        </button>
+              >
+                Reviews
+              </a>
+              <button
+                onClick={() => {
+                  openSignupModal();
+                }}
+                className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
+              >
+                Join Waitlist
+              </button>
+            </nav>
+          </div>
+        )}
       </nav>
-    </div>
-  )}
-</nav>
 
       {/* Hero Section */}
       <section className="relative z-10 px-6 py-20 text-center">
@@ -299,24 +318,16 @@ const WelcomePage: React.FC = () => {
       {/* Features Section */}
       <section id="features" className="relative z-10 px-6 py-24">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent">
-            Features
-          </h2>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent ${theme === 'light' ? 'text-black !bg-none !text-black' : ''}`}>Features</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
-                  currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''
-                }`}
+                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${currentFeature === index ? 'ring-2 ring-primary/50 bg-primary/10' : ''} ${theme === 'light' ? '!bg-white !border-gray-200' : ''}`}
               >
                 {feature.icon}
-                <h3 className="text-lg sm:text-xl font-semibold mb-3 text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-sm sm:text-base text-white/70">
-                  {feature.description}
-                </p>
+                <h3 className={`text-lg sm:text-xl font-semibold mb-3 ${theme === 'light' ? 'text-black' : 'text-white'}`}>{feature.title}</h3>
+                <p className={`text-sm sm:text-base ${theme === 'light' ? 'text-black/70' : 'text-white/70'}`}>{feature.description}</p>
               </div>
             ))}
           </div>
@@ -446,12 +457,12 @@ const WelcomePage: React.FC = () => {
       {/* Testimonials */}
       <section id="testimonials" className="relative z-10 px-6 py-20">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient ${theme === 'light' ? 'text-black !bg-none !text-black' : ''}`}>
             What Creators Say
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} />
+              <TestimonialCard key={index} testimonial={testimonial} theme={theme} />
             ))}
           </div>
         </div>
@@ -488,33 +499,29 @@ const WelcomePage: React.FC = () => {
       {/* Signup Modal */}
       {showSignupModal && (
         <div className="signup-modal-overlay" onClick={closeSignupModal}>
-          <div className="signup-modal-content" onClick={e => e.stopPropagation()}>
+          <div className={`signup-modal-content${theme === 'light' ? ' bg-white' : ''}`} onClick={e => e.stopPropagation()}>
             <button 
-              className="modal-close-btn" 
+              className={`modal-close-btn${theme === 'light' ? ' text-black' : ''}`} 
               onClick={closeSignupModal}
               aria-label="Close signup form"
             >
               ×
             </button>
-            
             {!showThankYou ? (
               <div id="mc_embed_signup">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gradient">Join the Waitlist</h2>
+                <h2 className={`text-2xl font-bold text-center mb-6 text-gradient${theme === 'light' ? ' text-black !bg-none !text-black' : ''}`}>Join the Waitlist</h2>
                 <form onSubmit={handleFormSubmit} action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0" method="post">
                   <div className="mb-4">
-
                     <div className="mb-4 space-y-4">
-                      <label htmlFor="mce-EMAIL" className="block text-white mb-2">
+                      <label htmlFor="mce-EMAIL" className={`block mb-2${theme === 'light' ? ' text-black' : ' text-white'}`}>
                         Email Address <span className="text-primary">*</span>
-                        
                       </label>
-                      
                       <input 
                         type="email" 
                         name="EMAIL" 
                         id="mce-EMAIL" 
                         required 
-                        className="w-full px-4 py-3 bg-black/50 border border-primary/50 rounded-lg text-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+                        className={`w-full px-4 py-3 border border-primary/50 rounded-lg focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30${theme === 'light' ? ' bg-white text-black' : ' bg-black/50 text-white'}`}
                         placeholder="Enter your email address"
                       />
                       {emailError && (
@@ -530,7 +537,7 @@ const WelcomePage: React.FC = () => {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-40 bg-gradient-primary text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className={`w-40 font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed${theme === 'light' ? ' bg-primary text-white hover:shadow-lg hover:shadow-primary/30' : ' bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/30'}`}
                     >
                       {isSubmitting ? 'Joining...' : 'JOIN'}
                     </button>
@@ -540,14 +547,13 @@ const WelcomePage: React.FC = () => {
             ) : (
               <div className="text-center py-8">
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gradient mb-2">Thank you for joining!</h2>
-                  <br>
-                  </br>
-                  <p className="text-white/80">We'll notify you when Songram launches.</p>
+                  <h2 className={`text-2xl font-bold text-gradient mb-2${theme === 'light' ? ' text-black !bg-none !text-black' : ''}`}>Thank you for joining!</h2>
+                  <br />
+                  <p className={theme === 'light' ? 'text-black/80' : 'text-white/80'}>We'll notify you when Songram launches.</p>
                 </div>
                 <button 
                   onClick={closeSignupModal}
-                  className="glass-button bg-gradient-primary border-0 px-6 py-3 font-semibold"
+                  className={`glass-button border-0 px-6 py-3 font-semibold${theme === 'light' ? ' bg-primary text-white' : ' bg-gradient-primary text-white'}`}
                 >
                   Close
                 </button>
