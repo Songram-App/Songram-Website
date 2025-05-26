@@ -195,6 +195,16 @@ body {
 /* Responsive classes */
 
 @media (max-width: 767px) {
+  .mobile-nav-fix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+}
+
+@media (max-width: 767px) {
   .hero-padding {
     padding-top: 3rem;
     padding-bottom: 5rem;

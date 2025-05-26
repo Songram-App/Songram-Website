@@ -9,11 +9,5 @@ export default defineConfig({
     react(),
     tailwindcss(),
 ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "./src/styles/variables.scss";`
-      }
-    }
-  }
+
 }); 

@@ -213,7 +213,7 @@ const WelcomePage: React.FC = () => {
     <div className="min-h-screen bg-gradient-dark relative px-10 py-10 font-sans overflow-hidden">
 
       {/* Navigation */}
-      <nav className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg mt-0">
+<nav className="mobile-nav-fix bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 shadow-lg">
   <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
     <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 tracking-widest">
       SONGRAM
