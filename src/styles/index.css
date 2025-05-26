@@ -1,5 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
+/* Base link styling */
+a {
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.no-underline {
+  text-decoration: none;
+}
+
+/* Underline animation on hover */
+a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #8863ed;
+  transition: width 0.3s ease;
+}
+
+a:hover {
+  color: #8863ed;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+
+
 /* Reset and base styles */
 * {
   margin: 0;
