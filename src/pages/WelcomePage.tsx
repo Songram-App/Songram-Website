@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal } from "phosphor-react";
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, List, X } from "phosphor-react";
 import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
@@ -241,43 +241,44 @@ const WelcomePage: React.FC = () => {
     <button
       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       className="md:hidden text-white focus:outline-none"
-      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
+      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
     >
-      {isMobileMenuOpen ? '×' : '☰'} {/* Display appropriate icon for open/close state */}
+      {isMobileMenuOpen ? <X size={32} /> : <List size={32} />}
     </button>
   </div>
   {isMobileMenuOpen && (
-    <div className="md:hidden bg-gray-900 text-white fixed inset-0 z-40 flex flex-col items-center justify-center space-y-6">
-      <a
-        href="#features"
-        className="text-lg font-semibold hover:text-yellow-400 transition"
-        onClick={() => setIsMobileMenuOpen(false)}
-      >
-        Features
-      </a>
-      <a
-        href="#testimonials"
-        className="text-lg font-semibold hover:text-yellow-400 transition"
-        onClick={() => setIsMobileMenuOpen(false)}
-      >
-        Reviews
-      </a>
-      {/* Mobile Menu Join Waitlist Button */}
+    <div className="md:hidden bg-black bg-opacity-90 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
+      <nav className="flex flex-col items-center space-y-6">
+        <a
+          href="#features"
+          className="text-2xl font-semibold hover:text-yellow-400 transition duration-300"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Features
+        </a>
+        <a
+          href="#testimonials"
+          className="text-2xl font-semibold hover:text-yellow-400 transition duration-300"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Reviews
+        </a>
+        <button
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            openSignupModal();
+          }}
+          className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
+        >
+          Join Waitlist
+        </button>
+      </nav>
       <button
-        onClick={() => {
-          setIsMobileMenuOpen(false);
-          openSignupModal();
-        }}
-        className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
-      >
-        Join Waitlist
-      </button>
-      <button
         onClick={() => setIsMobileMenuOpen(false)}
-        className="absolute top-4 right-4 text-white text-2xl focus:outline-none"
+        className="absolute top-6 right-6 text-white bg-transparent appearance-none border-none p-2 rounded-full focus:outline-none hover:text-yellow-400 transition duration-300"
         aria-label="Close menu"
       >
-        ×
+        <X size={32} />
       </button>
     </div>
   )}
