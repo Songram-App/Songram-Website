@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X } from "phosphor-react";
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List } from "phosphor-react";
 import validator from 'validator';
 
 const WelcomePage: React.FC = () => {
@@ -240,39 +240,31 @@ const WelcomePage: React.FC = () => {
     </div>
     <button
       onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-      className="md:hidden text-white focus:outline-none"
+     className="md:hidden bg-transparent border-none p-2 focus:outline-none text-white border-0"
       aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"} // Added aria-label for accessibility
     >
-      {isMobileMenuOpen ? '×' : '☰'} {/* Display appropriate icon for open/close state */}
+      {isMobileMenuOpen ? <X size={32} /> : <List size={32} />} {/* Display appropriate icon for open/close state */}
     </button>
   </div>
   {isMobileMenuOpen && (
     <div className="md:hidden bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 text-white fixed inset-0 z-50 flex flex-col items-center justify-center space-y-8 px-6 py-10 animate-fade-in">
-      <button
-        onClick={() => setIsMobileMenuOpen(false)}
-        className="absolute top-6 left-6 text-white bg-transparent appearance-none border-none p-2 rounded-full focus:outline-none hover:text-yellow-400 transition duration-300"
-        aria-label="Close menu"
-      >
-        <X size={32} />
-      </button>
       <nav className="flex flex-col items-center space-y-6">
         <a
           href="#features"
           className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
-          onClick={() => setIsMobileMenuOpen(false)}
+
         >
           Features
         </a>
         <a
           href="#testimonials"
           className="text-2xl font-semibold text-white hover:text-yellow-400 transition duration-300 no-underline"
-          onClick={() => setIsMobileMenuOpen(false)}
+
         >
           Reviews
         </a>
         <button
           onClick={() => {
-            setIsMobileMenuOpen(false);
             openSignupModal();
           }}
           className="glass-button text-lg px-8 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300"
