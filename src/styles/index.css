@@ -54,7 +54,7 @@ body {
 
 /* --- Fix for fixed nav bar stacking --- */
 body, .min-h-screen {
-  padding-top: 76px !important; /* Adjust if nav height changes */
+  /* Remove padding-top that might interfere with fixed nav */
 }
 
 nav {
@@ -62,14 +62,22 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Ensure navbar is above all other elements */
+  z-index: 9999 !important; /* Ensure navbar is above all other elements */
+  pointer-events: auto !important;
 }
 
 /* --- Navbar adjustments for better visibility and stacking --- */
 nav {
-  z-index: 1000; /* Ensure navbar is above all other elements */
+  z-index: 9999 !important; /* Ensure navbar is above all other elements */
+  pointer-events: auto !important;
 }
 
+/* Ensure mobile menu button is always clickable */
+nav button {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10000 !important;
+}
 
 /* Prevent accidental override of nav position */
 .mobile-nav-fix {
@@ -77,7 +85,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 50;
+  z-index: 9999 !important;
 }
 
 /* Optional: Remove any margin-top or padding-top on nav itself */
@@ -88,7 +96,7 @@ nav {
 
 /* --- Navbar styles for scroll behavior and transitions --- */
 nav {
-  z-index: 1000;
+  z-index: 9999 !important;
   transition: all 0.3s ease-in-out;
 }
 
@@ -156,6 +164,8 @@ nav {
 .overflow-hidden { overflow: hidden; }
 .z-10 { z-index: 10; }
 .z-50 { z-index: 50; }
+.z-9998 { z-index: 9998; }
+.z-9999 { z-index: 9999; }
 .mx-6 { margin-left: 1.5rem; margin-right: 1.5rem; }
 .mt-6 { margin-top: 1.5rem; }
 .mb-4 { margin-bottom: 1rem; }
@@ -300,14 +310,14 @@ nav {
 
 @media (max-width: 767px) {
   .hero-padding {
-    padding-top: 3rem;
+    padding-top: 6rem;
     padding-bottom: 5rem;
   }
 }
 
 @media (min-width: 768px) {
   .hero-padding {
-    padding-top: 6rem;
+    padding-top: 10rem;
     padding-bottom: 6rem;
   }
 }
@@ -878,6 +888,9 @@ nav {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   max-width: 72rem;
   margin: 4rem auto;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ai-generation {
@@ -885,6 +898,8 @@ nav {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  width: 100%;
+  overflow: hidden;
 }
 
 .prompt {
@@ -899,6 +914,8 @@ nav {
   position: relative;
   overflow: hidden;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  min-width: 0;
+  word-wrap: break-word;
 }
 
 .prompt::after {
@@ -926,6 +943,8 @@ nav {
   border-radius: 15px;
   border: 1px solid rgba(136, 99, 237, 0.3);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  min-width: 0;
 }
 
 .ai-beat-visualizer {
@@ -934,6 +953,9 @@ nav {
   gap: 8px;
   height: 110px;
   align-items: end;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .beat-segment {
@@ -985,6 +1007,7 @@ nav {
   .ai-showcase {
     padding: 2rem 1rem;
     max-width: 100%;
+    overflow: hidden;
   }
   .ai-generation {
     gap: 1.2rem;
@@ -993,10 +1016,13 @@ nav {
   .result {
     font-size: 1rem;
     padding: 1rem;
+    min-width: 0;
+    overflow: hidden;
   }
   .ai-beat-visualizer {
     height: 80px;
     gap: 5px;
+    max-width: 100%;
   }
 }
 
@@ -1004,6 +1030,8 @@ nav {
   .ai-showcase {
     padding: 1.5rem 0.5rem;
     border-radius: 14px;
+    margin: 2rem 0.5rem;
+    overflow: hidden;
   }
   .ai-generation {
     flex-direction: column;
@@ -1020,28 +1048,40 @@ nav {
     font-size: 0.98rem;
     padding: 1rem 0.7rem;
     border-radius: 10px;
+    min-width: 0;
+    overflow: hidden;
+    width: 100%;
   }
   .ai-beat-visualizer {
     height: 60px;
     gap: 4px;
+    max-width: 100%;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .ai-showcase {
-    margin: 1rem 0;
-    padding: 0.7rem 0.2rem;
+    margin: 1rem 0.25rem;
+    padding: 0.7rem 0.4rem;
     border-radius: 8px;
+    overflow: hidden;
   }
   .prompt,
   .result {
     font-size: 0.92rem;
-    padding: 0.7rem 0.3rem;
+    padding: 0.7rem 0.5rem;
     border-radius: 6px;
+    min-width: 0;
+    overflow: hidden;
+    width: 100%;
   }
   .ai-beat-visualizer {
     height: 36px;
     gap: 2px;
+    max-width: 100%;
+    width: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
