@@ -246,26 +246,85 @@ const WelcomePage: React.FC = () => {
     };
   }, []);
 
+  // Close mobile menu on click outside or scroll
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMobileMenuOpen) {
+        const target = event.target as Element;
+        const mobileMenuButton = document.querySelector('[aria-label*="menu"]');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuNav = mobileMenuOverlay?.querySelector('nav');
+        
+        // Don't close if clicking on the menu button
+        if (mobileMenuButton && mobileMenuButton.contains(target)) {
+          return;
+        }
+        
+        // Close if clicking outside the menu navigation content
+        if (mobileMenuOverlay && !mobileMenuNav?.contains(target)) {
+          setIsMobileMenuOpen(false);
+        }
+      }
+    };
+
+    const handleScroll = () => {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (isMobileMenuOpen && event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener('scroll', handleScroll);
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable body scroll when menu is closed
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <div className="min-h-screen relative px-10 py-10 font-sans overflow-hidden">
+    <div className="min-h-screen relative px-10 py-10 font-sans" style={{ marginTop: '76px' }}>
       {/* Navigation */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-md transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full z-[9999] backdrop-blur-md transition-all duration-300 ${
           isScrolled
             ? theme === "light"
               ? "bg-[#f9f9f9] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border-b border-black/10" // Light mode scroll effect
               : "bg-[#0a0a0f] shadow-[0_4px_6px_-1px_rgba(136,99,237,0.3)] border-b border-[#8863ed]/30" // Dark mode scroll effect
             : "bg-transparent"
         }`}
+        style={{ 
+          pointerEvents: 'auto',
+          zIndex: 9999,
+          position: 'fixed'
+        }}
       >
-        <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center">
-          <span
-            className={`text-2xl font-bold tracking-widest ${
-              theme === "light" ? "text-black" : "text-white"
-            }`}
+        <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center relative z-[10000]" style={{ pointerEvents: 'auto' }}>
+          <div className="relative">
+          <span className="text-3xl font-bold text-gradient glow-text tracking-wider"  
           >
             SONGRAM
           </span>
+          <div className={`absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-transparent${
+              theme === "light" ? "text-black" : "text-white"
+            }`}></div>
+          </div>
           <div className="hidden md:flex items-center space-x-8">
             <a
               href="#features"
@@ -310,8 +369,16 @@ const WelcomePage: React.FC = () => {
             </button>
           </div>
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden bg-transparent border-none p-2"
+            onClick={() => {
+              console.log('Mobile menu button clicked!'); // Debug log
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            className="md:hidden bg-transparent border-none p-2 relative z-[10000] cursor-pointer"
+            style={{ 
+              pointerEvents: 'auto',
+              position: 'relative',
+              zIndex: 10000
+            }}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {isMobileMenuOpen ? (
@@ -323,11 +390,18 @@ const WelcomePage: React.FC = () => {
         </div>
         {isMobileMenuOpen && (
           <div
-            className={`fixed inset-0 z-40 flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${
+            id="mobile-menu-overlay"
+            className={`fixed inset-0 z-[9998] flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${
               theme === "light"
                 ? "bg-white text-black"
                 : "bg-[#1a1a2e] text-white"
             }`}
+            onClick={(e) => {
+              // Close menu if clicking on the overlay background (not on the nav content)
+              if (e.target === e.currentTarget) {
+                setIsMobileMenuOpen(false);
+              }
+            }}
           >
             <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
               <a
@@ -391,11 +465,11 @@ const WelcomePage: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-6 py-20 text-center">
+      <section className="relative z-10 px-6 py-8 text-center">
         <div className="max-w-6xl mx-auto hero-padding">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
-            Where <span className="text-gradient glow-text">AI</span> meets{" "}
-            <span className="text-gradient glow-text">Creativity</span>
+          The <span className="text-gradient glow-text">ultimate</span> social platform for music{" "}
+            <span className="text-gradient glow-text">creation</span>
           </h1>
           <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
             Create, collaborate, and share music like never before. Songram
