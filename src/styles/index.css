@@ -1394,3 +1394,53 @@ html.light nav a {
 html.light nav a:hover {
   color: #8863ed; /* Purple on hover */
 }
+
+/* Social Media Buttons */
+.social-media-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(136, 99, 237, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(136, 99, 237, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-media-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(136, 99, 237, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.social-media-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(136, 99, 237, 0.3);
+  border-color: rgba(136, 99, 237, 0.4);
+}
+
+.social-media-btn:hover::before {
+  opacity: 1;
+}
+
+/* Light mode adjustments for social media buttons */
+html.light .social-media-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+html.light .social-media-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Light mode styles */
