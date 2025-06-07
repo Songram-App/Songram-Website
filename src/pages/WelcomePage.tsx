@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List, Sun, Moon, InstagramLogo, TiktokLogo} from "phosphor-react";
+import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List, Sun, Moon, InstagramLogo, TiktokLogo } from "@phosphor-icons/react";
+import { Link } from 'react-router-dom';
 import validator from 'validator';
+import { motion, useInView } from 'framer-motion';
 
 const WelcomePage: React.FC = () => {
   const [currentFeature, setCurrentFeature] = useState(0);
@@ -36,26 +38,65 @@ const WelcomePage: React.FC = () => {
     comments: string;
   }
 
-  const features: Feature[] = [
+  const features: Feature[] = [];
+
+  // Feature data for animated grid
+  const featureData = [
     {
-      title: "Create Music",
-      description: "Generate/add beats, melodies. Write/Generate Lyrics and polish your tracks with just text prompt",
-      icon: <MusicNotes size={40} weight="duotone" className="mx-auto text-primary" />
+      id: 'home-feed',
+      title: 'Home Feed',
+      description: 'Discover new music from artists around the world in your personalized feed.',
+      image: '/src/pictures/Home Feed Section.png',
+      alt: 'Songram Home Feed Interface'
     },
     {
-      title: "Social Sharing",
-      description: "Share your creations with a global community",
-      icon: <ShareNetwork size={40} weight="duotone" className="mx-auto text-primary" />
+      id: 'create-section',
+      title: 'Music Creation Studio', 
+      description: 'Create professional-quality tracks with our intuitive music production tools.',
+      image: '/src/pictures/Create Section.png',
+      alt: 'Songram Music Creation Studio'
     },
     {
-      title: "Real-time Collaboration",
-      description: "Create music together with artists worldwide",
-      icon: <UsersThree size={40} weight="duotone" className="mx-auto text-primary" />
+      id: 'music-assistant',
+      title: 'AI Music Assistant',
+      description: 'Get intelligent suggestions and creative assistance powered by advanced AI.',
+      image: '/src/pictures/Create Section - Music Assistant.png',
+      alt: 'Songram AI Music Assistant'
     },
     {
-      title: "Accessible Tools",
-      description: "Easy to use, no need to be a professional to create music",
-      icon: <SlidersHorizontal size={40} weight="duotone" className="mx-auto text-primary" />
+      id: 'vocals',
+      title: 'Vocal Recording',
+      description: 'Record pristine vocals with studio-grade effects and real-time processing.',
+      image: '/src/pictures/Create Section - Vocals.png',
+      alt: 'Songram Vocal Recording Studio'
+    },
+    {
+      id: 'album-cover',
+      title: 'Album Cover Generator',
+      description: 'Generate stunning album artwork with AI-powered design tools.',
+      image: '/src/pictures/Create Section - Album Cover Generator.png',
+      alt: 'Songram Album Cover Generator'
+    },
+    {
+      id: 'search',
+      title: 'Search & Discovery',
+      description: 'Find artists, tracks, and collaborators with powerful search capabilities.',
+      image: '/src/pictures/Search Section.png',
+      alt: 'Songram Search and Discovery'
+    },
+    {
+      id: 'profile',
+      title: 'Artist Profile',
+      description: 'Showcase your music and connect with fans through customizable profiles.',
+      image: '/src/pictures/Profile Section.png',
+      alt: 'Songram Artist Profile'
+    },
+    {
+      id: 'direct-messages',
+      title: 'Direct Messages',
+      description: 'Collaborate and communicate with other artists through secure messaging.',
+      image: '/src/pictures/Home Feed Section - DM.png',
+      alt: 'Songram Direct Messages'
     }
   ];
 
@@ -202,6 +243,134 @@ const WelcomePage: React.FC = () => {
     </div>
   );
 
+  // Animated Feature Component
+  const AnimatedFeature: React.FC<{ 
+    feature: typeof featureData[0];
+    index: number;
+    theme: 'light' | 'dark';
+  }> = ({ feature, index, theme }) => {
+    const ref = React.useRef(null);
+    // Remove 'once: true' to allow animation both in and out
+    const isInView = useInView(ref, { 
+      amount: 0.3,
+      margin: "0px 0px -100px 0px" // Start animation slightly before element comes into view
+    });
+
+    const isLeftColumn = index % 2 === 0;
+
+    // Panel animation variants
+    const panelVariants = {
+      hidden: { 
+        opacity: 0,
+        scale: 0.95,
+        y: 20
+      },
+      visible: { 
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: {
+          duration: 0.6,
+          ease: "easeOut"
+        }
+      }
+    };
+
+    // Text slide out animation variants
+    const textVariants = {
+      hidden: { 
+        opacity: 0,
+        x: 0, // Start at center (inside image boundaries)
+        y: typeof window !== 'undefined' && window.innerWidth < 768 ? 0 : 0
+      },
+              visible: { 
+          opacity: 1,
+          // Slide OUT: left column goes LEFT (-), right column goes RIGHT (+)
+          x: typeof window !== 'undefined' && window.innerWidth < 768 
+            ? 0  // No horizontal movement on mobile
+            : isLeftColumn ? -450 : 450, // Slide out 80% further beyond image boundaries
+          y: typeof window !== 'undefined' && window.innerWidth < 768 ? -100 : 0, // Slide up on mobile
+        transition: {
+          duration: 0.8,
+          delay: 0.2,
+          ease: "easeInOut"
+        }
+      }
+    };
+
+    return (
+      <motion.div
+        ref={ref}
+        variants={panelVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="feature-glass-panel p-3 md:p-8 relative group"
+        style={{ overflow: 'visible' }} // Allow text to slide outside boundaries
+      >
+        {/* Image Container */}
+        <div className="feature-image-container h-full relative overflow-hidden">
+          <img 
+            src={feature.image}
+            alt={feature.alt}
+            className="feature-image w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        
+        {/* Animated Text - OUTSIDE image container so it can slide freely */}
+        <motion.div
+          variants={textVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className={`
+            absolute inset-0 flex flex-col justify-center pointer-events-none
+            ${isLeftColumn ? 'items-start' : 'items-end'}
+            md:justify-center
+          `}
+          style={{ 
+            zIndex: 5, // Lower z-index to avoid interfering with hover
+            // Position text to start from center and slide out
+            left: isLeftColumn ? '50%' : 'auto',
+            right: isLeftColumn ? 'auto' : '50%',
+            transform: isLeftColumn ? 'translateX(-50%)' : 'translateX(50%)'
+          }}
+        >
+          <div className={`
+            bg-black/90 backdrop-blur-md rounded-lg p-4 md:p-6
+            border border-white/20 shadow-2xl
+            max-w-xs md:max-w-sm
+            ${isLeftColumn ? 'text-left' : 'text-right'}
+            pointer-events-none
+          `}>
+            <h3 className={`
+              text-lg md:text-xl font-bold mb-2
+              text-gradient
+            `}>
+              {feature.title}
+            </h3>
+            <p className={`
+              text-sm md:text-base leading-relaxed
+              text-white/90
+            `}>
+              {feature.description}
+            </p>
+            
+            {/* Arrow indicator */}
+            <div className={`
+              mt-3 flex ${isLeftColumn ? 'justify-start' : 'justify-end'}
+            `}>
+              <div className={`
+                text-primary text-xl font-bold
+                ${isLeftColumn ? 'transform rotate-180' : ''}
+              `}>
+                →
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    );
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFeature((prev) => (prev + 1) % features.length);
@@ -326,6 +495,12 @@ const WelcomePage: React.FC = () => {
             }`}></div>
           </div>
           <div className="hidden md:flex items-center space-x-8">
+            <Link
+              to="/about"
+              className="text-black dark:text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
+            >
+              About
+            </Link>
             <a
               href="#features"
               className="text-black dark:text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
@@ -404,6 +579,13 @@ const WelcomePage: React.FC = () => {
             }}
           >
             <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
+              <Link
+                to="/about"
+                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
               <a
                 href="#features"
                 className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
@@ -490,6 +672,8 @@ const WelcomePage: React.FC = () => {
         </div>
       </section>
 
+
+
       {/* Features Section */}
       <section id="features" className="relative z-10 px-6 py-24">
         <div className="max-w-6xl mx-auto">
@@ -500,35 +684,46 @@ const WelcomePage: React.FC = () => {
           >
             Features
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
-                  currentFeature === index
-                    ? "ring-2 ring-primary/50 bg-primary/10"
-                    : ""
-                } ${theme === "light" ? "!bg-white !border-gray-200" : ""}`}
-              >
-                {feature.icon}
-                <h3
-                  className={`text-lg sm:text-xl font-semibold mb-3 ${
-                    theme === "light" ? "text-black" : "text-white"
-                  }`}
-                >
-                  {feature.title}
-                </h3>
-                <p
-                  className={`text-sm sm:text-base ${
-                    theme === "light" ? "text-black/70" : "text-white/70"
-                  }`}
-                >
-                  {feature.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          
         </div>
+
+        
+
+
+      {/* App Features Showcase */}
+      <section className="relative z-10 px-6 py-24 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-32">
+            
+            <p className={`text-xl max-w-3xl mx-auto ${theme === "light" ? "text-black/70" : "text-white/80"}`}>
+              Discover the powerful features that make Songram the ultimate platform for music creation and social connection
+            </p>
+            <div className="w-32 h-1 bg-gradient-primary mx-auto mt-8 rounded-full"></div>
+          </div>
+          <br>
+</br>
+<br>
+</br>
+
+          {/* Animated Features Grid - Side by Side Layout */}
+          <div className="mb-24">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 auto-rows-fr">
+              {featureData.map((feature, index) => (
+                <AnimatedFeature
+                  key={feature.id}
+                  feature={feature}
+                  index={index}
+                  theme={theme}
+                />
+              ))}
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+
       </section>
 
       {/* Demo Section */}
