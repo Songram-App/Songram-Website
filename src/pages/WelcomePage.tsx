@@ -1,128 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { MusicNotes, ShareNetwork, UsersThree, SlidersHorizontal, X, List, Sun, Moon, InstagramLogo, TiktokLogo} from "phosphor-react";
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { 
+  IoMusicalNotes, 
+  IoShareSocial, 
+  IoPeople, 
+  IoOptions, 
+  IoClose, 
+  IoMenu, 
+  IoSunny, 
+  IoMoon, 
+  IoPlay, 
+  IoHeart, 
+  IoChatbubble,
+  IoLogoInstagram,
+  IoLogoTiktok
+} from 'react-icons/io5';
 import validator from 'validator';
+import XLogo from '../components/XLogo';
 
 const WelcomePage: React.FC = () => {
-  const [currentFeature, setCurrentFeature] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showThankYou, setShowThankYou] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(
     localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
   );
   const [isScrolled, setIsScrolled] = useState(false);
-
-  interface Feature {
-    title: string;
-    description: string;
-    icon: JSX.Element;
-  }
-
-  interface Testimonial {
-    name: string;
-    role: string;
-    content: string;
-    avatar: string;
-  }
-
-  interface Track {
-    title: string;
-    artist: string;
-    genre: string;
-    duration: string;
-    likes: string;
-    comments: string;
-  }
-
-  const features: Feature[] = [
-    {
-      title: "Create Music",
-      description: "Generate/add beats, melodies. Write/Generate Lyrics and polish your tracks with just text prompt",
-      icon: <MusicNotes size={40} weight="duotone" className="mx-auto text-primary" />
-    },
-    {
-      title: "Social Sharing",
-      description: "Share your creations with a global community",
-      icon: <ShareNetwork size={40} weight="duotone" className="mx-auto text-primary" />
-    },
-    {
-      title: "Real-time Collaboration",
-      description: "Create music together with artists worldwide",
-      icon: <UsersThree size={40} weight="duotone" className="mx-auto text-primary" />
-    },
-    {
-      title: "Accessible Tools",
-      description: "Easy to use, no need to be a professional to create music",
-      icon: <SlidersHorizontal size={40} weight="duotone" className="mx-auto text-primary" />
-    }
-  ];
-
-  const testimonials: Testimonial[] = [
-    {
-      name: "Alex Chen",
-      role: "Music Producer",
-      content: "Songram revolutionized my creative process. The AI suggestions are incredibly intuitive.",
-      avatar: "AC"
-    },
-    {
-      name: "Sarah Williams",
-      role: "Independent Artist",
-      content: "The collaboration features helped me connect with amazing artists globally.",
-      avatar: "SW"
-    },
-    {
-      name: "Marcus Johnson",
-      role: "Sound Engineer",
-      content: "Professional-grade tools with the simplicity of modern design. Perfect combination.",
-      avatar: "MJ"
-    }
-  ];
-
-  const tracks: Track[] = [
-    {
-      title: "Urban Vibes",
-      artist: "BeatCreator",
-      genre: "Hip-Hop",
-      duration: "2:55",
-      likes: "1.2K",
-      comments: "89"
-    },
-    {
-      title: "Cosmic Journey",
-      artist: "NightOwl",
-      genre: "Synthwave",
-      duration: "3:42",
-      likes: "856",
-      comments: "45"
-    }
-  ];
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const openSignupModal = () => {
-    setShowSignupModal(true);
-    setShowThankYou(false);
-    setIsSubmitting(false);
-  };
-
-  const closeSignupModal = () => {
-    setShowSignupModal(false);
-    setShowThankYou(false);
-    setIsSubmitting(false);
-  };
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
+  
+  // Video carousel state
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isVideoFading, setIsVideoFading] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [modalVideoIndex, setModalVideoIndex] = useState(0);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const modalVideoRef = useRef<HTMLVideoElement | null>(null);
+  
+  const videos = [
+    { src: '/videos/Create Section Video_compressed.mp4', name: 'Create Section' },
+    { src: '/videos/Home Feed Section Video.mp4', name: 'Home Feed Section' },
+    { src: '/videos/Search Section Video.mp4', name: 'Search Section' },
+    { src: '/videos/Profile Section Video.mp4', name: 'Profile Section' }
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.className = theme;
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Video carousel management
+  useEffect(() => {
+    const currentVideo = videoRefs.current[currentVideoIndex];
+    if (currentVideo && !showVideoModal) {
+      currentVideo.playbackRate = 1.25; // Set playback speed to 1.25x
+      currentVideo.play().catch(console.error);
+      
+      const handleVideoEnd = () => {
+        setIsVideoFading(true);
+        
+        setTimeout(() => {
+          setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+          setIsVideoFading(false);
+        }, 400); // 0.4 second fade transition
+      };
+      
+      currentVideo.addEventListener('ended', handleVideoEnd);
+      
+      return () => {
+        currentVideo.removeEventListener('ended', handleVideoEnd);
+      };
+    }
+  }, [currentVideoIndex, videos.length, showVideoModal]);
+
+  // Modal video management
+  useEffect(() => {
+    const modalVideo = modalVideoRef.current;
+    if (modalVideo && showVideoModal) {
+      modalVideo.playbackRate = 1.0; // Normal speed in modal
+      modalVideo.play().catch(console.error);
+    }
+  }, [showVideoModal, modalVideoIndex]);
+
+  const handleVideoClick = () => {
+    setModalVideoIndex(currentVideoIndex);
+    setShowVideoModal(true);
+    // Pause the carousel video
+    const currentVideo = videoRefs.current[currentVideoIndex];
+    if (currentVideo) {
+      currentVideo.pause();
+    }
+  };
+
+  const closeVideoModal = () => {
+    setShowVideoModal(false);
+    // Resume the carousel video
+    const currentVideo = videoRefs.current[currentVideoIndex];
+    if (currentVideo) {
+      currentVideo.play().catch(console.error);
+    }
+  };
+
+  const handleDotClick = (dotIndex: number, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the video modal
+    if (dotIndex !== currentVideoIndex && !showVideoModal) {
+      setIsVideoFading(true);
+      
+      setTimeout(() => {
+        setCurrentVideoIndex(dotIndex);
+        setIsVideoFading(false);
+      }, 400); // 0.4 second fade transition
+    }
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const form = e.currentTarget;
     const formData = new FormData(form);
-
     const email = formData.get('EMAIL') as string;
 
     if (!validator.isEmail(email)) {
@@ -152,767 +160,656 @@ const WelcomePage: React.FC = () => {
     }
   };
 
-  const Icon: React.FC<{ name: string; title?: string }> = ({ name, title }) => {
-    const getIconPath = (iconName: string) => {
-      switch (iconName) {
-        case 'heart':
-          return 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z';
-        case 'comment':
-          return 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z';
-        case 'play':
-          return 'M8 5v14l11-7z';
-        case 'pause':
-          return 'M6 4h4v16H6zM14 4h4v16h-4z';
-        default:
-          return '';
-      }
-    };
-
-    return (
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-label={title}
-      >
-        <path d={getIconPath(name)} />
-      </svg>
-    );
-  };
-
-  const TestimonialCard: React.FC<{ testimonial: Testimonial, theme?: 'light' | 'dark' }> = ({ testimonial, theme }) => (
-    <div className="glass-panel p-8 hover:scale-105 transition-all duration-300">
-      <div className="flex items-center mb-4">
-        <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center text-white font-semibold mr-4">
-          {testimonial.avatar}
-        </div>
-        <div>
-          <h4 className={`text-lg sm:text-xl font-semibold ${theme === 'light' ? 'text-black' : 'text-white'}`}>{testimonial.name}</h4>
-          <p className={`text-sm sm:text-base ${theme === 'light' ? 'text-black/60' : 'text-white/60'}`}>{testimonial.role}</p>
-        </div>
-      </div>
-      <p className={`text-sm sm:text-base italic ${theme === 'light' ? 'text-black/80' : 'text-white/80'}`}>
-        "{testimonial.content}"
-      </p>
-    </div>
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFeature((prev) => (prev + 1) % features.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light');
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
+  const features = [
+    {
+      icon: <IoMusicalNotes size={32} className="text-primary-500" />,
+      title: "AI Beats Generation",
+      description: "Create beats, melodies, and enhance beats with simple text prompts."
+    },
+    {
+      icon: <IoShareSocial size={32} className="text-primary-500" />,
+      title: "Social Music Platform",
+      description: "Share your creations and discover new music in our vibrant community."
+    },
+    {
+      icon: <IoPeople size={32} className="text-primary-500" />,
+      title: "Real-time Collaboration",
+      description: "Work together with artists worldwide on your next musical masterpiece."
+    },
+    {
+      icon: <IoOptions size={32} className="text-primary-500" />,
+      title: "Tools for song creation",
+      description: "Step into the easiest music production tools ever — and create studio-quality music"
     }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // Close mobile menu on click outside or scroll
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (isMobileMenuOpen) {
-        const target = event.target as Element;
-        const mobileMenuButton = document.querySelector('[aria-label*="menu"]');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-        const mobileMenuNav = mobileMenuOverlay?.querySelector('nav');
-        
-        // Don't close if clicking on the menu button
-        if (mobileMenuButton && mobileMenuButton.contains(target)) {
-          return;
-        }
-        
-        // Close if clicking outside the menu navigation content
-        if (mobileMenuOverlay && !mobileMenuNav?.contains(target)) {
-          setIsMobileMenuOpen(false);
-        }
-      }
-    };
-
-    const handleScroll = () => {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (isMobileMenuOpen && event.key === 'Escape') {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    if (isMobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      window.addEventListener('scroll', handleScroll);
-      document.addEventListener('keydown', handleKeyDown);
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
-    } else {
-      // Re-enable body scroll when menu is closed
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
+  ];
 
   return (
-    <div className="min-h-screen relative px-10 py-10 font-sans" style={{ marginTop: '76px' }}>
+    <div className="min-h-screen bg-light-bg dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300">
       {/* Navigation */}
-      <nav
-        className={`fixed top-0 left-0 w-full z-[9999] backdrop-blur-md transition-all duration-300 ${
-          isScrolled
-            ? theme === "light"
-              ? "bg-[#f9f9f9] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] border-b border-black/10" // Light mode scroll effect
-              : "bg-[#0a0a0f] shadow-[0_4px_6px_-1px_rgba(136,99,237,0.3)] border-b border-[#8863ed]/30" // Dark mode scroll effect
-            : "bg-transparent"
-        }`}
-        style={{ 
-          pointerEvents: 'auto',
-          zIndex: 9999,
-          position: 'fixed'
-        }}
-      >
-        <div className="max-w-screen-xl mx-auto px-8 py-4 flex justify-between items-center relative z-[10000]" style={{ pointerEvents: 'auto' }}>
-          <div className="relative">
-          <span className="text-3xl font-bold text-gradient glow-text tracking-wider"  
-          >
-            SONGRAM
-          </span>
-          <div className={`absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-transparent${
-              theme === "light" ? "text-black" : "text-white"
-            }`}></div>
-          </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="#features"
-              className="text-black dark:text-white no-underline text-lg hover:text-yellow-400 transition inline-flex items-center"
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-light-bg/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm' 
+          : 'bg-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {            /* Logo */}
+            <motion.div 
+              className="flex items-center space-x-2"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className="text-black dark:text-white text-lg no-underline hover:text-yellow-400 transition inline-flex items-center"
-            >
-              Reviews
-            </a>
-            <button
-              onClick={openSignupModal}
-              className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
-            >
-              Join Waitlist
-            </button>
-            <button
-              onClick={toggleTheme}
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                marginLeft: 16,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-              }}
-              aria-label={
-                theme === "dark"
-                  ? "Switch to light mode"
-                  : "Switch to dark mode"
-              }
-            >
-              {theme === "dark" ? (
-                <Sun size={32} weight="duotone" color="#8863ed" />
-              ) : (
-                <Moon size={32} weight="duotone" color="#222" />
-              )}
-            </button>
-          </div>
-          <button
-            onClick={() => {
-              console.log('Mobile menu button clicked!'); // Debug log
-              setIsMobileMenuOpen(!isMobileMenuOpen);
-            }}
-            className="md:hidden bg-transparent border-none p-2 relative z-[10000] cursor-pointer"
-            style={{ 
-              pointerEvents: 'auto',
-              position: 'relative',
-              zIndex: 10000
-            }}
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          >
-            {isMobileMenuOpen ? (
-              <X size={32} color={theme === "dark" ? "#fff" : "#000"} /> // Dynamic color for X icon
-            ) : (
-              <List size={32} color={theme === "dark" ? "#fff" : "#000"} /> // Dynamic color for List icon
-            )}
-          </button>
-        </div>
-        {isMobileMenuOpen && (
-          <div
-            id="mobile-menu-overlay"
-            className={`fixed inset-0 z-[9998] flex flex-col items-center justify-center px-6 py-10 transition-colors duration-300 ${
-              theme === "light"
-                ? "bg-white text-black"
-                : "bg-[#1a1a2e] text-white"
-            }`}
-            onClick={(e) => {
-              // Close menu if clicking on the overlay background (not on the nav content)
-              if (e.target === e.currentTarget) {
-                setIsMobileMenuOpen(false);
-              }
-            }}
-          >
-            <nav className="flex flex-col items-center space-y-6 mt-16 w-full">
-              <a
-                href="#features"
-                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
+              <img 
+                src="/icon.png" 
+                alt="Songram Logo" 
+                className="w-8 h-8 rounded-lg"
+              />
+              <span className="text-2xl font-bold text-gradient">Songram</span>
+            </motion.div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#features" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 Features
               </a>
-              <a
-                href="#testimonials"
-                className="text-2xl font-bold hover:text-primary transition duration-300 no-underline py-3 w-full text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-white"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Reviews
-              </a>
-              <button
-                onClick={() => {
-                  openSignupModal();
-                  setIsMobileMenuOpen(false);
-                }}
-                className="glass-button text-xl px-10 py-4 bg-gradient-primary border-0 hover:shadow-lg hover:shadow-primary/30 transform hover:scale-105 rounded-full transition duration-300 w-full mt-2 dark:text-white"
-              >
-                Join Waitlist
-              </button>
+              <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                About
+              </Link>
+              <Link to="/community" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Community
+              </Link>
               <button
                 onClick={toggleTheme}
-                style={{
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                  marginTop: 28,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                }}
-                aria-label={
-                  theme === "dark"
-                    ? "Switch to light mode"
-                    : "Switch to dark mode"
-                }
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                aria-label="Toggle theme"
               >
-                {theme === "dark" ? (
-                  <Sun size={36} weight="duotone" color="#8863ed" />
-                ) : (
-                  <Moon size={36} weight="duotone" color="#222" />
-                )}
-                <span
-                  className={`ml-3 text-xl font-semibold ${
-                    theme === "dark" ? "text-white" : "text-black"
-                  }`}
-                >
-                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
-                </span>
+                {theme === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
               </button>
-            </nav>
+              <button
+                onClick={() => setShowSignupModal(true)}
+                className="btn-primary"
+              >
+                Get Started
+              </button>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center space-x-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <IoClose size={20} /> : <IoMenu size={20} />}
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="md:hidden bg-light-bg dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+          >
+            <div className="px-4 py-6 space-y-4">
+              <a href="#features" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Features
+              </a>
+              <Link to="/about" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                About
+              </Link>
+              <Link to="/community" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Community
+              </Link>
+              <button
+                onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }}
+                className="w-full btn-primary"
+              >
+                Get Started
+              </button>
+            </div>
+          </motion.div>
         )}
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-6 py-8 text-center">
-        <div className="max-w-6xl mx-auto hero-padding">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
-          The <span className="text-gradient glow-text">ultimate</span> social platform for music{" "}
-            <span className="text-gradient glow-text">creation</span>
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto animate-slide-up">
-            Create, collaborate, and share music like never before. Songram
-            empowers you to turn ideas into tracks, connect with artists, and
-            unleash your musical potential.
-          </p>
-          <div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <button
-              onClick={openSignupModal}
-              className="glass-button text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-primary border-0 hover:shadow-2xl hover:shadow-primary/30 transform hover:scale-105 rounded-full"
+      <section 
+        className="pt-24 pb-16 px-4 sm:px-6 lg:px-8"
+        style={{ 
+          background: theme === 'dark' 
+            ? 'linear-gradient(135deg, #0a0a0f, #1a1a2e, #16213e)' 
+            : 'linear-gradient(135deg, #f8fafc, #e2e8f0, #cbd5e1)'
+        }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.h1 
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              JOIN WAITLIST
-            </button>
+              The ultimate social platform
+              <span className="text-gradient block mt-3 pb-2 relative -top-[5px]">for song creation</span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential..
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <button
+                onClick={() => setShowSignupModal(true)}
+                className="btn-primary text-base px-4 py-2"
+              >
+                Start Creating Now
+              </button>
+              
+            </motion.div>
           </div>
+          
+          {/* Hero Visual */}
+          <motion.div 
+            className="mt-16 max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="glass-card p-8 rounded-2xl">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-semibold mb-4">Live Demo</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    A new way to share, create, and vibe with music.
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                      <span className="text-sm">Create music no matter your skill — just bring your passion</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                      <span className="text-sm">Collaborate and share your songs with the world to hear</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
+                      <span className="text-sm">Create playlists that surprise even your own taste</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="laptop-mockup" style={{ marginLeft: '-20px' }}>
+                  <div className="laptop-screen">
+                    {/* Video Carousel inside laptop screen */}
+                    <div className="relative w-full h-full cursor-pointer" style={{ top: '-1px' }} onClick={handleVideoClick}>
+                      {videos.map((video, videoIndex) => (
+                        <video
+                          key={videoIndex}
+                          ref={(el) => (videoRefs.current[videoIndex] = el)}
+                          src={video.src}
+                          className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-400 ${
+                            videoIndex === currentVideoIndex && !isVideoFading
+                              ? 'opacity-100'
+                              : 'opacity-0'
+                          }`}
+                          muted
+                          playsInline
+                          preload="metadata"
+                        />
+                      ))}
+                      
+                      {/* Video indicator dots */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 flex space-x-2 z-10" style={{ bottom: '8px' }}>
+                        {videos.map((_, dotIndex) => (
+                          <button
+                            key={dotIndex}
+                            onClick={(e) => handleDotClick(dotIndex, e)}
+                            className={`w-3 h-3 rounded-full transition-all duration-300 hover:scale-125 cursor-pointer ${
+                              dotIndex === currentVideoIndex
+                                ? 'bg-white shadow-lg'
+                                : 'bg-white/50 hover:bg-white/75'
+                            }`}
+                            aria-label={`Go to video ${dotIndex + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="laptop-base"></div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="relative z-10 px-6 py-24">
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-300 via-white to-purple-400 bg-clip-text text-transparent ${
-              theme === "light" ? "text-black !bg-none !text-black" : ""
-            }`}
+      <section id="features" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900/50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            Features
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            Tools to create songs and <span className="text-gradient">connect through sound</span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              From idea to finished track, our platform provides all easy to use tools for creating songs.
+            </p>
+          </motion.div>
+
+          <div className="space-y-24">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 text-center transition-all duration-500 hover:scale-105 hover:shadow-xl ${
-                  currentFeature === index
-                    ? "ring-2 ring-primary/50 bg-primary/10"
-                    : ""
-                } ${theme === "light" ? "!bg-white !border-gray-200" : ""}`}
+                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-16`}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
               >
-                {feature.icon}
-                <h3
-                  className={`text-lg sm:text-xl font-semibold mb-3 ${
-                    theme === "light" ? "text-black" : "text-white"
-                  }`}
-                >
-                  {feature.title}
-                </h3>
-                <p
-                  className={`text-sm sm:text-base ${
-                    theme === "light" ? "text-black/70" : "text-white/70"
-                  }`}
-                >
-                  {feature.description}
-                </p>
-              </div>
+                {/* Text Content */}
+                <div className="flex-1 text-center lg:text-left">
+                  <div className="mb-6 flex justify-center lg:justify-start">
+                    <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-2xl">
+                      {feature.icon}
+                    </div>
+                  </div>
+                  <h3 className="text-2xl lg:text-3xl font-bold mb-4">{feature.title}</h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0">
+                    {feature.description}
+                  </p>
+                </div>
+
+                {/* Image/Visual Content */}
+                <div className="flex-1 max-w-lg">
+                  <div className="relative">
+                    <div className="card p-8 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800 h-64 lg:h-80 flex items-center justify-center rounded-2xl overflow-hidden">
+                      {/* Feature-specific visual content */}
+                      {index === 0 && (
+                        <div className="text-center space-y-4">
+                          <div className="grid grid-cols-3 gap-2 mb-4">
+                            {Array.from({ length: 12 }).map((_, i) => (
+                              <div
+                                key={i}
+                                className="h-8 bg-primary-500/20 dark:bg-primary-400/30 rounded animate-pulse"
+                                style={{ animationDelay: `${i * 0.1}s` }}
+                              />
+                            ))}
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            "Create a lo-fi hip hop beat" → ♪ ♫ ♪
+                          </div>
+                        </div>
+                      )}
+                      
+                      {index === 1 && (
+                        <div className="w-full space-y-3">
+                          <div className="flex items-center space-x-3 bg-white/80 dark:bg-gray-700/80 rounded-lg p-3">
+                            <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
+                              <IoMusicalNotes size={20} className="text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-sm font-medium">My Track</div>
+                              <div className="text-xs text-gray-500">2.4K plays</div>
+                            </div>
+                            <div className="flex items-center space-x-1 text-xs text-gray-500">
+                              <IoHeart size={14} />
+                              <span>89</span>
+                            </div>
+                          </div>
+                          <div className="flex justify-center space-x-2">
+                            <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                            <div className="w-2 h-2 bg-primary-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {index === 2 && (
+                        <div className="text-center space-y-4">
+                          <div className="flex justify-center space-x-2 mb-4">
+                            {[1, 2, 3].map((i) => (
+                              <div key={i} className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-xs font-bold animate-pulse" style={{ animationDelay: `${i * 0.3}s` }}>
+                                {i}
+                              </div>
+                            ))}
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            3 artists collaborating
+                          </div>
+                          <div className="flex justify-center space-x-1">
+                            <div className="w-16 h-2 bg-primary-200 dark:bg-primary-800 rounded-full">
+                              <div className="w-8 h-2 bg-primary-500 rounded-full animate-pulse"></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {index === 3 && (
+                        <div className="w-full space-y-3">
+                          <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+                            <span>EQ</span>
+                            <span>Reverb</span>
+                            <span>Compressor</span>
+                          </div>
+                          <div className="grid grid-cols-3 gap-4">
+                            {[1, 2, 3].map((i) => (
+                              <div key={i} className="space-y-2">
+                                <div className="h-16 bg-gray-200 dark:bg-gray-700 rounded relative overflow-hidden">
+                                  <div 
+                                    className="absolute bottom-0 left-0 right-0 bg-primary-500 rounded"
+                                    style={{ height: `${30 + i * 20}%` }}
+                                  ></div>
+                                </div>
+                                <div className="w-6 h-6 bg-primary-500 rounded-full mx-auto"></div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary-500/20 rounded-full animate-float"></div>
+                    <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-300/30 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Demo Section */}
-      <section className="app-preview" aria-labelledby="app-preview-title">
-        <div className="laptop-mockup" aria-hidden="true">
-          <div className="laptop-screen">
-            <div className="app-ui">
-              <div className="app-header">
-                <div className="app-logo">Songram</div>
-                <div className="app-nav">
-                  <div className="nav-item active">Home</div>
-                  <div className="nav-item">Explore</div>
-                  <div className="nav-item">Create</div>
-                  <div className="nav-item">Profile</div>
+      {/* AI Generation Demo */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            className="glass-card p-8 rounded-2xl"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold mb-4">See AI in Action</h2>
+              <p className="text-gray-600 dark:text-gray-300">
+              Words in. Beats out. It's that effortless.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6">
+                <div className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 font-mono text-sm">
+                  <div className="text-green-400 mb-2">$ songram generate</div>
+                  <div className="text-gray-300">"Create an upbeat electronic track with tropical house vibes"</div>
+                  <div className="text-yellow-400 mt-2">✨ Generating your track...</div>
                 </div>
-              </div>
-
-              <div className="feed-content">
-                {tracks.map((track, index) => (
-                  <div key={index} className="track-card">
-                    <div
-                      className={`track-card-content ${
-                        index === 0 ? "active" : ""
-                      }`}
-                    >
-                      <div className="track-card-header">
-                        <div className="artist-info">
-                          <div className="artist-avatar"></div>
-                          <div className="artist-name">{track.artist}</div>
+                
+                <div className="flex items-center space-x-4">
+                  <div className="text-4xl">→</div>
+                  <div className="flex-1">
+                    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
+                      <div className="flex items-center space-x-3 mb-3">
+                        <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                          <IoPlay size={20} className="text-white" />
                         </div>
-                        <div className="track-meta">
-                          {track.genre} • {track.duration}
+                        <div>
+                          <h4 className="font-medium">Tropical Sunset</h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">AI Generated • 3:24</p>
                         </div>
                       </div>
-
-                      <div className="track-title">{track.title}</div>
-
-                      <div className="waveform">
-                        {Array.from({ length: 30 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="bar"
-                            style={{
-                              height: `${20 + Math.sin(i * 0.3) * 15}px`,
-                              animationDelay: `${i * 0.05}s`,
-                              opacity: index === 0 ? 1 : 0.6,
-                            }}
-                          ></div>
-                        ))}
-                      </div>
-
-                      <div className="track-footer">
-                        <div className="track-stats">
-                          <div className="stat">
-                            <Icon name="heart" title="Likes" />
-                            <span>{track.likes}</span>
-                          </div>
-                          <div className="stat">
-                            <Icon name="comment" title="Comments" />
-                            <span>{track.comments}</span>
-                          </div>
+                      <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center space-x-1">
+                          <IoHeart size={16} />
+                          <span>1.2K</span>
                         </div>
-                        <div
-                          className="track-play"
-                          onClick={togglePlay}
-                          aria-label={
-                            index === 0
-                              ? isPlaying
-                                ? "Pause"
-                                : "Play"
-                              : "Play"
-                          }
-                        >
-                          <Icon
-                            name={
-                              index === 0
-                                ? isPlaying
-                                  ? "pause"
-                                  : "play"
-                                : "play"
-                            }
-                            title={
-                              index === 0
-                                ? isPlaying
-                                  ? "Pause"
-                                  : "Play"
-                                : "Play"
-                            }
-                          />
+                        <div className="flex items-center space-x-1">
+                          <IoChatbubble size={16} />
+                          <span>89</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="player-bar">
-                <div className="now-playing">
-                  <div className="track-thumbnail"></div>
-                  <div className="track-info">
-                    <div className="current-track-title">Urban Vibes</div>
-                    <div className="current-track-artist">BeatCreator</div>
-                  </div>
                 </div>
-                <div className="player-controls">
-                  <div className="mini-waveform">
-                    {Array.from({ length: 20 }).map((_, i) => (
+              </div>
+              
+              <div className="bg-gradient-to-br from-primary-500/10 to-primary-700/10 rounded-xl p-8 h-64 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="grid grid-cols-8 gap-1 h-24 items-end mb-4">
+                    {Array.from({ length: 32 }).map((_, i) => (
                       <div
                         key={i}
-                        className="mini-bar"
+                        className="bg-primary-500 rounded-sm animate-pulse"
                         style={{
-                          height: `${10 + Math.sin(i * 0.5) * 8}px`,
+                          height: `${Math.random() * 80 + 20}%`,
+                          animationDelay: `${i * 0.1}s`
                         }}
-                      ></div>
+                      />
                     ))}
                   </div>
-                  <div
-                    className="play-button"
-                    onClick={togglePlay}
-                    aria-label={isPlaying ? "Pause" : "Play"}
-                  >
-                    <Icon
-                      name={isPlaying ? "pause" : "play"}
-                      title={isPlaying ? "Pause" : "Play"}
-                    />
-                  </div>
-                </div>
-                <div className="time-display">
-                  <span>1:34</span>
-                  <span aria-hidden="true">/</span>
-                  <span>2:55</span>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Audio Visualization</p>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="laptop-base"></div>
-        </div>
-
-        <div className="app-description">
-          <h2 id="app-preview-title">Create, Share, Connect</h2>
-          <p>
-            Make music with AI assistance, share it with your followers, and
-            discover new artists - all in one place.
-          </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section id="testimonials" className="relative z-10 px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <h2
-            className={`text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient ${
-              theme === "light" ? "text-black !bg-none !text-black" : ""
-            }`}
+      {/* CTA Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-500 to-primary-700">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
           >
-            What Creators Say
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                testimonial={testimonial}
-                theme={theme}
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Ready to create your next hit?
+            </h2>
+            <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+              Join thousands of artists already using Songram to bring their musical ideas to life.
+            </p>
+            <button
+              onClick={() => setShowSignupModal(true)}
+              className="bg-white text-primary-600 hover:bg-gray-50 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200"
+            >
+              Get Started for Free
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+              <img 
+                src="/icon.png" 
+                alt="Songram Logo" 
+                className="w-8 h-8 rounded-lg"
               />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Showcase Section */}
-      <section className="relative z-10 px-6 py-20">
-        <div className="ai-showcase" aria-labelledby="ai-showcase-title">
-          <h2
-            id="ai-showcase-title"
-            className="text-4xl md:text-5xl font-bold text-center mb-8 text-gradient"
-          >
-            AI Music Generation Demo
-          </h2>
-          <div className="ai-generation">
-            <div className="prompt" aria-label="Example AI prompt">
-              "Create a synthwave beat with dreamy vocals"
-            </div>
-            <div className="arrow" aria-hidden="true">
-              →
-            </div>
-            <div className="result" aria-label="AI generated result">
-              <div className="ai-beat-visualizer">
-                {Array.from({ length: 16 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="beat-segment"
-                    style={{
-                      animationDelay: `${i * 0.125}s`,
-                    }}
-                  ></div>
-                ))}
               </div>
+              <span className="text-xl font-bold text-gradient">Songram</span>
+            </div>
+            
+            {/* Social Media Links */}
+            <div className="flex items-center space-x-6 mb-4 md:mb-0">
+              <a
+                href="https://instagram.com/songram.app" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
+                aria-label="Follow us on Instagram"
+              >
+                <IoLogoInstagram size={20} className="group-hover:scale-110 transition-transform duration-300" />
+              </a>
+              
+              <a
+                href="https://tiktok.com/@songram.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
+                aria-label="Follow us on TikTok"
+              >
+                <IoLogoTiktok size={20} className="group-hover:scale-110 transition-transform duration-300" />
+              </a>
+              
+              <a 
+                href="https://x.com/songram_app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
+                aria-label="Follow us on X (Twitter)"
+              >
+                <XLogo size={20} className="group-hover:scale-110 transition-transform duration-300" />
+              </a>
+            </div>
+            
+            <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
+              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Privacy</a>
+              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Terms</a>
+              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Support</a>
             </div>
           </div>
+          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400">
+            <p>&copy; 2025 Songram Inc. All rights reserved.</p>
+          </div>
         </div>
-      </section>
+      </footer>
 
       {/* Signup Modal */}
       {showSignupModal && (
-        <div className="signup-modal-overlay" onClick={closeSignupModal}>
-          <div
-            className={`signup-modal-content${
-              theme === "light" ? " bg-white" : ""
-            }`}
-            onClick={(e) => e.stopPropagation()}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <motion.div
+            className="bg-light-bg dark:bg-gray-900 rounded-2xl shadow-xl max-w-md w-full p-6"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
           >
-            <button
-              className={`modal-close-btn${
-                theme === "light" ? " text-black" : ""
-              }`}
-              onClick={closeSignupModal}
-              aria-label="Close signup form"
-            >
-              ×
-            </button>
-            {!showThankYou ? (
-              <div id="mc_embed_signup">
-                <h2
-                  className={`text-2xl font-bold text-center mb-6 text-gradient${
-                    theme === "light" ? " text-black !bg-none !text-black" : ""
-                  }`}
-                >
-                  Join the Waitlist
-                </h2>
-                <form
-                  onSubmit={handleFormSubmit}
-                  action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&amp;id=83ae707f97&amp;f_id=004ea5e6f0"
-                  method="post"
-                >
-                  <div className="mb-4">
-                    <div className="mb-4 space-y-4">
-                      <label
-                        htmlFor="mce-EMAIL"
-                        className={`block mb-2${
-                          theme === "light" ? " text-black" : " text-white"
-                        }`}
-                      >
-                        Email Address <span className="text-primary">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        name="EMAIL"
-                        id="mce-EMAIL"
-                        required
-                        className={`w-full px-4 py-3 border border-primary/50 rounded-lg focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30${
-                          theme === "light"
-                            ? " bg-white text-black"
-                            : " bg-black/50 text-white"
-                        }`}
-                        placeholder="Enter your email address"
-                      />
-                      {emailError && (
-                        <p className="text-red-500 text-sm mt-2">
-                          {emailError}
-                        </p>
-                      )}
-                    </div>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold">Join Songram</h3>
+              <button
+                onClick={() => setShowSignupModal(false)}
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+              >
+                <IoClose size={20} />
+              </button>
+            </div>
 
-                    {/* Hidden honeypot field */}
-                    <div
-                      style={{ position: "absolute", left: "-5000px" }}
-                      aria-hidden="true"
-                    >
-                      <input
-                        type="text"
-                        name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97"
-                        tabIndex={-1}
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`w-40 font-semibold py-3 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed${
-                        theme === "light"
-                          ? " bg-primary text-white hover:shadow-lg hover:shadow-primary/30"
-                          : " bg-gradient-primary text-white hover:shadow-lg hover:shadow-primary/30"
-                      }`}
-                    >
-                      {isSubmitting ? "Joining..." : "JOIN"}
-                    </button>
+            {showThankYou ? (
+              <div className="text-center py-8">
+                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm">✓</span>
                   </div>
-                </form>
+                </div>
+                <h4 className="text-xl font-semibold mb-2">You're all set!</h4>
+                <p className="text-gray-600 dark:text-gray-300">
+                  We'll notify you when Songram launches.
+                </p>
               </div>
             ) : (
-              <div className="text-center py-8">
-                <div className="mb-6">
-                  <h2
-                    className={`text-2xl font-bold text-gradient mb-2${
-                      theme === "light"
-                        ? " text-black !bg-none !text-black"
-                        : ""
-                    }`}
-                  >
-                    Thank you for joining!
-                  </h2>
-                  <br />
-                  <p
-                    className={
-                      theme === "light" ? "text-black/80" : "text-white/80"
-                    }
-                  >
-                    We'll notify you when Songram launches.
-                  </p>
+              <form
+                action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"
+                method="post"
+                onSubmit={handleFormSubmit}
+                className="space-y-4"
+              >
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    name="EMAIL"
+                    id="email"
+                    required
+                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                    placeholder="Enter your email"
+                  />
+                  {emailError && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{emailError}</p>
+                  )}
                 </div>
+
+                {/* Honeypot field for spam prevention */}
+                <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                  <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
+                </div>
+
                 <button
-                  onClick={closeSignupModal}
-                  className={`glass-button border-0 px-6 py-3 font-semibold${
-                    theme === "light"
-                      ? " bg-primary text-white"
-                      : " bg-gradient-primary text-white"
-                  }`}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Close
+                  {isSubmitting ? 'Joining...' : 'Get Early Access'}
                 </button>
-              </div>
+
+                <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
+                  By signing up, you agree to our Terms and Privacy Policy.
+                </p>
+              </form>
             )}
-          </div>
+          </motion.div>
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="relative z-10 px-6 py-12 border-t border-white/10">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <span className="text-xl font-bold text-gradient">Songram</span>
-          </div>
-          
-          {/* Social Media Links */}
-          <div className="flex items-center justify-center space-x-6 mb-8">
-            <a
-              href="https://instagram.com/songram.app" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-media-btn group"
-              aria-label="Follow us on Instagram"
-            >
-              <InstagramLogo 
-                size={28} 
-                weight="duotone" 
-                className="transition-all duration-300 group-hover:scale-110"
-                style={{ color: 'rgba(136, 99, 237, 0.3)' }}
-              />
-            </a>
+      {/* Video Modal */}
+      {showVideoModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={closeVideoModal}
+        >
+          <motion.div
+            className="relative max-w-4xl w-full max-h-[80vh] bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
             
-            <a
-              href="https://tiktok.com/@songram.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-media-btn group"
-              aria-label="Follow us on TikTok"
-            >
-              <TiktokLogo 
-                size={28} 
-                weight="duotone" 
-                className="transition-all duration-300 group-hover:scale-110"
-                style={{ color: 'rgba(136, 99, 237, 0.3)' }}
-              />
-            </a>
-            
-            <a 
-	href="https://x.com/songram_app"
-  target="_blank"
-	className="social-media-btn group"
-  >
-	<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 72 72"
-fill="none">
-<path
-  d="M40.7568 32.1716L59.3704 11H54.9596L38.7974 29.383L25.8887 11H11L30.5205 38.7983L11 61H15.4111L32.4788 41.5869L46.1113 61H61L40.7557 32.1716H40.7568ZM34.7152 39.0433L32.7374 36.2752L17.0005 14.2492H23.7756L36.4755 32.0249L38.4533 34.7929L54.9617 57.8986H48.1865L34.7152 39.0443V39.0433Z"
-  fill="rgba(136, 99, 237, 0.3)" />
-</svg></a>
-          </div>
-          
-          <p className="text-white/60">
-            © {new Date().getFullYear()} Songram. Revolutionizing music creation
-            with AI.
-          </p>
+
+            {/* Modal Video */}
+            <video
+              ref={modalVideoRef}
+              src={videos[modalVideoIndex]?.src}
+              className="w-full h-full object-contain"
+              controls
+              controlsList="nodownload"
+              autoPlay
+              playsInline
+            />
+          </motion.div>
         </div>
-      </footer>
+      )}
     </div>
   );
 };
