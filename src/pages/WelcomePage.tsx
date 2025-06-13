@@ -19,6 +19,12 @@ import {
 import validator from 'validator';
 import XLogo from '../components/XLogo';
 
+// Import videos from assets
+import CreateSectionVideo from '../assets/videos/Create Section Video_compressed.mp4';
+import HomeFeedVideo from '../assets/videos/Home Feed Section Video.mp4';
+import SearchSectionVideo from '../assets/videos/Search Section Video.mp4';
+import ProfileSectionVideo from '../assets/videos/Profile Section Video.mp4';
+
 const WelcomePage: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>(
     localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
@@ -39,10 +45,10 @@ const WelcomePage: React.FC = () => {
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
   
   const videos = [
-    { src: '/videos/Create Section Video_compressed.mp4', name: 'Create Section' },
-    { src: '/videos/Home Feed Section Video.mp4', name: 'Home Feed Section' },
-    { src: '/videos/Search Section Video.mp4', name: 'Search Section' },
-    { src: '/videos/Profile Section Video.mp4', name: 'Profile Section' }
+    { src: CreateSectionVideo, name: 'Create Section' },
+    { src: HomeFeedVideo, name: 'Home Feed Section' },
+    { src: SearchSectionVideo, name: 'Search Section' },
+    { src: ProfileSectionVideo, name: 'Profile Section' }
   ];
 
   useEffect(() => {
@@ -195,10 +201,11 @@ const WelcomePage: React.FC = () => {
           <div className="flex items-center justify-between h-16">
             {            /* Logo */}
             <motion.div 
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-2 cursor-pointer"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <img 
                 src="/icon.png" 
@@ -215,6 +222,9 @@ const WelcomePage: React.FC = () => {
               </a>
               <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 About
+              </Link>
+              <Link to="/team" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
               </Link>
               <Link to="/community" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 Community
@@ -269,6 +279,9 @@ const WelcomePage: React.FC = () => {
               <Link to="/about" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 About
               </Link>
+              <Link to="/team" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
+              </Link>
               <Link to="/community" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 Community
               </Link>
@@ -295,33 +308,33 @@ const WelcomePage: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-4xl mx-auto">
             <motion.h1 
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 leading-relaxed"
+              className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 sm:mb-8 leading-tight sm:leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
               The ultimate social platform
-              <span className="text-gradient block mt-3 pb-2 relative -top-[5px]">for song creation</span>
+              <span className="text-gradient block mt-2 sm:mt-3 pb-2 relative -top-[5px]">for song creation</span>
             </motion.h1>
             
             <motion.p 
-              className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential..
+              Create, collaborate, and share music like never before. Songram empowers you to turn ideas into tracks, connect with artists, and unleash your musical potential.
             </motion.p>
             
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <button
                 onClick={() => setShowSignupModal(true)}
-                className="btn-primary text-base px-4 py-2"
+                className="btn-primary text-sm sm:text-base px-6 sm:px-8 py-2 sm:py-3 w-full sm:w-auto"
               >
                 Start Creating Now
               </button>
@@ -331,34 +344,34 @@ const WelcomePage: React.FC = () => {
           
           {/* Hero Visual */}
           <motion.div 
-            className="mt-16 max-w-5xl mx-auto"
+            className="mt-12 sm:mt-16 max-w-5xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <div className="glass-card p-8 rounded-2xl">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">Live Demo</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+            <div className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+                <div className="order-2 lg:order-1">
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">Live Demo</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
                     A new way to share, create, and vibe with music.
                   </p>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                      <span className="text-sm">Create music no matter your skill — just bring your passion</span>
+                      <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-xs sm:text-sm">Create music no matter your skill — just bring your passion</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                      <span className="text-sm">Collaborate and share your songs with the world to hear</span>
+                      <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-xs sm:text-sm">Collaborate and share your songs with the world to hear</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
-                      <span className="text-sm">Create playlists that surprise even your own taste</span>
+                      <div className="w-2 h-2 bg-primary-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-xs sm:text-sm">Create playlists that surprise even your own taste</span>
                     </div>
                   </div>
                 </div>
-                <div className="laptop-mockup" style={{ marginLeft: '-20px' }}>
+                <div className="order-1 lg:order-2 laptop-mockup" style={{ marginLeft: '0', transform: 'scale(0.8)', transformOrigin: 'center' }}>
                   <div className="laptop-screen">
                     {/* Video Carousel inside laptop screen */}
                     <div className="relative w-full h-full cursor-pointer" style={{ top: '-1px' }} onClick={handleVideoClick}>
@@ -407,47 +420,49 @@ const WelcomePage: React.FC = () => {
       <section id="features" className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 px-4 sm:px-0">
             Tools to create songs and <span className="text-gradient">connect through sound</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4 sm:px-0">
               From idea to finished track, our platform provides all easy to use tools for creating songs.
             </p>
           </motion.div>
 
-          <div className="space-y-24">
+          <div className="space-y-16 sm:space-y-20 lg:space-y-24">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-16`}
+                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 sm:gap-12 lg:gap-16`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
                 {/* Text Content */}
-                <div className="flex-1 text-center lg:text-left">
-                  <div className="mb-6 flex justify-center lg:justify-start">
-                    <div className="p-4 bg-primary-50 dark:bg-primary-900/20 rounded-2xl">
-                      {feature.icon}
+                <div className="flex-1 text-center lg:text-left px-4 sm:px-0">
+                  <div className="mb-4 sm:mb-6 flex justify-center lg:justify-start">
+                    <div className="p-3 sm:p-4 bg-primary-50 dark:bg-primary-900/20 rounded-2xl">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 text-primary-500">
+                        {React.cloneElement(feature.icon as React.ReactElement, { size: undefined, className: "w-full h-full text-primary-500" })}
+                      </div>
                     </div>
                   </div>
-                  <h3 className="text-2xl lg:text-3xl font-bold mb-4">{feature.title}</h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4">{feature.title}</h3>
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-md mx-auto lg:mx-0">
                     {feature.description}
                   </p>
                 </div>
 
                 {/* Image/Visual Content */}
-                <div className="flex-1 max-w-lg">
+                <div className="flex-1 max-w-lg w-full px-4 sm:px-0">
                   <div className="relative">
-                    <div className="card p-8 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800 h-64 lg:h-80 flex items-center justify-center rounded-2xl overflow-hidden">
+                    <div className="card p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800 h-48 sm:h-64 lg:h-80 flex items-center justify-center rounded-2xl overflow-hidden">
                       {/* Feature-specific visual content */}
                       {index === 0 && (
                         <div className="text-center space-y-4">
@@ -545,50 +560,50 @@ const WelcomePage: React.FC = () => {
       </section>
 
       {/* AI Generation Demo */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto">
           <motion.div
-            className="glass-card p-8 rounded-2xl"
+            className="glass-card p-4 sm:p-6 lg:p-8 rounded-2xl"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-4">See AI in Action</h2>
-              <p className="text-gray-600 dark:text-gray-300">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">See AI in Action</h2>
+              <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
               Words in. Beats out. It's that effortless.
               </p>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6">
-                <div className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 font-mono text-sm">
-                  <div className="text-green-400 mb-2">$ songram generate</div>
-                  <div className="text-gray-300">"Create an upbeat electronic track with tropical house vibes"</div>
-                  <div className="text-yellow-400 mt-2">✨ Generating your track...</div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
+              <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
+                <div className="bg-gray-900 dark:bg-gray-800 rounded-lg p-3 sm:p-4 font-mono text-xs sm:text-sm">
+                  <div className="text-green-400 mb-1 sm:mb-2">$ songram generate</div>
+                  <div className="text-gray-300 text-xs sm:text-sm break-words">"Create an upbeat electronic track with tropical house vibes"</div>
+                  <div className="text-yellow-400 mt-1 sm:mt-2 text-xs sm:text-sm">✨ Generating your track...</div>
                 </div>
                 
-                <div className="flex items-center space-x-4">
-                  <div className="text-4xl">→</div>
+                <div className="flex items-center space-x-3 sm:space-x-4">
+                  <div className="text-2xl sm:text-4xl">→</div>
                   <div className="flex-1">
-                    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-4">
-                      <div className="flex items-center space-x-3 mb-3">
-                        <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-                          <IoPlay size={20} className="text-white" />
+                    <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3 sm:p-4">
+                      <div className="flex items-center space-x-2 sm:space-x-3 mb-2 sm:mb-3">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+                          <IoPlay size={16} className="text-white sm:w-5 sm:h-5" />
                         </div>
                         <div>
-                          <h4 className="font-medium">Tropical Sunset</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">AI Generated • 3:24</p>
+                          <h4 className="font-medium text-sm sm:text-base">Tropical Sunset</h4>
+                          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">AI Generated • 3:24</p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
+                      <div className="flex items-center space-x-3 sm:space-x-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center space-x-1">
-                          <IoHeart size={16} />
+                          <IoHeart size={14} />
                           <span>1.2K</span>
                         </div>
                         <div className="flex items-center space-x-1">
-                          <IoChatbubble size={16} />
+                          <IoChatbubble size={14} />
                           <span>89</span>
                         </div>
                       </div>
@@ -597,9 +612,9 @@ const WelcomePage: React.FC = () => {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-primary-500/10 to-primary-700/10 rounded-xl p-8 h-64 flex items-center justify-center">
+              <div className="bg-gradient-to-br from-primary-500/10 to-primary-700/10 rounded-xl p-4 sm:p-6 lg:p-8 h-48 sm:h-64 flex items-center justify-center order-1 lg:order-2">
                 <div className="text-center">
-                  <div className="grid grid-cols-8 gap-1 h-24 items-end mb-4">
+                  <div className="grid grid-cols-8 gap-1 h-16 sm:h-24 items-end mb-3 sm:mb-4">
                     {Array.from({ length: 32 }).map((_, i) => (
                       <div
                         key={i}
@@ -611,7 +626,7 @@ const WelcomePage: React.FC = () => {
                       />
                     ))}
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Audio Visualization</p>
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Audio Visualization</p>
                 </div>
               </div>
             </div>
@@ -620,7 +635,7 @@ const WelcomePage: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-500 to-primary-700">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary-500 to-primary-700">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -628,15 +643,15 @@ const WelcomePage: React.FC = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4">
               Ready to create your next hit?
             </h2>
-            <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-primary-100 mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0">
               Join thousands of artists already using Songram to bring their musical ideas to life.
             </p>
             <button
               onClick={() => setShowSignupModal(true)}
-              className="bg-white text-primary-600 hover:bg-gray-50 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200"
+              className="bg-white text-primary-600 hover:bg-gray-50 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition-colors duration-200 w-auto max-w-xs mx-auto sm:w-auto sm:max-w-none"
             >
               Get Started for Free
             </button>
@@ -645,9 +660,9 @@ const WelcomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
+      <footer className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
               <img 
@@ -656,11 +671,11 @@ const WelcomePage: React.FC = () => {
                 className="w-8 h-8 rounded-lg"
               />
               </div>
-              <span className="text-xl font-bold text-gradient">Songram</span>
+              <span className="text-lg sm:text-xl font-bold text-gradient">Songram</span>
             </div>
             
             {/* Social Media Links */}
-            <div className="flex items-center space-x-6 mb-4 md:mb-0">
+            <div className="flex items-center space-x-4 sm:space-x-6 mb-4 md:mb-0">
               <a
                 href="https://instagram.com/songram.app" 
                 target="_blank"
@@ -668,7 +683,7 @@ const WelcomePage: React.FC = () => {
                 className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
                 aria-label="Follow us on Instagram"
               >
-                <IoLogoInstagram size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                <IoLogoInstagram size={18} className="group-hover:scale-110 transition-transform duration-300 sm:w-5 sm:h-5" />
               </a>
               
               <a
@@ -678,7 +693,7 @@ const WelcomePage: React.FC = () => {
                 className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
                 aria-label="Follow us on TikTok"
               >
-                <IoLogoTiktok size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                <IoLogoTiktok size={18} className="group-hover:scale-110 transition-transform duration-300 sm:w-5 sm:h-5" />
               </a>
               
               <a 
@@ -688,17 +703,17 @@ const WelcomePage: React.FC = () => {
                 className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
                 aria-label="Follow us on X (Twitter)"
               >
-                <XLogo size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                <XLogo size={18} className="group-hover:scale-110 transition-transform duration-300 sm:w-5 sm:h-5" />
               </a>
             </div>
             
-            <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Privacy</a>
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Terms</a>
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Support</a>
+            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+              <Link to="/privacy" className="hover:text-primary-500 transition-colors duration-200">Privacy</Link>
+              <Link to="/terms" className="hover:text-primary-500 transition-colors duration-200">Terms</Link>
+              <a href="mailto:team@songram.app?subject=Support Request" className="hover:text-primary-500 transition-colors duration-200">Support</a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400">
+          <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
             <p>&copy; 2025 Songram Inc. All rights reserved.</p>
           </div>
         </div>
@@ -708,30 +723,30 @@ const WelcomePage: React.FC = () => {
       {showSignupModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <motion.div
-            className="bg-light-bg dark:bg-gray-900 rounded-2xl shadow-xl max-w-md w-full p-6"
+            className="bg-light-bg dark:bg-gray-900 rounded-2xl shadow-xl max-w-md w-full p-4 sm:p-6 mx-4"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
           >
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold">Join Songram</h3>
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <h3 className="text-xl sm:text-2xl font-bold">Join Songram</h3>
               <button
                 onClick={() => setShowSignupModal(false)}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
               >
-                <IoClose size={20} />
+                <IoClose size={18} />
               </button>
             </div>
 
             {showThankYou ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+              <div className="text-center py-6 sm:py-8">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs sm:text-sm">✓</span>
                   </div>
                 </div>
-                <h4 className="text-xl font-semibold mb-2">You're all set!</h4>
-                <p className="text-gray-600 dark:text-gray-300">
+                <h4 className="text-lg sm:text-xl font-semibold mb-2">You're all set!</h4>
+                <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
                   We'll notify you when Songram launches.
                 </p>
               </div>
@@ -751,7 +766,7 @@ const WelcomePage: React.FC = () => {
                     name="EMAIL"
                     id="email"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200 text-sm sm:text-base"
                     placeholder="Enter your email"
                   />
                   {emailError && (
@@ -767,7 +782,7 @@ const WelcomePage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base py-2 sm:py-3"
                 >
                   {isSubmitting ? 'Joining...' : 'Get Early Access'}
                 </button>
@@ -784,18 +799,24 @@ const WelcomePage: React.FC = () => {
       {/* Video Modal */}
       {showVideoModal && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/80 backdrop-blur-sm"
           onClick={closeVideoModal}
         >
           <motion.div
-            className="relative max-w-4xl w-full max-h-[80vh] bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+            className="relative max-w-4xl w-full max-h-[90vh] sm:max-h-[80vh] bg-gray-900 rounded-lg sm:rounded-2xl overflow-hidden shadow-2xl"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
           >
             {/* Close button */}
-            
+            <button
+              onClick={closeVideoModal}
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors duration-200"
+              aria-label="Close video"
+            >
+              <IoClose size={20} />
+            </button>
 
             {/* Modal Video */}
             <video

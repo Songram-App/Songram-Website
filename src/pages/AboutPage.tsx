@@ -110,6 +110,9 @@ const AboutPage: React.FC = () => {
               <Link to="/about" className="text-primary-500 dark:text-primary-400 font-medium">
                 About
               </Link>
+              <Link to="/team" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
+              </Link>
               <Link to="/community" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 Community
               </Link>
@@ -165,6 +168,9 @@ const AboutPage: React.FC = () => {
               </a>
               <Link to="/about" className="block text-primary-500 dark:text-primary-400 font-medium">
                 About
+              </Link>
+              <Link to="/team" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
               </Link>
               <Link to="/community" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 Community
@@ -243,12 +249,12 @@ const AboutPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <button
-              onClick={() => setShowSignupModal(true)}
-              className="btn-primary text-lg px-8 py-4"
+            <Link
+              to="/team"
+              className="btn-primary text-lg px-8 py-4 inline-block"
             >
-              Join the Movement
-            </button>
+              Meet the Team
+            </Link>
           </motion.div>
         </div>
       </main>
@@ -302,9 +308,9 @@ const AboutPage: React.FC = () => {
             </div>
             
             <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Privacy</a>
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Terms</a>
-              <a href="#" className="hover:text-primary-500 transition-colors duration-200">Support</a>
+              <Link to="/privacy" className="hover:text-primary-500 transition-colors duration-200">Privacy</Link>
+              <Link to="/terms" className="hover:text-primary-500 transition-colors duration-200">Terms</Link>
+              <a href="mailto:team@songram.app?subject=Support Request" className="hover:text-primary-500 transition-colors duration-200">Support</a>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400">
