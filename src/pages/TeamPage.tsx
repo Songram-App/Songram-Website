@@ -93,8 +93,8 @@ const TeamPage: React.FC = () => {
         "Engineering Technician II (GIS Analyst) at Metro Vancouver - System Modelling and Data Analytics for Water Services",
         "Data Specialist - Expert in spatial data analysis, ETL workflows, and database management with 8+ years experience",
         "GIS Automation & Analysis - Proficient in ArcGIS Pro, Python, SQL, and enterprise geodatabase management",
-        "Government Systems Experience - Engineering roles at Manitoba Infrastructure and City of Winnipeg",
-        "Technical Leadership - Applied Science Technologist certified with proven track record in system modeling and analytics"
+        "Government Systems Experience - Engineering roles at Manitoba Government, City of Winnipeg, and Metro Vancouver",
+        "Technical Leadership - Applied Science Technologist certified with proven track record in system modeling and data analytics"
       ],
       education: "Bachelor of Science in Applied Computer Science (Major) and Geography (Minor), University of Winnipeg",
       skills: ["Strategic Leadership", "Data Analytics", "GIS Systems", "Python", "SQL", "Database Management", "System Modeling", "Product Strategy", "Team Leadership", "Government Relations"],
