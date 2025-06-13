@@ -17,6 +17,8 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
+import EdirinAvatar from '../assets/images/Edirin_avatar.jpg';
+import SebastianAvatar from '../assets/images/sebastian_avatar.jpg';
 
 const TeamPage: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>(
@@ -101,7 +103,7 @@ const TeamPage: React.FC = () => {
         github: "https://github.com/Eddy3133",
         email: "edirinokpikpi@gmail.com"
       },
-      avatar: "/src/assets/team/edirin-avatar.jpg" // Placeholder
+      avatar: EdirinAvatar
     },
     {
       name: "Sebastian Akpevwen Gbudje",
@@ -117,13 +119,12 @@ const TeamPage: React.FC = () => {
         "Performance Optimization Expert - Maintaining 99.9% uptime for enterprise systems"
       ],
       education: "Bachelor of Arts in Psychology, University of Winnipeg - Unique perspective on user behavior and system design",
-      skills: ["Python", "JavaScript", "TypeScript", "React", "Node.js", "Docker", "Redis", "MariaDB", "Jenkins", "Kubernetes", "AWS", "GCP", "CI/CD", "DevOps", "Systems Architecture", "Platform Development"],
       social: {
         linkedin: "https://www.linkedin.com/in/akpevwen-sebastian-gbudje",
         github: "https://github.com/gbudjeakp",
         email: "gbudjeakp@gmail.com"
       },
-      avatar: "/src/assets/team/sebastian-avatar.jpg" // Placeholder
+      avatar: SebastianAvatar
     }
   ];
 
@@ -278,8 +279,12 @@ const TeamPage: React.FC = () => {
                 <div className="flex-shrink-0 w-full max-w-xs sm:max-w-sm lg:w-64 lg:pt-2 mx-auto lg:mx-0">
                   <div className="relative">
                     <div className="card overflow-hidden rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800">
-                      <div className="aspect-square bg-gradient-to-br from-primary-100 to-primary-200 dark:from-primary-900/30 dark:to-primary-800/30 flex items-center justify-center text-4xl sm:text-5xl text-primary-600 dark:text-primary-400">
-                        {member.name.charAt(0)}
+                      <div className="aspect-square overflow-hidden">
+                        <img 
+                          src={member.avatar} 
+                          alt={`${member.name} avatar`}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                     </div>
                     <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 w-4 h-4 sm:w-6 sm:h-6 bg-primary-500/20 rounded-full animate-float"></div>
@@ -327,17 +332,6 @@ const TeamPage: React.FC = () => {
                       <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 text-center lg:text-left">{member.education}</p>
                     </div>
 
-                    {/* Skills */}
-                    <div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-3 text-center lg:text-left">Core Skills</h3>
-                      <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
-                        {member.skills.map((skill, i) => (
-                          <span key={i} className="px-2 py-1 sm:px-3 sm:py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-xs sm:text-sm font-medium">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
 
                     {/* Social Links */}
                     <div className="flex items-center justify-center lg:justify-start space-x-3 sm:space-x-4 pt-4">
