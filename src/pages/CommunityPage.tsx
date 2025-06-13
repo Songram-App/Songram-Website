@@ -159,6 +159,9 @@ const CommunityPage: React.FC = () => {
               <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 About
               </Link>
+              <Link to="/team" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
+              </Link>
               <Link to="/community" className="text-primary-500 dark:text-primary-400 font-medium">
                 Community
               </Link>
@@ -214,6 +217,9 @@ const CommunityPage: React.FC = () => {
               </a>
               <Link to="/about" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
                 About
+              </Link>
+              <Link to="/team" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Team
               </Link>
               <Link to="/community" className="block text-primary-500 dark:text-primary-400 font-medium">
                 Community

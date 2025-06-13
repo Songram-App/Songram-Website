@@ -86,7 +86,7 @@ const TeamPage: React.FC = () => {
     {
       name: "Edirin Okpikpi",
       role: "Founder & CEO",
-      location: "Coquitlam, Vancouver, Canada",
+      location: "British Columbia, Canada",
       bio: "GIS Analyst and Data Specialist leading Songram's strategic vision and product development. With 8+ years of experience in spatial data analysis, database management, and GIS automation at Metro Vancouver and Manitoba Government, Edirin brings deep expertise in data-driven decision making and system modeling. His background in geospatial technologies and applied computer science drives Songram's innovative approach to music data analytics and user experience optimization.",
       experience: [
         "Leading Songram's strategic direction and product vision as Founder & CEO",
@@ -108,7 +108,7 @@ const TeamPage: React.FC = () => {
     {
       name: "Sebastian Akpevwen Gbudje",
       role: "Co-Founder & CTO",
-      location: "Calgary, Alberta, Canada",
+      location: "Alberta, Canada",
       bio: "Systems software engineer and Co-Founder & CTO of Songram, where he leads platform architecture and engineering strategy. Currently a Systems Software Engineer at CrowdStrike, architecting enterprise CI/CD infrastructure for global cybersecurity operations. Sebastian brings deep expertise in scalable systems, DevOps, and technical leadership to drive Songram's innovative music creation platform.",
       experience: [
         "Leading Songram's technical architecture and platform development as Co-Founder & CTO",
