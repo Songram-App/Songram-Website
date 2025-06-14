@@ -24,7 +24,7 @@ const testimonials: Testimonial[] = [
     name: "Alex Chen",
     role: "Music Producer",
     content: "Songram revolutionized my creative process. The AI suggestions are incredibly intuitive.",
-    avatar: "AC"
+    avatar: "AC",
   },
   {
     name: "Sarah Williams",
@@ -248,13 +248,21 @@ const CommunityPage: React.FC = () => {
         <section className="relative z-10 px-6 py-20">
           <div className="max-w-6xl mx-auto">
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-16 text-gradient"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 text-gradient"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
               What Creators Say
             </motion.h2>
+            <motion.p
+              className="text-center text-xs text-gray-500 dark:text-gray-600 mb-16 opacity-60"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              *Testimonials are placeholders for demonstration purposes
+            </motion.p>
             <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
                 <TestimonialCard

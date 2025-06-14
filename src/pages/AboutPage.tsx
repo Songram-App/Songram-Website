@@ -217,19 +217,19 @@ const AboutPage: React.FC = () => {
           >
             <div className="space-y-8 text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
               <p>
-                Over the past decade, social media has been dominated by photo-first platforms. And while a picture may be worth a thousand words, <span className="text-purple-500 dark:text-purple-400 font-medium">music is a universal language that speaks directly to the soul</span> — a language that can express emotions that words and images never could.
+                Over the past decade, social media has been dominated by photo first platforms. And while a picture may be worth a thousand words, <span className="text-purple-500 dark:text-purple-400 font-medium">music is a universal language that speaks directly to the soul</span>, a language that can express emotions that words and images never could.
               </p>
 
               <p>
-                <span className="text-purple-500 dark:text-purple-400 font-medium">Songram is the platform where musical expression finally meets social connection.</span> It bridges the gap between the thoughts in your mind and the song that perfectly captures them — even if you've never made music before.
+                <span className="text-purple-500 dark:text-purple-400 font-medium">Songram is the platform where musical expression finally meets social connection.</span> It bridges the gap between the thoughts in your mind and the song that perfectly captures them and even if you've never made music before.
               </p>
 
               <p>
-                Born from the hearts of music lovers — not trained producers — Songram was built for those who feel music deeply but never had the tools to create it. For those stuck in the loop of the same playlists, convinced they've already found the best songs life has to offer — this is your invitation to discover more.
+                Born from the hearts of music lovers, not trained producers. Songram was built for those who feel music deeply but never had the tools to create it. For those stuck in the loop of the same playlists, convinced they've already found the best songs life has to offer this is your invitation to discover more.
               </p>
 
               <p>
-                <span className="text-purple-500 dark:text-purple-400 font-medium">Here, you don't need to be a musician. You just need to be someone who loves music.</span> Collaborate, explore, and share with a global community that thrives on sound. Every beat, every lyric, every playlist is a reflection of you — and a bridge to someone else.
+                <span className="text-purple-500 dark:text-purple-400 font-medium">Here, you don't need to be a musician. You just need to be someone who loves music.</span> Collaborate, explore, and share with a global community that thrives on sound. Every beat, every lyric, every playlist is a reflection of you and a bridge to someone else.
               </p>
 
               <p>
