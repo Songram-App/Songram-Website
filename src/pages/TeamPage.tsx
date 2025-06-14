@@ -168,9 +168,6 @@ const TeamPage: React.FC = () => {
               <Link to="/team" className="text-primary-500 dark:text-primary-400 font-medium">
                 Team
               </Link>
-              <Link to="/community" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Community
-              </Link>
               <button
                 onClick={toggleTheme}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
@@ -227,8 +224,11 @@ const TeamPage: React.FC = () => {
               <Link to="/team" className="block text-primary-500 dark:text-primary-400 font-medium">
                 Team
               </Link>
-              <Link to="/community" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Community
+              <Link to="/privacy" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Privacy
+              </Link>
+              <Link to="/terms" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
+                Terms & Conditions
               </Link>
               <button
                 onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }}
@@ -453,7 +453,7 @@ const TeamPage: React.FC = () => {
             
             <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
               <Link to="/privacy" className="hover:text-primary-500 transition-colors duration-200">Privacy</Link>
-              <Link to="/terms" className="hover:text-primary-500 transition-colors duration-200">Terms</Link>
+              <Link to="/terms" className="hover:text-primary-500 transition-colors duration-200">Terms & Conditions</Link>
               <a href="mailto:team@songram.app?subject=Support Request" className="hover:text-primary-500 transition-colors duration-200">Support</a>
             </div>
           </div>

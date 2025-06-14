@@ -1,4 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+/** @type      fontFamily: {
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+      },port('tailwindcss').Config} */
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -8,7 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Satoshi', 'system-ui', 'sans-serif'],
+        'heading': ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
         primary: {
