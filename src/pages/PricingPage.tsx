@@ -8,7 +8,6 @@ import {
   IoMoon,
   IoLogoInstagram,
   IoLogoTiktok,
-  IoCheckmark,
   IoInfinite,
   IoMusicalNotes,
   IoShareSocial,
