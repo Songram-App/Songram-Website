@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
   IoClose, 
-  IoMenu, 
-  IoSunny, 
-  IoMoon,
+  IoMenu,
   IoLogoInstagram,
   IoLogoTiktok,
   IoLogoLinkedin,
   IoLogoGithub,
-  IoLocationOutline,
-  IoBriefcaseOutline,
-  IoSchoolOutline,
-  IoMailOutline
+  IoLocation,
+  IoBriefcase,
+  IoSchool,
+  IoMail,
+  IoPeople
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
@@ -21,9 +20,6 @@ import EdirinAvatar from '../assets/images/Edirin_avatar.jpg';
 import SebastianAvatar from '../assets/images/sebastian_avatar.jpg';
 
 const TeamPage: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(
-    localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
-  );
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -32,22 +28,10 @@ const TeamPage: React.FC = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.className = theme;
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,21 +48,10 @@ const TeamPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
-      });
-
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setShowThankYou(true);
-      }, 1000);
-    } catch (error) {
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setShowThankYou(true);
-      }, 1000);
+      await fetch(form.action, { method: 'POST', body: formData, mode: 'no-cors' });
+      setTimeout(() => { setIsSubmitting(false); setShowThankYou(true); }, 1000);
+    } catch {
+      setTimeout(() => { setIsSubmitting(false); setShowThankYou(true); }, 1000);
     }
   };
 
@@ -87,17 +60,14 @@ const TeamPage: React.FC = () => {
       name: "Edirin Okpikpi",
       role: "Founder & CEO",
       location: "British Columbia, Canada",
-      bio: "GIS Analyst and Data Specialist leading Songram's strategic vision and product development. With 8+ years of experience in spatial data analysis, database management, and GIS automation at Metro Vancouver and Manitoba Government, Edirin brings deep expertise in data-driven decision making and system modeling. His background in geospatial technologies and applied computer science drives Songram's innovative approach to music data analytics and user experience optimization.",
+      bio: "GIS Analyst and Data Specialist leading Songram's strategic vision. With 8+ years of experience in spatial data analysis, database management, and automation, Edirin brings deep expertise in data-driven decision making.",
       experience: [
-        "Leading Songram's strategic direction and product vision as Founder & CEO",
-        "Engineering Technician II (GIS Analyst) at Metro Vancouver - System Modelling and Data Analytics for Water Services",
-        "Data Specialist - Expert in spatial data analysis, ETL workflows, and database management with 8+ years experience",
-        "GIS Automation & Analysis - Proficient in ArcGIS Pro, Python, SQL, and enterprise geodatabase management",
-        "Government Systems Experience - Engineering roles at Manitoba Government, City of Winnipeg, and Metro Vancouver",
-        "Technical Leadership - Applied Science Technologist certified with proven track record in system modeling and data analytics"
+        "Leading Songram's strategic direction and product vision",
+        "Engineering Technician II (GIS Analyst) at Metro Vancouver",
+        "Expert in spatial data analysis, ETL workflows, and database management",
+        "Proficient in ArcGIS Pro, Python, SQL, and enterprise geodatabase management"
       ],
-      education: "Bachelor of Science in Applied Computer Science (Major) and Geography (Minor), University of Winnipeg",
-      skills: ["Strategic Leadership", "Data Analytics", "GIS Systems", "Python", "SQL", "Database Management", "System Modeling", "Product Strategy", "Team Leadership", "Government Relations"],
+      education: "BSc Applied Computer Science & Geography, University of Winnipeg",
       social: {
         linkedin: "https://www.linkedin.com/in/edirin-okpikpi-asct-558286140/",
         github: "https://github.com/Eddy3133",
@@ -109,16 +79,14 @@ const TeamPage: React.FC = () => {
       name: "Sebastian Akpevwen Gbudje",
       role: "Co-Founder & CTO",
       location: "Alberta, Canada",
-      bio: "Systems software engineer and Co-Founder & CTO of Songram, where he leads platform architecture and engineering strategy. Currently a Systems Software Engineer at CrowdStrike, architecting enterprise CI/CD infrastructure for global cybersecurity operations. Sebastian brings deep expertise in scalable systems, DevOps, and technical leadership to drive Songram's innovative music creation platform.",
+      bio: "Systems software engineer and CTO of Songram, leading platform architecture and engineering. Currently at CrowdStrike, architecting enterprise CI/CD infrastructure for global cybersecurity operations.",
       experience: [
-        "Leading Songram's technical architecture and platform development as Co-Founder & CTO",
-        "Full-Stack Development - Building Songram's AI-powered music creation platform from frontend to backend infrastructure",
-        "Systems Software Engineer at CrowdStrike - Building enterprise-scale CI/CD infrastructure",
-        "Platform Development Leadership - Led mobile, web, and platform engineering teams",
-        "Enterprise DevOps Specialist - Jenkins, Kubernetes, automated deployments, and system monitoring",
-        "Performance Optimization Expert - Maintaining 99.9% uptime for enterprise systems"
+        "Leading Songram's technical architecture and platform development",
+        "Full-Stack Development — building Songram's AI-powered platform",
+        "Systems Software Engineer at CrowdStrike",
+        "Platform Engineering Lead with expertise in Jenkins, Kubernetes, and 99.9% uptime systems"
       ],
-      education: "Bachelor of Arts in Psychology, University of Winnipeg - Unique perspective on user behavior and system design",
+      education: "BA Psychology, University of Winnipeg — unique perspective on user behavior",
       social: {
         linkedin: "https://www.linkedin.com/in/akpevwen-sebastian-gbudje",
         github: "https://github.com/gbudjeakp",
@@ -128,247 +96,156 @@ const TeamPage: React.FC = () => {
     }
   ];
 
+  const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/team', label: 'Team' },
+    { path: '/pricing', label: 'Pricing' },
+  ];
+
   return (
-    <div className="min-h-screen bg-light-bg dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-light-bg/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 shadow-sm' 
-          : 'bg-transparent'
+        isScrolled ? 'navbar-blur shadow-lg' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <motion.div 
-              className="flex items-center space-x-2 cursor-pointer"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-              <img 
-                src="/icon.png" 
-                alt="Songram Logo" 
-                className="w-8 h-8 rounded-lg"
-              />
-              <span className="text-xl font-bold text-gradient">Songram</span>
+            <motion.div className="flex items-center space-x-2" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+              <Link to="/" className="flex items-center space-x-2">
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
+                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
+              </Link>
             </motion.div>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Home
-              </Link>
-              <a href="/#features" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Features
-              </a>
-              <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                About
-              </Link>
-              <Link to="/team" className="text-primary-500 dark:text-primary-400 font-medium">
-                Team
-              </Link>
-              <Link to="/pricing" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Pricing
-              </Link>
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
-              </button>
-              <button
-                onClick={() => setShowSignupModal(true)}
-                className="btn-primary"
-              >
-                Get Started
-              </button>
+              {navLinks.map((link) => (
+                <Link key={link.path} to={link.path} 
+                  className={`transition-colors ${link.path === '/team' ? 'text-primary-400' : 'text-gray-300 hover:text-white'}`}>
+                  {link.label}
+                </Link>
+              ))}
+              <button onClick={() => setShowSignupModal(true)} className="btn-primary">Get Started</button>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-2">
-              <button
-                onClick={toggleTheme}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <IoSunny size={20} /> : <IoMoon size={20} />}
-              </button>
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <IoClose size={20} /> : <IoMenu size={20} />}
-              </button>
-            </div>
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2 rounded-xl bg-white/5 text-gray-300">
+              {isMobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <motion.div 
-            className="md:hidden bg-light-bg dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-          >
-            <div className="px-4 py-6 space-y-4">
-              <Link to="/" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Home
-              </Link>
-              <a href="/#features" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Features
-              </a>
-              <Link to="/about" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                About
-              </Link>
-              <Link to="/team" className="block text-primary-500 dark:text-primary-400 font-medium">
-                Team
-              </Link>
-              <Link to="/pricing" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Pricing
-              </Link>
-              <Link to="/privacy" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Privacy
-              </Link>
-              <Link to="/terms" className="block text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors duration-200">
-                Terms & Conditions
-              </Link>
-              <button
-                onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }}
-                className="w-full btn-primary"
-              >
-                Get Started
-              </button>
-            </div>
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div className="md:hidden bg-black/90 backdrop-blur-xl border-t border-white/10"
+              initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>
+              <div className="px-4 py-6 space-y-4">
+                {navLinks.map((link) => (
+                  <Link key={link.path} to={link.path} onClick={() => setIsMobileMenuOpen(false)}
+                    className={`block py-2 ${link.path === '/team' ? 'text-primary-400' : 'text-gray-300'}`}>
+                    {link.label}
+                  </Link>
+                ))}
+                <button onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }} className="w-full btn-primary mt-4">
+                  Get Started
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
-      {/* Hero Section */}
-      <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1 
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Meet the <span className="text-gradient">Team</span>
-          </motion.h1>
-          
-          <motion.p 
-            className="text-xl text-gray-600 dark:text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            The visionaries and technical experts behind Songram's revolutionary AI-powered music creation platform.
-          </motion.p>
-        </div>
-
-        {/* Team Members */}
+      {/* Main Content */}
+      <main className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-8 sm:space-y-10 lg:space-y-12">
+          {/* Hero */}
+          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/20 text-primary-400 mb-6">
+              <IoPeople size={20} />
+              <span className="text-sm font-medium">The Founders</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Meet the <span className="text-gradient">Team</span>
+            </h1>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              The visionaries and technical experts behind Songram's AI-powered music creation platform.
+            </p>
+          </motion.div>
+
+          {/* Team Members */}
+          <div className="space-y-16">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-start gap-4 sm:gap-6 lg:gap-8`}
+                className="pb-16 border-b border-white/10 last:border-b-0 last:pb-0"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
               >
-                {/* Profile Image */}
-                <div className="flex-shrink-0 w-full max-w-xs sm:max-w-sm lg:w-64 lg:pt-2 mx-auto lg:mx-0">
-                  <div className="relative">
-                    <div className="card overflow-hidden rounded-2xl bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800">
-                      <div className="aspect-square overflow-hidden">
-                        <img 
-                          src={member.avatar} 
-                          alt={`${member.name} avatar`}
-                          className="w-full h-full object-cover"
-                        />
+                <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8`}>
+                  {/* Avatar */}
+                  <div className="flex-shrink-0 mx-auto lg:mx-0">
+                    <div className="relative">
+                      <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden border-2 border-primary-500/30">
+                        <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                       </div>
-                    </div>
-                    <div className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 w-4 h-4 sm:w-6 sm:h-6 bg-primary-500/20 rounded-full animate-float"></div>
-                    <div className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3 w-3 h-3 sm:w-4 sm:h-4 bg-primary-300/30 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-                  </div>
-                </div>
-
-                {/* Profile Information */}
-                <div className="flex-1 text-center lg:text-left space-y-3 sm:space-y-4">
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">{member.name}</h2>
-                    <div className="text-lg sm:text-xl text-primary-600 dark:text-primary-400 font-semibold mb-2">{member.role}</div>
-                    <div className="flex items-center justify-center lg:justify-start text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4">
-                      <IoLocationOutline size={16} className="mr-2 flex-shrink-0" />
-                      <span className="text-center lg:text-left">{member.location}</span>
+                      <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-primary-500/50 rounded-full animate-pulse"></div>
                     </div>
                   </div>
 
-                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                    {member.bio}
-                  </p>
+                  {/* Info */}
+                  <div className="flex-1 text-center lg:text-left">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{member.name}</h2>
+                    <p className="text-lg text-primary-400 font-semibold mb-2">{member.role}</p>
+                    <div className="flex items-center justify-center lg:justify-start text-gray-400 mb-4">
+                      <IoLocation size={16} className="mr-2" />
+                      <span>{member.location}</span>
+                    </div>
 
-                  {/* Experience */}
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-3 flex items-center justify-center lg:justify-start">
-                        <IoBriefcaseOutline size={18} className="mr-2 flex-shrink-0" />
+                    <p className="text-gray-300 mb-6">{member.bio}</p>
+
+                    {/* Experience */}
+                    <div className="mb-6">
+                      <h3 className="text-white font-semibold mb-3 flex items-center justify-center lg:justify-start gap-2">
+                        <IoBriefcase size={18} className="text-primary-400" />
                         Key Experience
                       </h3>
                       <ul className="space-y-2">
                         {member.experience.map((exp, i) => (
-                          <li key={i} className="flex items-start justify-center lg:justify-start text-sm sm:text-base text-gray-600 dark:text-gray-300">
-                            <div className="w-2 h-2 bg-primary-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                            <span className="text-center lg:text-left">{exp}</span>
+                          <li key={i} className="flex items-start justify-center lg:justify-start gap-3 text-gray-400 text-sm">
+                            <div className="w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <span>{exp}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div>
-                      <h3 className="text-base sm:text-lg font-semibold mb-3 flex items-center justify-center lg:justify-start">
-                        <IoSchoolOutline size={18} className="mr-2 flex-shrink-0" />
+                    {/* Education */}
+                    <div className="mb-6">
+                      <h3 className="text-white font-semibold mb-2 flex items-center justify-center lg:justify-start gap-2">
+                        <IoSchool size={18} className="text-primary-400" />
                         Education
                       </h3>
-                      <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 text-center lg:text-left">{member.education}</p>
+                      <p className="text-gray-400 text-sm">{member.education}</p>
                     </div>
 
-
                     {/* Social Links */}
-                    <div className="flex items-center justify-center lg:justify-start space-x-3 sm:space-x-4 pt-4">
+                    <div className="flex items-center justify-center lg:justify-start gap-3">
                       {member.social.linkedin && (
-                        <a
-                          href={member.social.linkedin}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 sm:p-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                          aria-label="LinkedIn Profile"
-                        >
-                          <IoLogoLinkedin size={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
+                        <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer"
+                          className="p-3 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-white/10 transition-all">
+                          <IoLogoLinkedin size={20} />
                         </a>
                       )}
                       {member.social.github && (
-                        <a
-                          href={member.social.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 sm:p-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                          aria-label="GitHub Profile"
-                        >
-                          <IoLogoGithub size={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
+                        <a href={member.social.github} target="_blank" rel="noopener noreferrer"
+                          className="p-3 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+                          <IoLogoGithub size={20} />
                         </a>
                       )}
-                      <a
-                        href={`mailto:${member.social.email}`}
-                        className="p-2 sm:p-3 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                        aria-label="Email Contact"
-                      >
-                        <IoMailOutline size={18} className="sm:w-5 sm:h-5 group-hover:scale-110 transition-transform duration-300" />
+                      <a href={`mailto:${member.social.email}`}
+                        className="p-3 rounded-xl bg-white/5 text-gray-400 hover:text-primary-400 hover:bg-white/10 transition-all">
+                        <IoMail size={20} />
                       </a>
                     </div>
                   </div>
@@ -376,170 +253,126 @@ const TeamPage: React.FC = () => {
               </motion.div>
             ))}
           </div>
-        </div>
 
-        {/* Call to Action */}
-        <div className="max-w-4xl mx-auto text-center mt-16 sm:mt-20 lg:mt-24">
-          <motion.div
-            className="card p-6 sm:p-8 bg-gradient-to-br from-primary-50 to-white dark:from-primary-900/20 dark:to-gray-800"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Ready to Join the Music Revolution?</h3>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-              Connect with our team and be part of the future of music creation. We're always looking for talented individuals to join our mission.
+          {/* CTA */}
+          <motion.div className="mt-20 text-center py-12"
+            initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Join the Music Revolution?</h3>
+            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
+              Connect with our team and be part of the future of music creation.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button
-                onClick={() => setShowSignupModal(true)}
-                className="btn-primary text-sm sm:text-base lg:text-lg px-6 py-3 sm:px-8 sm:py-4"
-              >
-                Get Early Access
-              </button>
-              <a
-                href="mailto:team@songram.app"
-                className="btn-secondary text-sm sm:text-base lg:text-lg px-6 py-3 sm:px-8 sm:py-4"
-              >
-                Contact Us
-              </a>
-            </div>
+            <button onClick={() => setShowSignupModal(true)} className="btn-primary px-8 py-4 text-lg">
+              Get Early Access
+            </button>
           </motion.div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
-              <img 
-                src="/icon.png" 
-                alt="Songram Logo" 
-                className="w-8 h-8 rounded-lg"
-              />
+      <footer className="border-t border-white/10 bg-black/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center space-x-2 mb-4">
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
+                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
               </div>
-              <span className="text-xl font-bold text-gradient">Songram</span>
+              <p className="text-gray-400 mb-6 max-w-md">
+                The AI-powered music creation platform where creativity meets technology.
+              </p>
+              <div className="flex space-x-4">
+                <a href="https://instagram.com/songramapp" target="_blank" rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 hover:bg-white/10 transition-all">
+                  <IoLogoInstagram size={20} />
+                </a>
+                <a href="https://tiktok.com/@songramapp" target="_blank" rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+                  <IoLogoTiktok size={20} />
+                </a>
+                <a href="https://x.com/songramapp" target="_blank" rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
+                  <XLogo size={20} />
+                </a>
+              </div>
             </div>
-            
-            {/* Social Media Links */}
-            <div className="flex items-center space-x-6 mb-4 md:mb-0">
-              <a
-                href="https://instagram.com/songram.app" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                aria-label="Follow us on Instagram"
-              >
-                <IoLogoInstagram size={20} className="group-hover:scale-110 transition-transform duration-300" />
-              </a>
-              
-              <a
-                href="https://tiktok.com/@songram.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                aria-label="Follow us on TikTok"
-              >
-                <IoLogoTiktok size={20} className="group-hover:scale-110 transition-transform duration-300" />
-              </a>
-              
-              <a 
-                href="https://x.com/songram_app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-primary-100 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-300 group"
-                aria-label="Follow us on X (Twitter)"
-              >
-                <XLogo size={20} className="group-hover:scale-110 transition-transform duration-300" />
-              </a>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <ul className="space-y-3">
+                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
+                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
+                <li><Link to="/team" className="text-primary-400">Team</Link></li>
+              </ul>
             </div>
-            
-            <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400">
-              <Link to="/privacy" className="hover:text-primary-500 transition-colors duration-200">Privacy</Link>
-              <Link to="/terms" className="hover:text-primary-500 transition-colors duration-200">Terms & Conditions</Link>
-              <a href="mailto:team@songram.app?subject=Support Request" className="hover:text-primary-500 transition-colors duration-200">Support</a>
+
+            <div>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <ul className="space-y-3">
+                <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link></li>
+                <li><a href="mailto:team@songram.app" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              </ul>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-gray-600 dark:text-gray-400">
-            <p>&copy; 2025 Songram. All rights reserved.</p>
+
+          <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Songram. All rights reserved.</p>
+            <p className="text-gray-500 text-sm mt-4 md:mt-0">Made with passion for music creators</p>
           </div>
         </div>
       </footer>
 
       {/* Signup Modal */}
-      {showSignupModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <motion.div
-            className="bg-light-bg dark:bg-gray-900 rounded-2xl shadow-xl max-w-md w-full p-6"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-          >
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold">Join Songram</h3>
-              <button
-                onClick={() => setShowSignupModal(false)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
-              >
-                <IoClose size={20} />
+      <AnimatePresence>
+        {showSignupModal && (
+          <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => { setShowSignupModal(false); setShowThankYou(false); setEmailError(null); }}>
+            <motion.div className="bg-zinc-900 border border-zinc-800 rounded-xl p-8 w-full max-w-md relative"
+              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}>
+              <button onClick={() => { setShowSignupModal(false); setShowThankYou(false); setEmailError(null); }}
+                className="absolute top-4 right-4 p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+                <IoClose size={24} />
               </button>
-            </div>
 
-            {showThankYou ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
+              {showThankYou ? (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
                   </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">You're on the list!</h3>
+                  <p className="text-gray-400">We'll notify you when Songram launches.</p>
                 </div>
-                <h4 className="text-xl font-semibold mb-2">You're all set!</h4>
-                <p className="text-gray-600 dark:text-gray-300">
-                  We'll notify you when Songram launches.
-                </p>
-              </div>
-            ) : (
-              <form
-                action="https://app.us11.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=de3b92a4a0"
-                method="post"
-                onSubmit={handleFormSubmit}
-                className="space-y-4"
-              >
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    name="EMAIL"
-                    id="email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200"
-                    placeholder="Enter your email"
-                  />
-                  {emailError && (
-                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">{emailError}</p>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Joining...' : 'Get Early Access'}
-                </button>
-
-                <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
-                  By signing up, you agree to our Terms and Privacy Policy.
-                </p>
-              </form>
-            )}
+              ) : (
+                <>
+                  <h3 className="text-2xl font-bold text-white mb-2">Join the Waitlist</h3>
+                  <p className="text-gray-400 mb-6">Be the first to experience AI-powered music creation.</p>
+                  
+                  <form action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"
+                    method="post" onSubmit={handleFormSubmit} className="space-y-4">
+                    <div>
+                      <input type="email" name="EMAIL" placeholder="Enter your email"
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 transition-colors"
+                        required />
+                      {emailError && <p className="text-red-400 text-sm mt-2">{emailError}</p>}
+                    </div>
+                    <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
+                      <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
+                    </div>
+                    <button type="submit" disabled={isSubmitting} className="w-full btn-primary disabled:opacity-50">
+                      {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                    </button>
+                  </form>
+                </>
+              )}
+            </motion.div>
           </motion.div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 };

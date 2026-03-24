@@ -1,17 +1,14 @@
-/** @type      fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-      },port('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} */
 export default {
   content: [
+    "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Satoshi', 'system-ui', 'sans-serif'],
-        'heading': ['Inter', 'system-ui', 'sans-serif'],
+        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'satoshi': ['Satoshi', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -19,12 +16,17 @@ export default {
           100: '#ebe5ff',
           200: '#d9ceff',
           300: '#bea6ff',
-          400: '#9f75ff',
+          400: '#a084f0',
           500: '#8863ed',
           600: '#7c3aed',
           700: '#6d28d9',
           800: '#5b21b6',
           900: '#4c1d95',
+        },
+        dark: {
+          bg: '#0a0a0f',
+          secondary: '#1a1a2e',
+          tertiary: '#16213e',
         },
         gray: {
           50: '#fafafa',
@@ -39,37 +41,23 @@ export default {
           900: '#18181b',
           950: '#09090b',
         },
-        'light-bg': '#eeeae3',
       },
-      spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
-        '26': '6.5rem',
-        '30': '7.5rem',
-        '34': '8.5rem',
-        '38': '9.5rem',
-        '42': '10.5rem',
-        '46': '11.5rem',
-        '50': '12.5rem',
-        '54': '13.5rem',
-        '58': '14.5rem',
-        '62': '15.5rem',
-        '66': '16.5rem',
-        '70': '17.5rem',
-        '74': '18.5rem',
-        '78': '19.5rem',
-        '82': '20.5rem',
-        '86': '21.5rem',
-        '90': '22.5rem',
-        '94': '23.5rem',
-        '98': '24.5rem',
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, #8863ed 0%, #a084f0 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%)',
+      },
+      boxShadow: {
+        'glow': '0 0 20px rgba(136, 99, 237, 0.5)',
+        'glow-lg': '0 0 30px rgba(136, 99, 237, 0.8)',
+        'glass': '0 8px 32px rgba(31, 38, 135, 0.37)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'scale-in': 'scaleIn 0.3s ease-out',
         'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+        'wave': 'wave 2s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -77,7 +65,7 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(30px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
         scaleIn: {
@@ -88,15 +76,20 @@ export default {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
         },
+        pulseGlow: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(136, 99, 237, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(136, 99, 237, 0.6)' },
+        },
+        wave: {
+          '0%, 100%': { transform: 'scaleY(1)' },
+          '50%': { transform: 'scaleY(1.5)' },
+        },
       },
       backdropBlur: {
         xs: '2px',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [],
 }
 
