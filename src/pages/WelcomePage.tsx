@@ -21,6 +21,7 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
+import DawPreview from '../components/DawPreview';
 
 // Import videos from assets
 import CreateSectionVideo from '../assets/videos/Create Section Video_compressed.mp4';
@@ -37,11 +38,8 @@ const WelcomePage: React.FC = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   
   // Video carousel state
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isVideoFading, setIsVideoFading] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
-  const [modalVideoIndex, setModalVideoIndex] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const [modalVideoIndex] = useState(0);
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
   
   const videos = [
@@ -60,25 +58,23 @@ const WelcomePage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Video carousel management
-  useEffect(() => {
-    const currentVideo = videoRefs.current[currentVideoIndex];
-    if (currentVideo && !showVideoModal) {
-      currentVideo.playbackRate = 1.25;
-      currentVideo.play().catch(console.error);
-      
-      const handleVideoEnd = () => {
-        setIsVideoFading(true);
-        setTimeout(() => {
-          setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
-          setIsVideoFading(false);
-        }, 400);
-      };
-      
-      currentVideo.addEventListener('ended', handleVideoEnd);
-      return () => currentVideo.removeEventListener('ended', handleVideoEnd);
-    }
-  }, [currentVideoIndex, videos.length, showVideoModal]);
+  // Video carousel management (disabled - videos are static previews)
+  // useEffect(() => {
+  //   const currentVideo = videoRefs.current[currentVideoIndex];
+  //   if (currentVideo && !showVideoModal) {
+  //     currentVideo.playbackRate = 1.25;
+  //     currentVideo.play().catch(console.error);
+  //     const handleVideoEnd = () => {
+  //       setIsVideoFading(true);
+  //       setTimeout(() => {
+  //         setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+  //         setIsVideoFading(false);
+  //       }, 400);
+  //     };
+  //     currentVideo.addEventListener('ended', handleVideoEnd);
+  //     return () => currentVideo.removeEventListener('ended', handleVideoEnd);
+  //   }
+  // }, [currentVideoIndex, videos.length, showVideoModal]);
 
   useEffect(() => {
     const modalVideo = modalVideoRef.current;
@@ -88,28 +84,8 @@ const WelcomePage: React.FC = () => {
     }
   }, [showVideoModal, modalVideoIndex]);
 
-  const handleVideoClick = () => {
-    setModalVideoIndex(currentVideoIndex);
-    setShowVideoModal(true);
-    const currentVideo = videoRefs.current[currentVideoIndex];
-    if (currentVideo) currentVideo.pause();
-  };
-
   const closeVideoModal = () => {
     setShowVideoModal(false);
-    const currentVideo = videoRefs.current[currentVideoIndex];
-    if (currentVideo) currentVideo.play().catch(console.error);
-  };
-
-  const handleDotClick = (dotIndex: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (dotIndex !== currentVideoIndex && !showVideoModal) {
-      setIsVideoFading(true);
-      setTimeout(() => {
-        setCurrentVideoIndex(dotIndex);
-        setIsVideoFading(false);
-      }, 400);
-    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -190,7 +166,7 @@ const WelcomePage: React.FC = () => {
             >
               <Link to="/" className="flex items-center space-x-2">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-2xl font-bold text-gradient glow-text">Songram</span>
+                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
             </motion.div>
 
@@ -277,8 +253,8 @@ const WelcomePage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Create music with
-              <span className="text-gradient block mt-2">the power of AI</span>
+              Create music
+              <span className="text-gradient block mt-2">like never before</span>
             </motion.h1>
             
             <motion.p 
@@ -288,7 +264,7 @@ const WelcomePage: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               Turn your ideas into professional music. Collaborate with artists worldwide. 
-              No experience needed — just bring your creativity.
+              No experience needed, just bring your creativity.
             </motion.p>
             
             <motion.div 
@@ -314,51 +290,7 @@ const WelcomePage: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             <div className="bg-zinc-900 border border-zinc-800 p-2 rounded-3xl overflow-hidden">
-              {/* Phone mockup */}
-              <div 
-                className="relative bg-black rounded-2xl overflow-hidden cursor-pointer mx-auto"
-                style={{ maxWidth: '320px', aspectRatio: '9/16' }}
-                onClick={handleVideoClick}
-              >
-                {videos.map((video, videoIndex) => (
-                  <video
-                    key={videoIndex}
-                    ref={(el) => (videoRefs.current[videoIndex] = el)}
-                    src={video.src}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-400 ${
-                      videoIndex === currentVideoIndex && !isVideoFading ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    muted
-                    playsInline
-                    preload="metadata"
-                  />
-                ))}
-                
-                {/* Video label */}
-                <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full">
-                  <span className="text-sm font-medium">{videos[currentVideoIndex]?.name}</span>
-                </div>
-
-                {/* Play button overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-black/30">
-                  <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                    <IoPlay size={32} className="text-white ml-1" />
-                  </div>
-                </div>
-                
-                {/* Video dots */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                  {videos.map((_, dotIndex) => (
-                    <button
-                      key={dotIndex}
-                      onClick={(e) => handleDotClick(dotIndex, e)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        dotIndex === currentVideoIndex ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/75'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
+              <DawPreview onRequestSignup={() => setShowSignupModal(true)} />
             </div>
           </motion.div>
         </div>
@@ -574,7 +506,7 @@ const WelcomePage: React.FC = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold text-gradient">Songram</span>
+                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The AI-powered music creation platform where creativity meets technology.

@@ -97,7 +97,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   alt="Songram Logo" 
                   className="w-8 h-8 rounded-lg"
                 />
-                <span className="text-2xl font-bold text-gradient glow-text">Songram</span>
+                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
             </motion.div>
 
@@ -204,7 +204,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   alt="Songram Logo" 
                   className="w-8 h-8 rounded-lg"
                 />
-                <span className="text-xl font-bold text-gradient">Songram</span>
+                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The AI-powered music creation platform where creativity meets technology. 

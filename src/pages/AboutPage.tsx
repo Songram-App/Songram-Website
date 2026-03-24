@@ -68,7 +68,7 @@ const AboutPage: React.FC = () => {
             <motion.div className="flex items-center space-x-2" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
               <Link to="/" className="flex items-center space-x-2">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-2xl font-bold text-gradient glow-text">Songram</span>
+                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
             </motion.div>
 
@@ -201,7 +201,7 @@ const AboutPage: React.FC = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold text-gradient">Songram</span>
+                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The AI-powered music creation platform where creativity meets technology.

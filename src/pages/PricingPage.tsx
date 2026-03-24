@@ -25,7 +25,7 @@ const PricingPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<'basic' | 'premium'>('premium');
+  const [selectedPlan, setSelectedPlan] = useState<'free' | 'basic' | 'premium'>('premium');
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -56,6 +56,21 @@ const PricingPage: React.FC = () => {
   };
 
   const pricingPlans = [
+    {
+      name: 'Free',
+      price: '$0',
+      period: 'forever',
+      description: 'Start creating at no cost',
+      features: [
+        { text: 'Upload up to 10 songs', icon: <IoCloudUpload /> },
+        { text: 'Basic audio editing', icon: <IoMusicalNotes /> },
+        { text: 'Share to social media', icon: <IoShareSocial /> },
+        { text: 'Community support', icon: <IoPeople /> },
+        { text: 'Basic analytics', icon: <IoCheckmark /> },
+      ],
+      buttonText: 'Start Free',
+      popular: false,
+    },
     {
       name: 'Basic',
       price: '$10',
@@ -107,7 +122,7 @@ const PricingPage: React.FC = () => {
             <motion.div className="flex items-center space-x-2" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
               <Link to="/" className="flex items-center space-x-2">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-2xl font-bold text-gradient glow-text">Songram</span>
+                <span className="text-2xl font-bold text-gradient glow-text font-sans">Songram</span>
               </Link>
             </motion.div>
 
@@ -165,7 +180,7 @@ const PricingPage: React.FC = () => {
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {pricingPlans.map((plan, index) => (
               <motion.div
                 key={index}
@@ -214,7 +229,7 @@ const PricingPage: React.FC = () => {
                   {/* CTA Button */}
                   <button
                     onClick={() => {
-                      setSelectedPlan(plan.name.toLowerCase() as 'basic' | 'premium');
+                      setSelectedPlan(plan.name.toLowerCase() as 'free' | 'basic' | 'premium');
                       setShowSignupModal(true);
                     }}
                     className={`w-full py-4 rounded-xl font-semibold transition-all duration-300 ${
@@ -249,7 +264,7 @@ const PricingPage: React.FC = () => {
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold text-gradient">Songram</span>
+                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
               </div>
               <p className="text-gray-400 mb-6 max-w-md">
                 The AI-powered music creation platform where creativity meets technology.
@@ -319,12 +334,12 @@ const PricingPage: React.FC = () => {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">You're on the list!</h3>
-                  <p className="text-gray-400">We'll notify you when Songram launches{selectedPlan === 'premium' ? ' and your Premium plan will be ready' : ' and your Basic plan will be ready'}.</p>
+                  <p className="text-gray-400">We'll notify you when Songram launches{selectedPlan === 'premium' ? ' and your Premium plan will be ready' : selectedPlan === 'basic' ? ' and your Basic plan will be ready' : ' and your Free account will be ready'}.</p>
                 </div>
               ) : (
                 <>
                   <h3 className="text-2xl font-bold text-white mb-2">
-                    Join Songram {selectedPlan === 'premium' ? 'Premium' : 'Basic'}
+                    Join Songram {selectedPlan === 'premium' ? 'Premium' : selectedPlan === 'basic' ? 'Basic' : 'Free'}
                   </h3>
                   <p className="text-gray-400 mb-6">Be the first to experience AI-powered music creation.</p>
                   
@@ -336,13 +351,21 @@ const PricingPage: React.FC = () => {
                       </div>
                       <p className="text-sm text-gray-400 mt-1">$20/month • Unlimited everything</p>
                     </div>
-                  ) : (
+                  ) : selectedPlan === 'basic' ? (
                     <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
                       <div className="flex items-center gap-2 text-white">
                         <IoMusicalNotes />
                         <span className="font-medium">Basic Plan Selected</span>
                       </div>
                       <p className="text-sm text-gray-400 mt-1">$10/month • Great for getting started</p>
+                    </div>
+                  ) : (
+                    <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
+                      <div className="flex items-center gap-2 text-white">
+                        <IoMusicalNotes />
+                        <span className="font-medium">Free Plan Selected</span>
+                      </div>
+                      <p className="text-sm text-gray-400 mt-1">$0 • Up to 10 songs</p>
                     </div>
                   )}
                   
@@ -358,7 +381,7 @@ const PricingPage: React.FC = () => {
                       <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
                     </div>
                     <button type="submit" disabled={isSubmitting} className="w-full btn-primary disabled:opacity-50">
-                      {isSubmitting ? 'Joining...' : `Get Early Access - ${selectedPlan === 'premium' ? 'Premium' : 'Basic'}`}
+                      {isSubmitting ? 'Joining...' : `Get Early Access - ${selectedPlan === 'premium' ? 'Premium' : selectedPlan === 'basic' ? 'Basic' : 'Free'}`}
                     </button>
                   </form>
                 </>
