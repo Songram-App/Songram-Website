@@ -253,8 +253,8 @@ const WelcomePage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Create music
-              <span className="text-gradient block mt-2">like never before</span>
+              Instagram, 
+              <span className="text-gradient block mt-2 pb-2">but for songs</span>
             </motion.h1>
             
             <motion.p 
@@ -263,9 +263,10 @@ const WelcomePage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Turn your ideas into professional music. Collaborate with artists worldwide. 
-              No experience needed, just bring your creativity.
+              Create. Collaborate. Share. Discover songs. <br />AI-powered music creation with your soul in it.
             </motion.p>
+
+            
             
             <motion.div 
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
@@ -274,7 +275,7 @@ const WelcomePage: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <button onClick={() => setShowSignupModal(true)} className="btn-primary px-8 py-4 text-lg">
-                Start Creating Free
+                Start Creating
               </button>
               <a href="#features" className="btn-secondary px-8 py-4 text-lg">
                 See How It Works
@@ -308,7 +309,7 @@ const WelcomePage: React.FC = () => {
           >
             <h2 className="section-title mb-4">
               Everything you need to
-              <span className="text-gradient block">create amazing music</span>
+              <span className="text-gradient block pb-2">create amazing music</span>
             </h2>
             <p className="section-subtitle">
               From your first beat to viral hit, Songram has the tools to make it happen.

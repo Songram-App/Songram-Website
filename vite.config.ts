@@ -7,6 +7,7 @@ export default defineConfig({
   
   // Development server configuration
   server: {
+    port: 5174,
     historyApiFallback: true,
   },
   
