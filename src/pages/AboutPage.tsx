@@ -134,7 +134,7 @@ const AboutPage: React.FC = () => {
 
               <p className="text-xl text-gray-300 leading-relaxed">
                 <span className="text-primary-400 font-medium">Songram is the platform where musical expression finally meets social connection.</span> 
-                {' '}It bridges the gap between the thoughts in your mind and the song that perfectly captures them — even if you've never made music before.
+                {' '}It bridges the gap between the thoughts in your mind and the song that perfectly captures them, even if you've never made music before.
               </p>
             </div>
 
@@ -167,7 +167,7 @@ const AboutPage: React.FC = () => {
             <div>
               <p className="text-xl text-gray-300 leading-relaxed mb-6">
                 Born from the hearts of music lovers, not trained producers. Songram was built for those who feel music deeply but never had the tools to create it. 
-                For those stuck in the loop of the same playlists, convinced they've already found the best songs life has to offer — this is your invitation to discover more.
+                For those stuck in the loop of the same playlists, convinced they've already found the best songs life has to offer, this is your invitation to discover more.
               </p>
 
               <p className="text-xl text-gray-300 leading-relaxed mb-6">
