@@ -4,11 +4,13 @@ export default {
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
         'satoshi': ['Satoshi', 'sans-serif'],
+        'display': ['Clash Display', 'Satoshi', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -23,10 +25,19 @@ export default {
           800: '#5b21b6',
           900: '#4c1d95',
         },
-        dark: {
-          bg: '#0a0a0f',
-          secondary: '#1a1a2e',
-          tertiary: '#16213e',
+        accent: {
+          coral: '#FF6B6B',
+          teal: '#4ECDC4',
+          gold: '#FFE66D',
+          pink: '#FF85A2',
+        },
+        surface: {
+          light: '#FFFFFF',
+          'light-secondary': '#F8F9FC',
+          'light-tertiary': '#F1F3F9',
+          dark: '#0D0D12',
+          'dark-secondary': '#161621',
+          'dark-tertiary': '#1E1E2D',
         },
         gray: {
           50: '#fafafa',
