@@ -5,15 +5,7 @@ import {
   IoClose, 
   IoMenu,
   IoLogoInstagram,
-  IoLogoTiktok,
-  IoDocumentText,
-  IoCheckmarkCircle,
-  IoWarning,
-  IoMusicalNotes,
-  IoSparkles,
-  IoMail,
-  IoBan,
-  IoShieldCheckmark
+  IoLogoTiktok
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
 
@@ -38,9 +30,9 @@ const TermsPage: React.FC = () => {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'navbar-blur shadow-lg' : 'bg-transparent'
+        isScrolled ? 'navbar-blur' : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <motion.div 
               className="flex items-center space-x-2"
@@ -48,26 +40,28 @@ const TermsPage: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
             >
               <Link to="/" className="flex items-center space-x-2">
-                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-xl" />
+                <span className="text-xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
             </motion.div>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               {navLinks.map((link) => (
-                <Link key={link.path} to={link.path} className="text-gray-300 hover:text-white transition-colors">
+                <Link key={link.path} to={link.path} className="text-sm text-gray-300 hover:text-white transition-colors">
                   {link.label}
                 </Link>
               ))}
               <Link to="/" className="btn-primary">Get Started</Link>
             </div>
 
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/5 text-gray-300"
-            >
-              {isMobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
-            </button>
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-xl bg-white/5 text-gray-300"
+              >
+                {isMobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -97,19 +91,15 @@ const TermsPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <motion.div 
-            className="text-center mb-16"
+            className="mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-500/20 text-primary-400 mb-6">
-              <IoDocumentText size={20} />
-              <span className="text-sm font-medium">Legal Agreement</span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Terms of Service</h1>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">Terms of Service</h1>
+            <p className="text-gray-400 max-w-2xl">
               These terms govern your use of Songram's AI-powered music creation platform.
             </p>
-            <p className="text-gray-500 text-sm mt-4">Last updated: March 20, 2026</p>
+            <p className="text-gray-600 text-sm mt-4">Last updated: March 20, 2026</p>
           </motion.div>
 
           {/* Terms Sections */}
@@ -121,10 +111,7 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoCheckmarkCircle className="text-primary-400" size={24} />
-                Acceptance of Terms
-              </h2>
+              <h2 className="legal-heading">Acceptance of Terms</h2>
               
               <div className="legal-text space-y-4">
                 <p>By accessing or using Songram, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use our service.</p>
@@ -139,10 +126,7 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoMusicalNotes className="text-primary-400" size={24} />
-                Description of Service
-              </h2>
+              <h2 className="legal-heading">Description of Service</h2>
               
               <p className="legal-text mb-4">Songram is an AI-powered music creation platform that enables users to:</p>
               
@@ -191,17 +175,12 @@ const TermsPage: React.FC = () => {
 
             {/* Intellectual Property */}
             <motion.section
-              className="legal-section relative overflow-hidden"
+              className="legal-section"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent pointer-events-none"></div>
-              <div className="relative">
-                <h2 className="legal-heading">
-                  <IoShieldCheckmark className="text-primary-400" size={24} />
-                  Intellectual Property and Content Rights
-                </h2>
+              <h2 className="legal-heading">Intellectual Property and Content Rights</h2>
                 
                 <div className="space-y-6 legal-text">
                   <div>
@@ -226,7 +205,6 @@ const TermsPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </div>
             </motion.section>
 
             {/* Prohibited Uses */}
@@ -236,27 +214,22 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoBan className="text-red-400" size={24} />
-                Prohibited Uses
-              </h2>
+              <h2 className="legal-heading">Prohibited Uses</h2>
               
               <p className="legal-text mb-4">You agree not to use Songram for any of the following prohibited activities:</p>
               
               <ul className="legal-list mb-4">
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Upload or create content that infringes on others' intellectual property</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Generate or share harmful, abusive, or illegal content</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Attempt to reverse engineer or hack our AI systems</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Use our service to spam or harass other users</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Violate any applicable laws or regulations</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Impersonate others or provide false information</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Interfere with the normal operation of our platform</span></li>
-                <li><div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div><span>Use automated systems to access our service without permission</span></li>
+                <li><div className="legal-bullet"></div><span>Upload or create content that infringes on others' intellectual property</span></li>
+                <li><div className="legal-bullet"></div><span>Generate or share harmful, abusive, or illegal content</span></li>
+                <li><div className="legal-bullet"></div><span>Attempt to reverse engineer or hack our AI systems</span></li>
+                <li><div className="legal-bullet"></div><span>Use our service to spam or harass other users</span></li>
+                <li><div className="legal-bullet"></div><span>Violate any applicable laws or regulations</span></li>
+                <li><div className="legal-bullet"></div><span>Impersonate others or provide false information</span></li>
+                <li><div className="legal-bullet"></div><span>Interfere with the normal operation of our platform</span></li>
+                <li><div className="legal-bullet"></div><span>Use automated systems to access our service without permission</span></li>
               </ul>
               
-              <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
-                <p className="text-red-400 font-medium">⚠️ Violation of these terms may result in account suspension or termination.</p>
-              </div>
+              <p className="text-gray-400 text-sm">Violation of these terms may result in account suspension or termination.</p>
             </motion.section>
 
             {/* AI and Music Generation */}
@@ -266,10 +239,7 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoSparkles className="text-primary-400" size={24} />
-                AI and Music Generation Terms
-              </h2>
+              <h2 className="legal-heading">AI and Music Generation Terms</h2>
               
               <div className="space-y-6 legal-text">
                 <div>
@@ -301,10 +271,7 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoWarning className="text-yellow-400" size={24} />
-                Disclaimers and Limitations
-              </h2>
+              <h2 className="legal-heading">Disclaimers and Limitations</h2>
               
               <div className="space-y-6 legal-text">
                 <div>
@@ -351,10 +318,7 @@ const TermsPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="legal-heading">
-                <IoMail className="text-primary-400" size={24} />
-                Contact Information
-              </h2>
+              <h2 className="legal-heading">Contact Information</h2>
               
               <div className="legal-text space-y-4">
                 <p>If you have questions about these Terms of Service, please contact us:</p>
@@ -379,48 +343,48 @@ const TermsPage: React.FC = () => {
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-black/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-xl" />
+                <span className="text-lg font-bold text-gradient font-satoshi">Songram</span>
               </div>
-              <p className="text-gray-400 mb-6 max-w-md">
+              <p className="text-gray-400 mb-6 max-w-md text-sm">
                 The AI-powered music creation platform where creativity meets technology.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-3">
                 <a href="https://instagram.com/songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 hover:bg-white/10 transition-all">
-                  <IoLogoInstagram size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 transition-all">
+                  <IoLogoInstagram size={18} />
                 </a>
                 <a href="https://tiktok.com/@songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                  <IoLogoTiktok size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white transition-all">
+                  <IoLogoTiktok size={18} />
                 </a>
                 <a href="https://x.com/songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                  <XLogo size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white transition-all">
+                  <XLogo size={18} />
                 </a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">Product</h4>
               <ul className="space-y-3">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
-                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
-                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
+                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm">Features</Link></li>
+                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">Pricing</Link></li>
+                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm">About</Link></li>
+                <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors text-sm">Team</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">Legal</h4>
               <ul className="space-y-3">
-                <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="text-primary-400">Terms of Service</Link></li>
-                <li><a href="mailto:team@songram.app" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                <li><Link to="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="text-primary-400 text-sm">Terms of Service</Link></li>
+                <li><a href="mailto:team@songram.app" className="text-gray-400 hover:text-white transition-colors text-sm">Contact</a></li>
               </ul>
             </div>
           </div>

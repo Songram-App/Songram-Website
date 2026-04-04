@@ -25,9 +25,9 @@ const PrivacyPage: React.FC = () => {
     <div className="min-h-screen text-white">
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'navbar-blur shadow-lg' : 'bg-transparent'
+        isScrolled ? 'navbar-blur' : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <motion.div
               className="flex items-center space-x-2"
@@ -35,26 +35,28 @@ const PrivacyPage: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
             >
               <Link to="/" className="flex items-center space-x-2">
-                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-xl" />
+                <span className="text-xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
             </motion.div>
 
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               {navLinks.map((link) => (
-                <Link key={link.path} to={link.path} className="text-gray-300 hover:text-white transition-colors">
+                <Link key={link.path} to={link.path} className="text-sm text-gray-300 hover:text-white transition-colors">
                   {link.label}
                 </Link>
               ))}
               <Link to="/" className="btn-primary">Get Started</Link>
             </div>
 
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/5 text-gray-300"
-            >
-              {isMobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
-            </button>
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-xl bg-white/5 text-gray-300"
+              >
+                {isMobileMenuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -85,13 +87,12 @@ const PrivacyPage: React.FC = () => {
 
           {/* Header */}
           <motion.div
-            className="mb-16"
+            className="mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <p className="text-gray-500 text-sm uppercase tracking-widest mb-4">Legal</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Privacy Policy</h1>
-            <p className="text-gray-400 text-lg max-w-2xl">
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">Privacy Policy</h1>
+            <p className="text-gray-400 max-w-2xl">
               We're committed to protecting your privacy. Here's how we handle your data.
             </p>
             <p className="text-gray-600 text-sm mt-4">Last updated: March 20, 2026</p>
@@ -206,48 +207,48 @@ const PrivacyPage: React.FC = () => {
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-black/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-lg" />
-                <span className="text-xl font-bold text-gradient font-satoshi">Songram</span>
+                <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-xl" />
+                <span className="text-lg font-bold text-gradient font-satoshi">Songram</span>
               </div>
-              <p className="text-gray-400 mb-6 max-w-md">
+              <p className="text-gray-400 mb-6 max-w-md text-sm">
                 The AI-powered music creation platform where creativity meets technology.
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-3">
                 <a href="https://instagram.com/songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 hover:bg-white/10 transition-all">
-                  <IoLogoInstagram size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 transition-all">
+                  <IoLogoInstagram size={18} />
                 </a>
                 <a href="https://tiktok.com/@songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                  <IoLogoTiktok size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white transition-all">
+                  <IoLogoTiktok size={18} />
                 </a>
                 <a href="https://x.com/songramapp" target="_blank" rel="noopener noreferrer"
-                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                  <XLogo size={20} />
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white transition-all">
+                  <XLogo size={18} />
                 </a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">Product</h4>
               <ul className="space-y-3">
-                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
-                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
-                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
+                <li><Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm">Features</Link></li>
+                <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">Pricing</Link></li>
+                <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors text-sm">About</Link></li>
+                <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors text-sm">Team</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Legal</h4>
+              <h4 className="text-white font-semibold mb-4 text-sm">Legal</h4>
               <ul className="space-y-3">
-                <li><Link to="/privacy" className="text-primary-400">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</Link></li>
-                <li><a href="mailto:team@songram.app" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                <li><Link to="/privacy" className="text-primary-400 text-sm">Privacy Policy</Link></li>
+                <li><Link to="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</Link></li>
+                <li><a href="mailto:team@songram.app" className="text-gray-400 hover:text-white transition-colors text-sm">Contact</a></li>
               </ul>
             </div>
           </div>
