@@ -199,7 +199,7 @@ const WelcomePage: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-28 pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         {/* Background blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-blob"></div>
@@ -208,11 +208,11 @@ const WelcomePage: React.FC = () => {
         </div>
 
         <div className="max-w-6xl mx-auto relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left - Copy */}
-            <div className="text-left">
+            <div className="text-center lg:text-left">
               <motion.h1 
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-[1.1] text-white"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-[1.1] text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -222,7 +222,7 @@ const WelcomePage: React.FC = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-lg text-gray-400 mb-8 max-w-md"
+                className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8 max-w-md mx-auto lg:mx-0"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -232,16 +232,16 @@ const WelcomePage: React.FC = () => {
               </motion.p>
               
               <motion.div 
-                className="flex flex-wrap gap-3"
+                className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <button onClick={() => setShowSignupModal(true)} className="btn-primary-lg">
-                  Start Creating Free
+                <button onClick={() => setShowSignupModal(true)} className="btn-primary">
+                  Start Creating
                 </button>
-                <a href="#features" className="btn-secondary-lg">
-                  See How It Works
+                <a href="#features" className="btn-secondary">
+                  Learn More
                 </a>
               </motion.div>
             </div>
@@ -259,8 +259,8 @@ const WelcomePage: React.FC = () => {
                   alt="Person creating music with headphones"
                   className="w-full h-auto rounded-2xl object-cover aspect-[4/3]"
                 />
-                {/* Floating music card */}
-                <div className="absolute -bottom-4 -left-4 bg-zinc-900 rounded-2xl p-4 border border-white/10 max-w-[200px]">
+                {/* Floating music card - hidden on mobile */}
+                <div className="hidden sm:block absolute -bottom-4 -left-4 bg-zinc-900 rounded-2xl p-4 border border-white/10 max-w-[200px] shadow-xl">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
                       <IoPlay className="text-white ml-0.5" size={20} />
@@ -304,8 +304,8 @@ const WelcomePage: React.FC = () => {
       {/* Human Element Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 grid grid-cols-2 gap-4">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="order-2 lg:order-1 grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-4">
                 <div className="human-image">
                   <img 
@@ -392,7 +392,7 @@ const WelcomePage: React.FC = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {songCards.map((song, index) => (
               <motion.div
                 key={index}
@@ -524,7 +524,7 @@ const WelcomePage: React.FC = () => {
               More powerful tools, better performance, seamless workflow.
             </p>
             
-            <div className="flex flex-wrap gap-3 justify-center mb-6">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-6">
               <button 
                 disabled
                 className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed"
@@ -559,7 +559,7 @@ const WelcomePage: React.FC = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <motion.div
-            className="text-center bg-zinc-900/50 border border-zinc-800 rounded-3xl p-10 md:p-14 relative overflow-hidden"
+            className="text-center bg-zinc-900/50 border border-zinc-800 rounded-2xl sm:rounded-3xl p-8 sm:p-10 md:p-14 relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -568,17 +568,17 @@ const WelcomePage: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent pointer-events-none"></div>
             
             <div className="relative">
-              <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
                 Ready to make your next hit?
               </h2>
-              <p className="text-gray-400 mb-8 max-w-md mx-auto">
+              <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
                 Join the waitlist and be among the first to create with Songram.
               </p>
               <button
                 onClick={() => setShowSignupModal(true)}
-                className="btn-primary-lg"
+                className="btn-primary"
               >
-                Get Started Free
+                Join Waitlist
               </button>
             </div>
           </motion.div>
@@ -587,9 +587,9 @@ const WelcomePage: React.FC = () => {
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-black/20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-2">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <img src="/icon.png" alt="Songram" className="w-8 h-8 rounded-xl" />
                 <span className="text-lg font-bold text-gradient font-satoshi">Songram</span>
@@ -633,9 +633,9 @@ const WelcomePage: React.FC = () => {
             </div>
           </div>
 
-          <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <div className="border-t border-white/10 mt-10 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
             <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Songram. All rights reserved.</p>
-            <p className="text-gray-500 text-sm mt-4 md:mt-0">Made with passion for music creators</p>
+            <p className="text-gray-500 text-sm mt-2 sm:mt-0">Made with passion for music creators</p>
           </div>
         </div>
       </footer>

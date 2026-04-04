@@ -55,7 +55,7 @@ const TeamPage: React.FC = () => {
   const teamMembers = [
     {
       name: "Edirin Okpikpi",
-      role: "Co-Founder",
+      role: "Co-Founder & CEO",
       location: "British Columbia, Canada",
       bio: "GIS Analyst and Data Specialist leading Songram's strategic vision. 8+ years of experience in spatial data analysis, database management, and automation.",
       social: {
@@ -153,23 +153,23 @@ const TeamPage: React.FC = () => {
           </motion.div>
 
           {/* Team Members */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-6 text-center"
+                className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-5 sm:p-6 text-center"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="w-24 h-24 rounded-2xl overflow-hidden mx-auto mb-4 border border-white/10">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden mx-auto mb-4 border border-white/10">
                   <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                 </div>
                 
-                <h2 className="text-lg font-semibold text-white mb-1">{member.name}</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-white mb-1">{member.name}</h2>
                 <p className="text-primary-400 text-sm mb-2">{member.role}</p>
-                <div className="flex items-center justify-center text-gray-500 text-sm mb-4">
+                <div className="flex items-center justify-center text-gray-500 text-xs sm:text-sm mb-4">
                   <IoLocation size={14} className="mr-1" />
                   <span>{member.location}</span>
                 </div>

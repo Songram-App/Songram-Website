@@ -174,7 +174,7 @@ const PricingPage: React.FC = () => {
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {pricingPlans.map((plan, index) => (
               <motion.div
                 key={index}
@@ -191,7 +191,7 @@ const PricingPage: React.FC = () => {
                   </div>
                 )}
                 
-                <div className={`p-6 h-full flex flex-col rounded-2xl border transition-all ${
+                <div className={`p-5 sm:p-6 h-full flex flex-col rounded-2xl border transition-all ${
                   plan.popular 
                     ? 'bg-zinc-900 border-primary-500/50' 
                     : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-700'
@@ -199,7 +199,7 @@ const PricingPage: React.FC = () => {
                   <div className="text-center mb-5">
                     <h3 className="text-lg font-semibold text-white mb-2">{plan.name}</h3>
                     <div className="flex items-baseline justify-center mb-1">
-                      <span className="text-3xl font-bold text-gradient">{plan.price}</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-gradient">{plan.price}</span>
                       {plan.period && (
                         <span className="text-gray-500 ml-1 text-sm">/{plan.period}</span>
                       )}
