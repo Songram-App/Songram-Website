@@ -237,13 +237,13 @@ const WelcomePage: React.FC = () => {
             {/* Left - Copy */}
             <div className="text-center lg:text-left">
               <motion.h1 
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-[1.15] text-white"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-[1.2] text-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
                 Instagram, 
-                <span className="text-gradient block pb-[0.05em]">but for songs</span>
+                <span className="text-gradient block leading-[1.2] pb-[0.12em]">but for songs</span>
               </motion.h1>
               
               <motion.p 
