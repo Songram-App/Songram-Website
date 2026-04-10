@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,8 +19,8 @@
   
   body {
     @apply antialiased;
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
-    color: white;
+    background: linear-gradient(180deg, #0D0D12 0%, #161621 50%, #0D0D12 100%);
+    color: #f4f4f5;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -32,34 +32,59 @@
 }
 
 @layer components {
-  /* Modern glass panel */
+  /* Glass panel */
   .glass-panel {
     @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl;
   }
 
-  /* Primary button with glow effect */
+  /* Primary button */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white rounded-xl transition-all duration-300;
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white rounded-full transition-all duration-200;
     background: linear-gradient(135deg, #8863ed 0%, #a084f0 100%);
-    box-shadow: 0 0 20px rgba(136, 99, 237, 0.3);
+    box-shadow: 0 2px 8px rgba(136, 99, 237, 0.25);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 4px 16px rgba(136, 99, 237, 0.4);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
   }
 
-  .btn-primary:hover {
-    box-shadow: 0 0 30px rgba(136, 99, 237, 0.5);
-    transform: translateY(-2px);
+  /* Large button - now more modest sizing */
+  .btn-primary-lg {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white rounded-full transition-all duration-200;
+    background: linear-gradient(135deg, #8863ed 0%, #a084f0 100%);
+    box-shadow: 0 2px 8px rgba(136, 99, 237, 0.25);
+  }
+  .btn-primary-lg:hover {
+    box-shadow: 0 4px 16px rgba(136, 99, 237, 0.4);
+    transform: translateY(-1px);
   }
   
-  /* Secondary button with glass effect */
+  /* Secondary button */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white rounded-xl transition-all duration-300;
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200;
+    color: #e4e4e7;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
   }
-
   .btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(136, 99, 237, 0.5);
+    color: #a084f0;
+  }
+
+  .btn-secondary-lg {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-200;
+    color: #e4e4e7;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .btn-secondary-lg:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(136, 99, 237, 0.5);
+    color: #a084f0;
   }
   
   /* Glass card */
@@ -69,17 +94,16 @@
   
   .glass-card {
     @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
   }
 
-  /* Navbar with blur */
+  /* Navbar */
   .navbar-blur {
-    @apply backdrop-blur-xl bg-black/20 border-b border-white/5;
+    @apply backdrop-blur-xl bg-black/60 border-b border-white/5;
   }
 
-  /* Text gradient with glow */
+  /* Text gradient */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent;
   }
 
   .glow-text {
@@ -100,41 +124,37 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
 
-  /* Feature card hover effect */
+  /* Feature card */
   .feature-card {
-    @apply glass-card p-6 transition-all duration-300 border-transparent;
+    @apply glass-card p-6 transition-all duration-300;
   }
-
   .feature-card:hover {
-    @apply border-transparent;
     box-shadow: 0 0 30px rgba(136, 99, 237, 0.15);
     transform: translateY(-4px);
   }
 
   /* Legal page styles */
   .legal-section {
-    @apply mb-10 pb-10 border-b border-white/10;
+    @apply mb-8 pb-8 border-b border-white/10;
   }
-
   .legal-section:last-child {
     @apply border-b-0 pb-0;
   }
 
   .legal-heading {
-    @apply text-xl font-semibold text-white mb-5;
+    @apply text-lg font-semibold text-white mb-4 flex items-center gap-2;
   }
 
   .legal-text {
-    @apply text-gray-300 leading-relaxed;
+    @apply text-gray-400 leading-relaxed;
   }
 
   .legal-list {
-    @apply space-y-3 text-gray-300;
+    @apply space-y-2 text-gray-400;
   }
 
   .legal-list li {
@@ -142,7 +162,13 @@
   }
 
   .legal-bullet {
-    @apply w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0;
+    @apply w-1.5 h-1.5 bg-primary-500 rounded-full mt-2 flex-shrink-0;
+  }
+
+  /* Human-focused image container */
+  .human-image {
+    @apply rounded-2xl overflow-hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -161,6 +187,10 @@
 
   .animate-slide-up {
     animation: slideUp 0.8s ease-out;
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
   }
   
   @keyframes float {
@@ -181,6 +211,13 @@
   @keyframes slideUp {
     0% { transform: translateY(30px); opacity: 0; }
     100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
   }
 }
 

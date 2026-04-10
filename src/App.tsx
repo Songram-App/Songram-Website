@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import WelcomePage from './pages/WelcomePage';
 import AboutPage from './pages/AboutPage';
 import TeamPage from './pages/TeamPage';
@@ -9,18 +10,20 @@ import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/team" element={<TeamPage />} />
-        <Route path="/pricing" element={<PricingPage />} />
-        <Route path="/privacy" element={<PrivacyPage />} />
-        <Route path="/terms" element={<TermsPage />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<WelcomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
