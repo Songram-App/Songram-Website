@@ -243,7 +243,9 @@ const WelcomePage: React.FC = () => {
                 transition={{ duration: 0.6 }}
               >
                 Instagram, 
-                <span className="text-gradient block">but for songs</span>
+                <span className="text-gradient block leading-snug sm:leading-normal pb-1">
+                  but for songs
+                </span>
               </motion.h1>
               
               <motion.p 
