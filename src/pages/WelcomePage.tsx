@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { 
   IoClose, 
   IoMenu, 
-  IoPlay, 
+  IoPlay,
+  IoPause,
   IoHeart, 
   IoChatbubble,
   IoLogoInstagram,
@@ -33,6 +34,9 @@ const WelcomePage: React.FC = () => {
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [modalVideoIndex] = useState(0);
   const modalVideoRef = useRef<HTMLVideoElement | null>(null);
+  const featureAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [playingSongIndex, setPlayingSongIndex] = useState<number | null>(null);
+  const [featureAudioPlaying, setFeatureAudioPlaying] = useState(false);
   
   const videos = [
     { src: CreateSectionVideo, name: 'Create' },
@@ -81,38 +85,59 @@ const WelcomePage: React.FC = () => {
 
   const songCards = [
     {
-      title: "Midnight Drive",
-      artist: "@luna_beats",
-      plays: "12.4K",
-      likes: "2.1K",
-      cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&q=80",
-      prompt: "Late night lo-fi with dreamy synths"
+      title: "Cloud Nine Cruise",
+      cover:
+        "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
+      audio:
+        "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20audio.wav",
     },
     {
-      title: "Golden Hour",
-      artist: "@vibecheck",
-      plays: "8.7K",
-      likes: "1.5K",
-      cover: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=200&q=80",
-      prompt: "Chill acoustic sunset vibes"
+      title: "Groove Ijo",
+      cover:
+        "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg",
+      audio: "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo-%20audio.wav",
     },
     {
-      title: "Neon Dreams",
-      artist: "@synthwave_kid",
-      plays: "23.1K",
-      likes: "4.2K",
-      cover: "https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=200&q=80",
-      prompt: "80s retro synthwave energy"
+      title: "Pink Sounds in Space",
+      cover:
+        "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
+      audio:
+        "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.wav",
     },
     {
-      title: "Summer Rain",
-      artist: "@melodic.soul",
-      plays: "15.8K",
-      likes: "3.3K",
-      cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&q=80",
-      prompt: "Mellow R&B with soft piano"
-    }
+      title: "Pulse Sight",
+      cover:
+        "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg",
+      audio: "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20-%20audio.wav",
+    },
   ];
+
+  const handleFeatureSongPlay = (index: number) => {
+    const audio = featureAudioRef.current;
+    if (!audio) return;
+    const song = songCards[index];
+
+    if (playingSongIndex === index) {
+      if (audio.paused) {
+        void audio.play();
+      } else {
+        audio.pause();
+      }
+      return;
+    }
+
+    audio.src = song.audio;
+    void audio
+      .play()
+      .then(() => setPlayingSongIndex(index))
+      .catch(() => setPlayingSongIndex(null));
+  };
+
+  useEffect(() => {
+    return () => {
+      featureAudioRef.current?.pause();
+    };
+  }, []);
 
   const navLinks = [
     { path: '/', label: 'Home' },
@@ -255,7 +280,7 @@ const WelcomePage: React.FC = () => {
             >
               <div className="human-image relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&q=80" 
+                  src="https://storage.googleapis.com/songram-website/Songs/Front_Image.png" 
                   alt="Person creating music with headphones"
                   className="w-full h-auto rounded-2xl object-cover aspect-[4/3]"
                 />
@@ -309,14 +334,14 @@ const WelcomePage: React.FC = () => {
               <div className="space-y-4">
                 <div className="human-image">
                   <img 
-                    src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=400&q=80" 
+                    src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_1.png" 
                     alt="Person with headphones" 
                     className="rounded-2xl w-full aspect-[3/4] object-cover"
                   />
                 </div>
                 <div className="human-image">
                   <img 
-                    src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80" 
+                    src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_2.png" 
                     alt="Musician playing guitar" 
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
@@ -325,14 +350,14 @@ const WelcomePage: React.FC = () => {
               <div className="space-y-4 pt-8">
                 <div className="human-image">
                   <img 
-                    src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=400&q=80" 
+                    src="https://storage.googleapis.com/songram-website/Songs/Tape_Untwinded.png" 
                     alt="Artist in studio" 
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
                 </div>
                 <div className="human-image">
                   <img 
-                    src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80" 
+                    src="https://storage.googleapis.com/songram-website/Songs/Artist_Performing.png" 
                     alt="Person enjoying music" 
                     className="rounded-2xl w-full aspect-[3/4] object-cover"
                   />
@@ -352,7 +377,7 @@ const WelcomePage: React.FC = () => {
                   <span className="text-gradient block">AI just helps you express it.</span>
                 </h2>
                 <p className="text-lg text-gray-400 mb-8">
-                  Every song on Songram starts with a human feeling. Our AI doesn't replace your creativity—it amplifies it. 
+                  Every song on Songram starts with a human feeling. Our AI doesn't replace your creativity, it amplifies it. 
                   Describe your mood, your memory, your moment, and watch as AI helps bring your vision to life.
                 </p>
                 <div className="space-y-3">
@@ -392,15 +417,41 @@ const WelcomePage: React.FC = () => {
             </p>
           </motion.div>
 
+          <audio
+            ref={featureAudioRef}
+            className="hidden"
+            preload="metadata"
+            onPlay={() => setFeatureAudioPlaying(true)}
+            onPause={() => setFeatureAudioPlaying(false)}
+            onEnded={() => {
+              setPlayingSongIndex(null);
+              setFeatureAudioPlaying(false);
+            }}
+          />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {songCards.map((song, index) => (
               <motion.div
-                key={index}
+                key={song.title}
+                role="button"
+                tabIndex={0}
+                aria-label={
+                  playingSongIndex === index && featureAudioPlaying
+                    ? `Pause ${song.title}`
+                    : `Play ${song.title}`
+                }
                 className="bg-zinc-900/70 border border-zinc-800 rounded-xl p-3 hover:bg-zinc-800/70 transition-colors group cursor-pointer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
+                onClick={() => handleFeatureSongPlay(index)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleFeatureSongPlay(index);
+                  }
+                }}
               >
                 <div className="relative mb-3">
                   <img 
@@ -408,24 +459,23 @@ const WelcomePage: React.FC = () => {
                     alt={song.title}
                     className="w-full aspect-square object-cover rounded-lg"
                   />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                  <div
+                    className={`absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center transition-opacity ${
+                      playingSongIndex === index && featureAudioPlaying
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
+                  >
                     <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
-                      <IoPlay className="text-white ml-0.5" size={18} />
+                      {playingSongIndex === index && featureAudioPlaying ? (
+                        <IoPause className="text-white" size={18} />
+                      ) : (
+                        <IoPlay className="text-white ml-0.5" size={18} />
+                      )}
                     </div>
                   </div>
                 </div>
                 <h3 className="font-medium text-white text-sm truncate">{song.title}</h3>
-                <p className="text-gray-500 text-xs truncate">{song.artist}</p>
-                <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">
-                  <span className="flex items-center gap-1">
-                    <IoPlay size={10} />
-                    {song.plays}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <IoHeart size={10} />
-                    {song.likes}
-                  </span>
-                </div>
               </motion.div>
             ))}
           </div>

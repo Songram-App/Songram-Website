@@ -57,7 +57,7 @@ const TeamPage: React.FC = () => {
       name: "Edirin Okpikpi",
       role: "Co-Founder & CEO",
       location: "British Columbia, Canada",
-      bio: "GIS Analyst and Data Specialist leading Songram's strategic vision. 8+ years of experience in spatial data analysis, database management, and automation.",
+      bio: "Engineering Tech leading Songram's strategic vision. 8+ years of experience in spatial data analysis, database management, and automation.",
       social: {
         linkedin: "https://www.linkedin.com/in/edirin-okpikpi-asct-558286140/",
         github: "https://github.com/Eddy3133",
