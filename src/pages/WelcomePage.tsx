@@ -252,7 +252,7 @@ const WelcomePage: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                Create music with AI that feels like you. Share your sound with the world. 
+                Create music with <span className="text-gradient">agentic AI</span> that feels like you. Share your sound with the world. 
                 Connect with creators who get it.
               </motion.p>
               
@@ -494,7 +494,7 @@ const WelcomePage: React.FC = () => {
           >
             <div className="text-center mb-10">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                Words in. Music out.
+                Ideas in. Music out.
               </h2>
               <p className="text-gray-400 max-w-lg mx-auto">
                 Describe what you want to hear, and watch AI bring your vision to life.
