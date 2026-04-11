@@ -11,7 +11,10 @@ import {
   IoLogoInstagram,
   IoLogoTiktok,
   IoLogoApple,
-  IoLogoWindows
+  IoLogoWindows,
+  IoBulbOutline,
+  IoLayersOutline,
+  IoColorWandOutline,
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
@@ -86,6 +89,7 @@ const WelcomePage: React.FC = () => {
   const songCards = [
     {
       title: "Cloud Nine Cruise",
+      likes: "3.1k",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
       audio:
@@ -93,12 +97,14 @@ const WelcomePage: React.FC = () => {
     },
     {
       title: "Groove Ijo",
+      likes: "1.8k",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg",
       audio: "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo-%20audio.wav",
     },
     {
       title: "Pink Sounds in Space",
+      likes: "4.2k",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
       audio:
@@ -106,6 +112,7 @@ const WelcomePage: React.FC = () => {
     },
     {
       title: "Pulse Sight",
+      likes: "2.6k",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg",
       audio: "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20-%20audio.wav",
@@ -273,7 +280,7 @@ const WelcomePage: React.FC = () => {
 
             {/* Right - Hero Image */}
             <motion.div 
-              className="relative"
+              className="relative hidden lg:block"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
@@ -284,22 +291,6 @@ const WelcomePage: React.FC = () => {
                   alt="Person creating music with headphones"
                   className="w-full h-auto rounded-2xl object-cover aspect-[4/3]"
                 />
-                {/* Floating music card - hidden on mobile */}
-                <div className="hidden sm:block absolute -bottom-4 -left-4 bg-zinc-900 rounded-2xl p-4 border border-white/10 max-w-[200px] shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
-                      <IoPlay className="text-white ml-0.5" size={20} />
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm text-white">Sunset Vibes</p>
-                      <p className="text-xs text-gray-500">AI Generated</p>
-                    </div>
-                  </div>
-                  <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
-                    <div className="w-2/3 h-full bg-primary-500 rounded-full"></div>
-                  </div>
-                </div>
-
                 {/* Floating likes badge */}
                 <div className="absolute top-4 right-4 bg-black/70 backdrop-blur rounded-full px-3 py-1.5 flex items-center gap-1.5">
                   <IoHeart className="text-red-500" size={16} />
@@ -380,18 +371,6 @@ const WelcomePage: React.FC = () => {
                   Every song on Songram starts with a human feeling. Our AI doesn't replace your creativity, it amplifies it. 
                   Describe your mood, your memory, your moment, and watch as AI helps bring your vision to life.
                 </p>
-                <div className="space-y-3">
-                  {[
-                    "Your creativity, your copyright",
-                    "No musical experience required",
-                    "Share instantly with your community"
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="w-1.5 h-1.5 bg-primary-400 rounded-full flex-shrink-0" />
-                      <span className="text-gray-300">{item}</span>
-                    </div>
-                  ))}
-                </div>
               </motion.div>
             </div>
           </div>
@@ -429,7 +408,7 @@ const WelcomePage: React.FC = () => {
             }}
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {songCards.map((song, index) => (
               <motion.div
                 key={song.title}
@@ -440,7 +419,7 @@ const WelcomePage: React.FC = () => {
                     ? `Pause ${song.title}`
                     : `Play ${song.title}`
                 }
-                className="bg-zinc-900/70 border border-zinc-800 rounded-xl p-3 hover:bg-zinc-800/70 transition-colors group cursor-pointer"
+                className="relative group cursor-pointer rounded-2xl overflow-hidden aspect-[3/4]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -453,32 +432,110 @@ const WelcomePage: React.FC = () => {
                   }
                 }}
               >
-                <div className="relative mb-3">
-                  <img 
-                    src={song.cover} 
-                    alt={song.title}
-                    className="w-full aspect-square object-cover rounded-lg"
-                  />
-                  <div
-                    className={`absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center transition-opacity ${
-                      playingSongIndex === index && featureAudioPlaying
-                        ? "opacity-100"
-                        : "opacity-0 group-hover:opacity-100"
-                    }`}
-                  >
-                    <div className="w-10 h-10 bg-primary-500 rounded-full flex items-center justify-center">
-                      {playingSongIndex === index && featureAudioPlaying ? (
-                        <IoPause className="text-white" size={18} />
-                      ) : (
-                        <IoPlay className="text-white ml-0.5" size={18} />
-                      )}
+                <img
+                  src={song.cover}
+                  alt={song.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {/* Playing waveform indicator */}
+                {playingSongIndex === index && featureAudioPlaying && (
+                  <div className="absolute top-3 left-3 flex gap-px items-end h-4">
+                    {[3, 5, 4].map((h, b) => (
+                      <div
+                        key={b}
+                        className="w-1 bg-primary-400 rounded-full animate-pulse"
+                        style={{ height: `${h * 4}px`, animationDelay: `${b * 0.15}s` }}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                <div className="absolute bottom-0 left-0 right-0 p-3 flex items-end justify-between">
+                  <div>
+                    <h3 className="font-semibold text-white text-sm leading-tight drop-shadow">{song.title}</h3>
+                    <div className="flex items-center gap-1 mt-1">
+                      <IoHeart className="text-primary-400" size={11} />
+                      <span className="text-primary-300 text-xs font-medium">{song.likes}</span>
                     </div>
                   </div>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                      playingSongIndex === index && featureAudioPlaying
+                        ? 'opacity-100 bg-primary-500'
+                        : 'opacity-0 group-hover:opacity-100 bg-white/25 backdrop-blur-sm'
+                    }`}
+                  >
+                    {playingSongIndex === index && featureAudioPlaying ? (
+                      <IoPause className="text-white" size={13} />
+                    ) : (
+                      <IoPlay className="text-white ml-0.5" size={13} />
+                    )}
+                  </div>
                 </div>
-                <h3 className="font-medium text-white text-sm truncate">{song.title}</h3>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Agentic AI Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-14"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Your AI co-producer
+              <span className="text-gradient block">that actually thinks</span>
+            </h2>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Songram's agentic AI doesn't just generate sounds. It plans, decides, and iterates
+              like a seasoned producer working side-by-side with you.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              {
+                icon: <IoBulbOutline size={24} />,
+                title: "Plans Your Production",
+                description: "Multi-step reasoning breaks your idea into beats, melody, arrangement, and mix decisions. The result is a complete musical vision, not just a loop.",
+              },
+              {
+                icon: <IoColorWandOutline size={24} />,
+                title: "Decides Like a Producer",
+                description: "Understands genre, mood, and context to autonomously pick the right sounds, tempo, key, and structure. Every choice is intentional.",
+              },
+              {
+                icon: <IoLayersOutline size={24} />,
+                title: "Refines With You",
+                description: "Iterates on your feedback across the entire session, adjusting, swapping, and polishing layers until your track sounds exactly right.",
+              },
+            ].map((card, i) => (
+              <motion.div
+                key={i}
+                className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 hover:border-primary-500/30 transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="w-11 h-11 bg-primary-500/15 border border-primary-500/20 rounded-xl flex items-center justify-center text-primary-400 mb-5">
+                  {card.icon}
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">{card.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{card.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+
         </div>
       </section>
 
