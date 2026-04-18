@@ -648,15 +648,15 @@ const WelcomePage: React.FC = () => {
                 The AI-powered music creation platform where creativity meets technology.
               </p>
               <div className="flex space-x-3">
-                <a href="https://instagram.com/songramapp" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.instagram.com/songram.app/" target="_blank" rel="noopener noreferrer"
                   className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-pink-400 hover:bg-white/10 transition-all">
                   <IoLogoInstagram size={18} />
                 </a>
-                <a href="https://tiktok.com/@songramapp" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.tiktok.com/@songram.app" target="_blank" rel="noopener noreferrer"
                   className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
                   <IoLogoTiktok size={18} />
                 </a>
-                <a href="https://x.com/songramapp" target="_blank" rel="noopener noreferrer"
+                <a href="https://x.com/Songram_App" target="_blank" rel="noopener noreferrer"
                   className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
                   <XLogo size={18} />
                 </a>
