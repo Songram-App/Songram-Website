@@ -10,6 +10,7 @@ import {
   IoChatbubble,
   IoLogoInstagram,
   IoLogoTiktok,
+  IoLogoLinkedin,
   IoLogoApple,
   IoLogoWindows,
   IoBulbOutline,
@@ -716,6 +717,10 @@ const WelcomePage: React.FC = () => {
                 <a href="https://x.com/Songram_App" target="_blank" rel="noopener noreferrer"
                   className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
                   <XLogo size={18} />
+                </a>
+                <a href="https://www.linkedin.com/company/songram/?viewAsMember=true" target="_blank" rel="noopener noreferrer"
+                  className="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-white/10 transition-all">
+                  <IoLogoLinkedin size={18} />
                 </a>
               </div>
             </div>
