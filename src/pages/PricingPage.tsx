@@ -8,11 +8,14 @@ import {
   IoLogoTiktok,
   IoInfinite,
   IoMusicalNotes,
-  IoShareSocial,
   IoPeople,
   IoSparkles,
-  IoCloudUpload,
-  IoCheckmark
+  IoCheckmark,
+  IoImage,
+  IoText,
+  IoCut,
+  IoFlash,
+  IoRocket
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
@@ -59,45 +62,90 @@ const PricingPage: React.FC = () => {
       name: 'Free',
       price: '$0',
       period: 'forever',
-      description: 'Start creating at no cost',
+      credits: '50 credits/day',
+      description: 'Start creating with daily credits. Perfect for exploring the platform and light usage.',
       features: [
-        { text: 'Upload up to 10 songs', icon: <IoCloudUpload size={16} /> },
-        { text: 'Basic audio editing', icon: <IoMusicalNotes size={16} /> },
-        { text: 'Share to social media', icon: <IoShareSocial size={16} /> },
+        { text: '50 credits per day', icon: <IoFlash size={16} /> },
+        { text: 'No rollover (resets daily)', icon: <IoCheckmark size={16} /> },
+        { text: 'Access all AI features', icon: <IoSparkles size={16} /> },
         { text: 'Community support', icon: <IoPeople size={16} /> },
       ],
-      buttonText: 'Start Free',
+      buttonText: 'Sign Up',
       popular: false,
     },
     {
       name: 'Basic',
       price: '$10',
       period: 'per month',
-      description: 'Perfect for getting started',
+      credits: '5,000 credits',
+      description: 'Includes Lyric Assistant, voice conversations, album cover generation, full instrumental track generation, real-time music streaming, stem separation, mixing, and mastering tools.',
       features: [
-        { text: 'Upload up to 50 songs', icon: <IoCloudUpload size={16} /> },
-        { text: 'Basic audio editing', icon: <IoMusicalNotes size={16} /> },
-        { text: 'Share to social media', icon: <IoShareSocial size={16} /> },
-        { text: 'Basic analytics', icon: <IoCheckmark size={16} /> },
+        { text: '5,000 credits per month', icon: <IoFlash size={16} /> },
+        { text: 'Lyric Assistant & voice chat', icon: <IoText size={16} /> },
+        { text: 'Album cover generation', icon: <IoImage size={16} /> },
+        { text: 'Full instrumental tracks', icon: <IoMusicalNotes size={16} /> },
+        { text: 'Stem separation', icon: <IoCut size={16} /> },
+        { text: 'AI mixing & mastering', icon: <IoSparkles size={16} /> },
       ],
-      buttonText: 'Get Started',
+      buttonText: 'Subscribe to Basic',
       popular: false,
     },
     {
       name: 'Premium',
       price: '$20',
       period: 'per month',
-      description: 'Unlimited creativity',
+      credits: '10,000 credits',
+      description: 'Everything in Basic, plus higher generation limits, faster processing, priority access to new features, advanced collaboration tools, and the full creator experience.',
       features: [
-        { text: 'Unlimited uploads', icon: <IoInfinite size={16} /> },
-        { text: 'Advanced audio tools', icon: <IoSparkles size={16} /> },
-        { text: 'Collaboration features', icon: <IoPeople size={16} /> },
-        { text: 'Priority support', icon: <IoCheckmark size={16} /> },
-        { text: 'Early access to features', icon: <IoSparkles size={16} /> },
+        { text: '10,000 credits per month', icon: <IoRocket size={16} /> },
+        { text: 'Everything in Basic', icon: <IoCheckmark size={16} /> },
+        { text: 'Higher generation limits', icon: <IoInfinite size={16} /> },
+        { text: 'Faster processing', icon: <IoFlash size={16} /> },
+        { text: 'Priority feature access', icon: <IoSparkles size={16} /> },
+        { text: 'Advanced collaboration', icon: <IoPeople size={16} /> },
       ],
-      buttonText: 'Start Premium',
+      buttonText: 'Subscribe to Premium',
       popular: true,
     }
+  ];
+
+  const comparisonFeatures = [
+    {
+      category: 'Create Music',
+      features: [
+        { name: 'Monthly credits', free: '50/day', basic: '5,000', premium: '10,000' },
+        { name: 'Daily credit limit', free: '50', basic: 'No limit', premium: 'No limit' },
+        { name: 'AI instrumental tracks', free: true, basic: true, premium: true },
+        { name: 'Lyrics Assistant', free: true, basic: true, premium: true },
+        { name: 'Voice conversations', free: false, basic: true, premium: true },
+        { name: 'Faster processing', free: false, basic: false, premium: true },
+      ]
+    },
+    {
+      category: 'Transform & Edit',
+      features: [
+        { name: 'AI stem separation', free: true, basic: true, premium: true },
+        { name: 'AI mixing & mastering', free: true, basic: true, premium: true },
+        { name: 'Real-time streaming', free: false, basic: true, premium: true },
+        { name: 'Advanced editing tools', free: false, basic: true, premium: true },
+      ]
+    },
+    {
+      category: 'Artwork & Sharing',
+      features: [
+        { name: 'AI cover art generation', free: true, basic: true, premium: true },
+        { name: 'Upload custom cover art', free: false, basic: true, premium: true },
+        { name: 'Collaboration tools', free: false, basic: false, premium: true },
+        { name: 'Priority feature access', free: false, basic: false, premium: true },
+      ]
+    },
+  ];
+
+  const creditCosts = [
+    { action: 'AI cover art', cost: '300 credits' },
+    { action: 'Lyrics Assistant', cost: '50 credits' },
+    { action: 'AI music track (instrumental)', cost: '800 credits' },
+    { action: 'AI stem separation', cost: '500 credits' },
   ];
 
   const navLinks = [
@@ -169,7 +217,7 @@ const PricingPage: React.FC = () => {
               Choose Your <span className="text-gradient">Plan</span>
             </h1>
             <p className="text-gray-400 max-w-xl mx-auto">
-              Start free and upgrade when you're ready
+              Flexible pricing for every creator
             </p>
           </motion.div>
 
@@ -204,7 +252,10 @@ const PricingPage: React.FC = () => {
                         <span className="text-gray-500 ml-1 text-sm">/{plan.period}</span>
                       )}
                     </div>
-                    <p className="text-gray-500 text-sm">{plan.description}</p>
+                    {(plan as any).credits && (
+                      <p className="text-primary-400 text-sm font-medium mb-1">{(plan as any).credits}</p>
+                    )}
+                    <p className="text-gray-500 text-xs leading-relaxed">{plan.description}</p>
                   </div>
 
                   <div className="space-y-3 mb-6 flex-grow">
@@ -234,7 +285,146 @@ const PricingPage: React.FC = () => {
             ))}
           </div>
 
-          <motion.div className="mt-12 text-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+          {/* Compare Plans Table */}
+          <motion.div 
+            className="mt-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="text-center mb-10">
+              <h2 className="text-2xl font-bold text-white mb-2">Compare Plans</h2>
+              <p className="text-gray-500">Find the plan that works best for you</p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-zinc-800">
+                    <th className="text-left py-4 px-4 text-gray-500 font-normal text-sm w-1/3"></th>
+                    <th className="py-4 px-4 text-center">
+                      <span className="text-white font-medium">Free</span>
+                    </th>
+                    <th className="py-4 px-4 text-center">
+                      <span className="text-white font-medium">Basic</span>
+                    </th>
+                    <th className="py-4 px-4 text-center">
+                      <span className="text-gradient font-medium">Premium</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonFeatures.map((section, sectionIndex) => (
+                    <React.Fragment key={sectionIndex}>
+                      <tr>
+                        <td colSpan={4} className="pt-6 pb-2 px-4">
+                          <span className="text-xs uppercase tracking-wider text-gray-500">{section.category}</span>
+                        </td>
+                      </tr>
+                      {section.features.map((feature, featureIndex) => (
+                        <tr key={featureIndex} className="border-b border-zinc-800/50">
+                          <td className="py-3 px-4 text-gray-300 text-sm">{feature.name}</td>
+                          <td className="py-3 px-4 text-center">
+                            {typeof feature.free === 'boolean' ? (
+                              feature.free ? (
+                                <IoCheckmark className="inline text-primary-400" size={18} />
+                              ) : (
+                                <span className="text-zinc-600">—</span>
+                              )
+                            ) : (
+                              <span className="text-gray-300 text-sm">{feature.free}</span>
+                            )}
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            {typeof feature.basic === 'boolean' ? (
+                              feature.basic ? (
+                                <IoCheckmark className="inline text-primary-400" size={18} />
+                              ) : (
+                                <span className="text-zinc-600">—</span>
+                              )
+                            ) : (
+                              <span className="text-gray-300 text-sm">{feature.basic}</span>
+                            )}
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            {typeof feature.premium === 'boolean' ? (
+                              feature.premium ? (
+                                <IoCheckmark className="inline text-primary-400" size={18} />
+                              ) : (
+                                <span className="text-zinc-600">—</span>
+                              )
+                            ) : (
+                              <span className="text-white text-sm font-medium">{feature.premium}</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                  <tr>
+                    <td className="py-6 px-4"></td>
+                    <td className="py-6 px-4 text-center">
+                      <button
+                        onClick={() => { setSelectedPlan('free'); setShowSignupModal(true); }}
+                        className="px-4 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all"
+                      >
+                        Sign Up
+                      </button>
+                    </td>
+                    <td className="py-6 px-4 text-center">
+                      <button
+                        onClick={() => { setSelectedPlan('basic'); setShowSignupModal(true); }}
+                        className="px-4 py-2 text-sm rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all"
+                      >
+                        Subscribe to Basic
+                      </button>
+                    </td>
+                    <td className="py-6 px-4 text-center">
+                      <button
+                        onClick={() => { setSelectedPlan('premium'); setShowSignupModal(true); }}
+                        className="px-4 py-2 text-sm rounded-lg btn-primary"
+                      >
+                        Subscribe to Premium
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+
+          {/* Credit Costs - Minimal */}
+          <motion.div 
+            className="mt-16 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-center text-gray-500 text-sm mb-6">Credit costs</p>
+            
+            <div className="space-y-3">
+              {creditCosts.map((item, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-center justify-between py-2 border-b border-zinc-800/50 last:border-0"
+                >
+                  <span className="text-gray-300 text-sm">{item.action}</span>
+                  <span className="text-white font-medium">{item.cost.replace(' credits', '')} <span className="text-gray-500 font-normal text-xs">credits</span></span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-zinc-800/50 space-y-2 text-sm text-center">
+              <p className="text-gray-400">
+                <span className="text-white">$1 = 500 credits</span> · Top-ups never expire
+              </p>
+              <p className="text-gray-500">
+                Free: 50/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing & mastering included</span>
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div className="mt-10 text-center" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
             <p className="text-gray-500 text-sm">
               Questions? Contact us at{' '}
               <a href="mailto:team@songram.app" className="text-primary-400 hover:text-primary-300 transition-colors">
@@ -333,12 +523,15 @@ const PricingPage: React.FC = () => {
                   
                   <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
                     <div className="flex items-center gap-2 text-white">
-                      {selectedPlan === 'premium' ? <IoSparkles size={16} className="text-primary-400" /> : <IoMusicalNotes size={16} />}
-                      <span className="font-medium text-sm">{selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Plan</span>
+                      {selectedPlan === 'premium' ? <IoSparkles size={16} className="text-primary-400" /> : 
+                       selectedPlan === 'basic' ? <IoMusicalNotes size={16} /> : <IoFlash size={16} />}
+                      <span className="font-medium text-sm">
+                        {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} Plan
+                      </span>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                      {selectedPlan === 'premium' ? '$20/month • Unlimited everything' : 
-                       selectedPlan === 'basic' ? '$10/month • 50 songs' : '$0 • Up to 10 songs'}
+                      {selectedPlan === 'premium' ? '$20/month • 10,000 credits' : 
+                       selectedPlan === 'basic' ? '$10/month • 5,000 credits' : 'Free forever • 50 credits/day'}
                     </p>
                   </div>
                   
