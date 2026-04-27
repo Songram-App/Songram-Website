@@ -311,6 +311,28 @@ const TermsPage: React.FC = () => {
               <p className="legal-text">Upon termination, your access to our service will cease, but these terms will continue to apply to any past use of our service.</p>
             </motion.section>
 
+            {/* Refunds */}
+            <motion.section
+              className="legal-section"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="legal-heading">Refunds</h2>
+
+              <div className="legal-text space-y-4">
+                <p>
+                  Payments made for subscriptions are non-refundable, except where required by law or otherwise determined by Songram. Canceling a subscription will stop future charges but will not refund any previous payments, and you will continue to have access to paid features until the end of your current billing period.
+                </p>
+                <p>
+                  Refund requests may be reviewed on a case-by-case basis for accidental purchases, duplicate charges, unauthorized transactions, or if a subscription was purchased but not used. If Songram permanently stops providing the Service, prepaid fees may be refunded on a prorated basis for the unused portion of the subscription term.
+                </p>
+                <p>
+                  To avoid being charged for the next billing cycle, you must cancel your subscription before renewal. Purchases made through the Apple App Store or Google Play are subject to their respective platform refund policies and must be handled directly through those platforms.
+                </p>
+              </div>
+            </motion.section>
+
             {/* Contact */}
             <motion.section
               className="legal-section"
