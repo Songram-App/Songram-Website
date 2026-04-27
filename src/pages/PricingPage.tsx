@@ -62,10 +62,10 @@ const PricingPage: React.FC = () => {
       name: 'Free',
       price: '$0',
       period: 'forever',
-      credits: '50 credits/day',
+      credits: '800 credits/day',
       description: 'Start creating with daily credits. Perfect for exploring the platform and light usage.',
       features: [
-        { text: '50 credits per day', icon: <IoFlash size={16} /> },
+        { text: '800 credits per day', icon: <IoFlash size={16} /> },
         { text: 'No rollover (resets daily)', icon: <IoCheckmark size={16} /> },
         { text: 'Access all AI features', icon: <IoSparkles size={16} /> },
         { text: 'Community support', icon: <IoPeople size={16} /> },
@@ -113,8 +113,8 @@ const PricingPage: React.FC = () => {
     {
       category: 'Create Music',
       features: [
-        { name: 'Monthly credits', free: '50/day', basic: '5,000', premium: '10,000' },
-        { name: 'Daily credit limit', free: '50', basic: 'No limit', premium: 'No limit' },
+        { name: 'Monthly credits', free: '800/day', basic: '5,000', premium: '10,000' },
+        { name: 'Daily credit limit', free: '800', basic: 'No limit', premium: 'No limit' },
         { name: 'AI instrumental tracks', free: true, basic: true, premium: true },
         { name: 'Lyrics Assistant', free: true, basic: true, premium: true },
         { name: 'Voice conversations', free: false, basic: true, premium: true },
@@ -135,7 +135,6 @@ const PricingPage: React.FC = () => {
       features: [
         { name: 'AI cover art generation', free: true, basic: true, premium: true },
         { name: 'Upload custom cover art', free: false, basic: true, premium: true },
-        { name: 'Collaboration tools', free: false, basic: false, premium: true },
         { name: 'Priority feature access', free: false, basic: false, premium: true },
       ]
     },
@@ -416,10 +415,10 @@ const PricingPage: React.FC = () => {
 
             <div className="mt-8 pt-6 border-t border-zinc-800/50 space-y-2 text-sm text-center">
               <p className="text-gray-400">
-                <span className="text-white">$1 = 500 credits</span> · Top-ups never expire
+                <span className="text-white">$1 = 375 credits</span> · Top-ups never expire
               </p>
               <p className="text-gray-500">
-                Free: 50/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing & mastering included</span>
+                Free: 800/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing & mastering included</span>
               </p>
             </div>
           </motion.div>
@@ -531,7 +530,7 @@ const PricingPage: React.FC = () => {
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
                       {selectedPlan === 'premium' ? '$20/month • 10,000 credits' : 
-                       selectedPlan === 'basic' ? '$10/month • 5,000 credits' : 'Free forever • 50 credits/day'}
+                       selectedPlan === 'basic' ? '$10/month • 5,000 credits' : 'Free forever • 800 credits/day'}
                     </p>
                   </div>
                   
