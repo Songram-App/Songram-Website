@@ -108,7 +108,7 @@ const TeamPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <button onClick={() => setShowSignupModal(true)} className="btn-primary">Get Started</button>
+              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -130,9 +130,9 @@ const TeamPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <button onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }} className="w-full btn-primary mt-4">
+                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
-                </button>
+                </a>
               </div>
             </motion.div>
           )}

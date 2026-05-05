@@ -176,7 +176,7 @@ const PricingPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <button onClick={() => setShowSignupModal(true)} className="btn-primary">Get Started</button>
+              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -198,9 +198,9 @@ const PricingPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <button onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }} className="w-full btn-primary mt-4">
+                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
-                </button>
+                </a>
               </div>
             </motion.div>
           )}
@@ -268,17 +268,14 @@ const PricingPage: React.FC = () => {
                     ))}
                   </div>
 
-                  <button
-                    onClick={() => {
-                      setSelectedPlan(plan.name.toLowerCase() as 'free' | 'basic' | 'premium');
-                      setShowSignupModal(true);
-                    }}
-                    className={`w-full py-3 rounded-xl font-medium transition-all ${
+                  <a
+                    href="https://songram.app/login"
+                    className={`w-full py-3 rounded-xl font-medium transition-all block text-center ${
                       plan.popular ? 'btn-primary' : 'bg-white/5 border border-white/10 text-white hover:bg-white/10'
                     }`}
                   >
                     {plan.buttonText}
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}

@@ -184,9 +184,9 @@ const WelcomePage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <button onClick={() => setShowSignupModal(true)} className="btn-primary">
+              <a href="https://songram.app/login" className="btn-primary">
                 Get Started
-              </button>
+              </a>
             </div>
 
             <div className="md:hidden">
@@ -219,12 +219,12 @@ const WelcomePage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <button
-                  onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }}
-                  className="w-full btn-primary mt-4"
+                <a
+                  href="https://songram.app/login"
+                  className="w-full btn-primary mt-4 block text-center"
                 >
                   Get Started
-                </button>
+                </a>
               </div>
             </motion.div>
           )}
@@ -270,9 +270,9 @@ const WelcomePage: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <button onClick={() => setShowSignupModal(true)} className="btn-primary">
+                <a href="https://songram.app/login" className="btn-primary">
                   Start Creating
-                </button>
+                </a>
                 <a href="#features" className="btn-secondary">
                   Learn More
                 </a>
