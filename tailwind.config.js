@@ -10,7 +10,7 @@ export default {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
         'satoshi': ['Satoshi', 'sans-serif'],
-        'display': ['Clash Display', 'Satoshi', 'sans-serif'],
+        'display': ['"Clash Display"', 'Satoshi', 'sans-serif'],
       },
       colors: {
         primary: {

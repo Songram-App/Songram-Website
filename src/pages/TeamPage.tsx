@@ -153,46 +153,46 @@ const TeamPage: React.FC = () => {
           </motion.div>
 
           {/* Team Members */}
-          <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
+          <div className="grid sm:grid-cols-2 gap-5">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-5 sm:p-6 text-center"
+                className="bg-zinc-900/40 hover:bg-zinc-800/50 rounded-xl p-5 text-center transition-all duration-300 hover:scale-[1.02]"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden mx-auto mb-4 border border-white/10">
+                <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3">
                   <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                 </div>
                 
-                <h2 className="text-base sm:text-lg font-semibold text-white mb-1">{member.name}</h2>
-                <p className="text-primary-400 text-sm mb-2">{member.role}</p>
-                <div className="flex items-center justify-center text-gray-500 text-xs sm:text-sm mb-4">
-                  <IoLocation size={14} className="mr-1" />
+                <h2 className="text-base font-semibold text-white mb-0.5">{member.name}</h2>
+                <p className="text-primary-400 text-xs mb-1.5">{member.role}</p>
+                <div className="flex items-center justify-center text-gray-500 text-[11px] mb-3">
+                  <IoLocation size={12} className="mr-1" />
                   <span>{member.location}</span>
                 </div>
 
-                <p className="text-gray-400 text-sm mb-5">{member.bio}</p>
+                <p className="text-gray-500 text-xs mb-4 leading-relaxed">{member.bio}</p>
 
                 {/* Social Links */}
-                <div className="flex items-center justify-center gap-2">
+                <div className="flex items-center justify-center gap-1.5">
                   {member.social.linkedin && (
                     <a href={member.social.linkedin} target="_blank" rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-white/10 transition-all">
-                      <IoLogoLinkedin size={18} />
+                      className="p-2 rounded-lg bg-white/5 text-gray-500 hover:text-blue-400 hover:bg-white/10 transition-all">
+                      <IoLogoLinkedin size={16} />
                     </a>
                   )}
                   {member.social.github && (
                     <a href={member.social.github} target="_blank" rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all">
-                      <IoLogoGithub size={18} />
+                      className="p-2 rounded-lg bg-white/5 text-gray-500 hover:text-white hover:bg-white/10 transition-all">
+                      <IoLogoGithub size={16} />
                     </a>
                   )}
                   <a href={`mailto:${member.social.email}`}
-                    className="p-2 rounded-lg bg-white/5 text-gray-400 hover:text-primary-400 hover:bg-white/10 transition-all">
-                    <IoMail size={18} />
+                    className="p-2 rounded-lg bg-white/5 text-gray-500 hover:text-primary-400 hover:bg-white/10 transition-all">
+                    <IoMail size={16} />
                   </a>
                 </div>
               </motion.div>

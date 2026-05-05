@@ -90,7 +90,10 @@ const WelcomePage: React.FC = () => {
   const songCards = [
     {
       title: "Cloud Nine Cruise",
-      likes: "3.1k",
+      artist: "Luna Waves",
+      artistAvatar: "https://i.pravatar.cc/100?img=1",
+      likes: "3.1K",
+      plays: "47K",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
       audio:
@@ -98,14 +101,20 @@ const WelcomePage: React.FC = () => {
     },
     {
       title: "Groove Ijo",
-      likes: "1.8k",
+      artist: "Afro Beats",
+      artistAvatar: "https://i.pravatar.cc/100?img=2",
+      likes: "1.8K",
+      plays: "23K",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg",
       audio: "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo-%20audio.wav",
     },
     {
       title: "Pink Sounds in Space",
-      likes: "4.2k",
+      artist: "Cosmic Drift",
+      artistAvatar: "https://i.pravatar.cc/100?img=3",
+      likes: "4.2K",
+      plays: "89K",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
       audio:
@@ -113,7 +122,10 @@ const WelcomePage: React.FC = () => {
     },
     {
       title: "Pulse Sight",
-      likes: "2.6k",
+      artist: "Neon Echo",
+      artistAvatar: "https://i.pravatar.cc/100?img=4",
+      likes: "2.6K",
+      plays: "35K",
       cover:
         "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg",
       audio: "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20-%20audio.wav",
@@ -232,81 +244,128 @@ const WelcomePage: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Background blobs */}
+      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-[90vh] flex flex-col justify-center">
+        {/* Animated floating album covers background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+          {/* Gradient overlay to fade out images - lighter to show more */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0D0D12]/50 via-[#0D0D12]/30 to-[#0D0D12]/80 z-10"></div>
+          
+          {/* Floating album covers - more prominent */}
+          <div className="absolute inset-0 opacity-70">
+            {/* Row 1 - floating left */}
+            <div className="absolute top-[5%] left-[-2%] animate-float-slow">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg" 
+                alt="" 
+                className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            <div className="absolute top-[8%] right-[8%] animate-float-slower">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg" 
+                alt="" 
+                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            <div className="absolute top-[18%] left-[22%] animate-float-medium">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg" 
+                alt="" 
+                className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            
+            {/* Row 2 */}
+            <div className="absolute top-[38%] right-[-2%] animate-float-slow">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg" 
+                alt="" 
+                className="w-52 h-52 md:w-72 md:h-72 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            <div className="absolute top-[42%] left-[-5%] animate-float-medium">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Front_Image.png" 
+                alt="" 
+                className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            
+            {/* Row 3 */}
+            <div className="absolute bottom-[20%] right-[12%] animate-float-slower">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_1.png" 
+                alt="" 
+                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            <div className="absolute bottom-[12%] left-[5%] animate-float-slow">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Tape_Untwinded.png" 
+                alt="" 
+                className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+            <div className="absolute bottom-[28%] left-[30%] animate-float-medium">
+              <img 
+                src="https://storage.googleapis.com/songram-website/Songs/Artist_Performing.png" 
+                alt="" 
+                className="w-36 h-36 md:w-48 md:h-48 rounded-2xl object-cover shadow-2xl blur-[2px]"
+              />
+            </div>
+          </div>
+          
+          {/* Gradient blobs for color */}
+          <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500/20 rounded-full blur-[100px] z-0"></div>
+          <div className="absolute top-40 right-10 w-72 h-72 bg-pink-500/15 rounded-full blur-[100px] z-0"></div>
+          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-500/10 rounded-full blur-[100px] z-0"></div>
         </div>
 
-        <div className="max-w-6xl mx-auto relative">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left - Copy */}
-            <div className="text-center lg:text-left">
-              <motion.h1 
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 leading-[1.2] text-white"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                Instagram, 
-                <span className="text-gradient block leading-[1.2] pb-[0.12em]">but for songs</span>
-              </motion.h1>
-              
-              <motion.p 
-                className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8 max-w-md mx-auto lg:mx-0"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                Create music with <span className="text-gradient">agentic AI</span> that feels like you. Share your sound with the world. 
-                Connect with creators who get it.
-              </motion.p>
-              
-              <motion.div 
-                className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <a href="https://songram.app/login" className="btn-primary">
-                  Start Creating
-                </a>
-                <a href="#features" className="btn-secondary">
-                  Learn More
-                </a>
-              </motion.div>
-            </div>
-
-            {/* Right - Hero Image */}
-            <motion.div 
-              className="relative hidden lg:block"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <div className="human-image relative">
-                <img 
-                  src="https://storage.googleapis.com/songram-website/Songs/Front_Image.png" 
-                  alt="Person creating music with headphones"
-                  className="w-full h-auto rounded-2xl object-cover aspect-[4/3]"
-                />
-                {/* Floating likes badge */}
-                <div className="absolute top-4 right-4 bg-black/70 backdrop-blur rounded-full px-3 py-1.5 flex items-center gap-1.5">
-                  <IoHeart className="text-red-500" size={16} />
-                  <span className="text-sm font-medium text-white">2.4k</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* DAW Preview */}
-          <motion.div 
-            className="mt-20"
-            initial={{ opacity: 0, y: 40 }}
+        <div className="max-w-4xl mx-auto relative z-20 text-center">
+          <motion.h1 
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 leading-[1.15] text-white font-display tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: 0.6 }}
+          >
+            Instagram, 
+            <span className="text-gradient block leading-[1.15] pb-[0.12em]">but for songs</span>
+          </motion.h1>
+          
+          <motion.p 
+            className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed font-satoshi"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Create music with <span className="text-gradient font-medium">agentic AI</span> that feels like you. Share your sound with the world. 
+            Connect with creators who get it.
+          </motion.p>
+          
+          <motion.div 
+            className="flex flex-wrap gap-3 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <a href="https://songram.app/login" className="btn-primary px-6 py-3">
+              Start Creating
+            </a>
+            <a href="#features" className="btn-secondary px-6 py-3">
+              Learn More
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* DAW Preview Section */}
+      <section className="pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
             <div className="text-center mb-8">
               <p className="text-sm text-gray-500 uppercase tracking-wider font-medium">Try our studio</p>
@@ -328,7 +387,7 @@ const WelcomePage: React.FC = () => {
                   <img 
                     src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_1.png" 
                     alt="Person with headphones" 
-                    className="rounded-2xl w-full aspect-[3/4] object-cover"
+                    className="rounded-2xl w-full aspect-[2/3] object-cover"
                   />
                 </div>
                 <div className="human-image">
@@ -351,7 +410,7 @@ const WelcomePage: React.FC = () => {
                   <img 
                     src="https://storage.googleapis.com/songram-website/Songs/Artist_Performing.png" 
                     alt="Person enjoying music" 
-                    className="rounded-2xl w-full aspect-[3/4] object-cover"
+                    className="rounded-2xl w-full aspect-[2/3] object-cover"
                   />
                 </div>
               </div>
@@ -409,7 +468,8 @@ const WelcomePage: React.FC = () => {
             }}
           />
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* Photo-style tall cards - all info overlaid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {songCards.map((song, index) => (
               <motion.div
                 key={song.title}
@@ -420,7 +480,7 @@ const WelcomePage: React.FC = () => {
                     ? `Pause ${song.title}`
                     : `Play ${song.title}`
                 }
-                className="relative group cursor-pointer rounded-2xl overflow-hidden aspect-[3/4]"
+                className="group cursor-pointer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -433,46 +493,79 @@ const WelcomePage: React.FC = () => {
                   }
                 }}
               >
-                <img
-                  src={song.cover}
-                  alt={song.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                {/* Tall Photo Card */}
+                <div className="relative aspect-[2/3] rounded-2xl overflow-hidden bg-zinc-800">
+                  <img
+                    src={song.cover}
+                    alt={song.title}
+                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
+                  />
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
-                {/* Playing waveform indicator */}
-                {playingSongIndex === index && featureAudioPlaying && (
-                  <div className="absolute top-3 left-3 flex gap-px items-end h-4">
-                    {[3, 5, 4].map((h, b) => (
-                      <div
-                        key={b}
-                        className="w-1 bg-primary-400 rounded-full animate-pulse"
-                        style={{ height: `${h * 4}px`, animationDelay: `${b * 0.15}s` }}
-                      />
-                    ))}
-                  </div>
-                )}
-
-                <div className="absolute bottom-0 left-0 right-0 p-3 flex items-end justify-between">
-                  <div>
-                    <h3 className="font-semibold text-white text-sm leading-tight drop-shadow">{song.title}</h3>
-                    <div className="flex items-center gap-1 mt-1">
-                      <IoHeart className="text-primary-400" size={11} />
-                      <span className="text-primary-300 text-xs font-medium">{song.likes}</span>
+                  {/* Playing waveform indicator */}
+                  {playingSongIndex === index && featureAudioPlaying && (
+                    <div className="absolute top-3 left-3 flex gap-[2px] items-end h-4">
+                      {[3, 5, 4, 6, 3].map((h, b) => (
+                        <div
+                          key={b}
+                          className="w-[3px] bg-primary-400 rounded-full animate-pulse"
+                          style={{ height: `${h * 3}px`, animationDelay: `${b * 0.1}s` }}
+                        />
+                      ))}
                     </div>
-                  </div>
+                  )}
+
+                  {/* Centered play button */}
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                    className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${
                       playingSongIndex === index && featureAudioPlaying
-                        ? 'opacity-100 bg-primary-500'
-                        : 'opacity-0 group-hover:opacity-100 bg-white/25 backdrop-blur-sm'
+                        ? 'opacity-100'
+                        : 'opacity-0 group-hover:opacity-100'
                     }`}
                   >
-                    {playingSongIndex === index && featureAudioPlaying ? (
-                      <IoPause className="text-white" size={13} />
-                    ) : (
-                      <IoPlay className="text-white ml-0.5" size={13} />
-                    )}
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center backdrop-blur-md transition-all duration-300 ${
+                      playingSongIndex === index && featureAudioPlaying
+                        ? 'bg-primary-500 scale-100'
+                        : 'bg-black/50 group-hover:bg-primary-500 group-hover:scale-110'
+                    }`}>
+                      {playingSongIndex === index && featureAudioPlaying ? (
+                        <IoPause className="text-white" size={24} />
+                      ) : (
+                        <IoPlay className="text-white ml-1" size={24} />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* All info overlaid at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    {/* Stats */}
+                    <div className="flex items-center gap-3 text-white/70 text-xs mb-2">
+                      <div className="flex items-center gap-1">
+                        <IoPlay size={11} />
+                        <span>{song.plays}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <IoHeart size={11} className="text-primary-400" />
+                        <span>{song.likes}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Song Title */}
+                    <h3 className="font-semibold text-white text-sm leading-tight mb-2 drop-shadow-lg">
+                      {song.title}
+                    </h3>
+                    
+                    {/* Artist */}
+                    <div className="flex items-center gap-2">
+                      <img 
+                        src={song.artistAvatar} 
+                        alt={song.artist}
+                        className="w-5 h-5 rounded-full object-cover ring-1 ring-white/20"
+                      />
+                      <span className="text-xs text-white/70">{song.artist}</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -504,19 +597,19 @@ const WelcomePage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
               {
-                icon: <IoBulbOutline size={24} />,
+                icon: <IoBulbOutline size={22} />,
                 title: "Plans Your Production",
-                description: "Multi-step reasoning breaks your idea into beats, melody, arrangement, and mix decisions. The result is a complete musical vision, not just a loop.",
+                description: "Multi-step reasoning breaks your idea into beats, melody, arrangement, and mix decisions.",
               },
               {
-                icon: <IoColorWandOutline size={24} />,
+                icon: <IoColorWandOutline size={22} />,
                 title: "Decides Like a Producer",
-                description: "Understands genre, mood, and context to autonomously pick the right sounds, tempo, key, and structure. Every choice is intentional.",
+                description: "Understands genre, mood, and context to autonomously pick the right sounds, tempo, key, and structure.",
               },
               {
-                icon: <IoLayersOutline size={24} />,
+                icon: <IoLayersOutline size={22} />,
                 title: "Refines With You",
-                description: "Iterates on your feedback across the entire session, adjusting, swapping, and polishing layers until your track sounds exactly right.",
+                description: "Iterates on your feedback, adjusting and polishing layers until your track sounds exactly right.",
               },
             ].map((card, i) => (
               <motion.div

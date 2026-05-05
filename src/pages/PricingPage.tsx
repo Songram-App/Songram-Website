@@ -221,7 +221,7 @@ const PricingPage: React.FC = () => {
           </motion.div>
 
           {/* Pricing Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pricingPlans.map((plan, index) => (
               <motion.div
                 key={index}
@@ -231,47 +231,47 @@ const PricingPage: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {plan.popular && (
-                  <div className="absolute -top-3 left-4 z-10">
-                    <span className="px-3 py-1 bg-primary-500 text-white text-xs font-medium rounded-full">
+                  <div className="absolute -top-2.5 left-4 z-10">
+                    <span className="px-2.5 py-0.5 bg-primary-500 text-white text-[10px] font-medium rounded-full">
                       Popular
                     </span>
                   </div>
                 )}
                 
-                <div className={`p-5 sm:p-6 h-full flex flex-col rounded-2xl border transition-all ${
+                <div className={`p-5 h-full flex flex-col rounded-xl transition-all duration-300 hover:scale-[1.02] ${
                   plan.popular 
-                    ? 'bg-zinc-900 border-primary-500/50' 
-                    : 'bg-zinc-900/50 border-zinc-800 hover:border-zinc-700'
+                    ? 'bg-zinc-800/80 ring-1 ring-primary-500/30' 
+                    : 'bg-zinc-900/40 hover:bg-zinc-800/50'
                 }`}>
-                  <div className="text-center mb-5">
-                    <h3 className="text-lg font-semibold text-white mb-2">{plan.name}</h3>
-                    <div className="flex items-baseline justify-center mb-1">
-                      <span className="text-2xl sm:text-3xl font-bold text-gradient">{plan.price}</span>
+                  <div className="text-center mb-4">
+                    <h3 className="text-base font-semibold text-white mb-1.5">{plan.name}</h3>
+                    <div className="flex items-baseline justify-center mb-0.5">
+                      <span className="text-2xl font-bold text-gradient">{plan.price}</span>
                       {plan.period && (
-                        <span className="text-gray-500 ml-1 text-sm">/{plan.period}</span>
+                        <span className="text-gray-500 ml-1 text-xs">/{plan.period}</span>
                       )}
                     </div>
                     {(plan as any).credits && (
-                      <p className="text-primary-400 text-sm font-medium mb-1">{(plan as any).credits}</p>
+                      <p className="text-primary-400 text-xs font-medium mb-1">{(plan as any).credits}</p>
                     )}
-                    <p className="text-gray-500 text-xs leading-relaxed">{plan.description}</p>
+                    <p className="text-gray-500 text-[11px] leading-relaxed">{plan.description}</p>
                   </div>
 
-                  <div className="space-y-3 mb-6 flex-grow">
+                  <div className="space-y-2.5 mb-5 flex-grow">
                     {plan.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center gap-3">
-                        <div className="flex-shrink-0 text-primary-400">
+                      <div key={featureIndex} className="flex items-center gap-2.5">
+                        <div className="flex-shrink-0 text-primary-400 opacity-70">
                           {feature.icon}
                         </div>
-                        <span className="text-gray-300 text-sm">{feature.text}</span>
+                        <span className="text-gray-400 text-xs">{feature.text}</span>
                       </div>
                     ))}
                   </div>
 
                   <a
                     href="https://songram.app/login"
-                    className={`w-full py-3 rounded-xl font-medium transition-all block text-center ${
-                      plan.popular ? 'btn-primary' : 'bg-white/5 border border-white/10 text-white hover:bg-white/10'
+                    className={`w-full py-2.5 rounded-lg font-medium text-sm transition-all block text-center ${
+                      plan.popular ? 'btn-primary' : 'bg-white/5 text-white hover:bg-white/10'
                     }`}
                   >
                     {plan.buttonText}
