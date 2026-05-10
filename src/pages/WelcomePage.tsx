@@ -95,9 +95,9 @@ const WelcomePage: React.FC = () => {
       likes: "3.1K",
       plays: "47K",
       cover:
-        "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
+        "https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
       audio:
-        "https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20audio.wav",
+        "https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20audio.wav",
     },
     {
       title: "Groove Ijo",
@@ -106,8 +106,8 @@ const WelcomePage: React.FC = () => {
       likes: "1.8K",
       plays: "23K",
       cover:
-        "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg",
-      audio: "https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo-%20audio.wav",
+        "https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg",
+      audio: "https://storage.googleapis.com/songram-website-media/Groove%20Ijo-%20audio.wav",
     },
     {
       title: "Pink Sounds in Space",
@@ -116,9 +116,9 @@ const WelcomePage: React.FC = () => {
       likes: "4.2K",
       plays: "89K",
       cover:
-        "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
+        "https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
       audio:
-        "https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.wav",
+        "https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.wav",
     },
     {
       title: "Pulse Sight",
@@ -127,8 +127,8 @@ const WelcomePage: React.FC = () => {
       likes: "2.6K",
       plays: "35K",
       cover:
-        "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg",
-      audio: "https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20-%20audio.wav",
+        "https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20%20-%20album%20cover.jpg",
+      audio: "https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20-%20audio.wav",
     },
   ];
 
@@ -255,21 +255,21 @@ const WelcomePage: React.FC = () => {
             {/* Row 1 - floating left */}
             <div className="absolute top-[5%] left-[-2%] animate-float-slow">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg" 
+                src="https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg" 
                 alt="" 
                 className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
             </div>
             <div className="absolute top-[8%] right-[8%] animate-float-slower">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Groove%20Ijo%20-%20album%20cover.jpg" 
+                src="https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg" 
                 alt="" 
                 className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
             </div>
             <div className="absolute top-[18%] left-[22%] animate-float-medium">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Pink%20Sounds%20in%20Space%20-%20audio.jpg" 
+                src="https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.jpg" 
                 alt="" 
                 className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
@@ -278,14 +278,14 @@ const WelcomePage: React.FC = () => {
             {/* Row 2 */}
             <div className="absolute top-[38%] right-[-2%] animate-float-slow">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Pulse%20Sight%20%20-%20album%20cover.jpg" 
+                src="https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20%20-%20album%20cover.jpg" 
                 alt="" 
                 className="w-52 h-52 md:w-72 md:h-72 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
             </div>
             <div className="absolute top-[42%] left-[-5%] animate-float-medium">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Front_Image.png" 
+                src="https://storage.googleapis.com/songram-website-media/Front_Image.png" 
                 alt="" 
                 className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
@@ -294,21 +294,21 @@ const WelcomePage: React.FC = () => {
             {/* Row 3 */}
             <div className="absolute bottom-[20%] right-[12%] animate-float-slower">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_1.png" 
+                src="https://storage.googleapis.com/songram-website-media/Mic_Image_1.png" 
                 alt="" 
                 className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
             </div>
             <div className="absolute bottom-[12%] left-[5%] animate-float-slow">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Tape_Untwinded.png" 
+                src="https://storage.googleapis.com/songram-website-media/Tape_Untwinded.png" 
                 alt="" 
                 className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
             </div>
             <div className="absolute bottom-[28%] left-[30%] animate-float-medium">
               <img 
-                src="https://storage.googleapis.com/songram-website/Songs/Artist_Performing.png" 
+                src="https://storage.googleapis.com/songram-website-media/Artist_Performing.png" 
                 alt="" 
                 className="w-36 h-36 md:w-48 md:h-48 rounded-2xl object-cover shadow-2xl blur-[2px]"
               />
@@ -385,14 +385,14 @@ const WelcomePage: React.FC = () => {
               <div className="space-y-4">
                 <div className="human-image">
                   <img 
-                    src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_1.png" 
+                    src="https://storage.googleapis.com/songram-website-media/Mic_Image_1.png" 
                     alt="Person with headphones" 
                     className="rounded-2xl w-full aspect-[2/3] object-cover"
                   />
                 </div>
                 <div className="human-image">
                   <img 
-                    src="https://storage.googleapis.com/songram-website/Songs/Mic_Image_2.png" 
+                    src="https://storage.googleapis.com/songram-website-media/Mic_Image_2.png" 
                     alt="Musician playing guitar" 
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
@@ -401,14 +401,14 @@ const WelcomePage: React.FC = () => {
               <div className="space-y-4 pt-8">
                 <div className="human-image">
                   <img 
-                    src="https://storage.googleapis.com/songram-website/Songs/Tape_Untwinded.png" 
+                    src="https://storage.googleapis.com/songram-website-media/Tape_Untwinded.png" 
                     alt="Artist in studio" 
                     className="rounded-2xl w-full aspect-square object-cover"
                   />
                 </div>
                 <div className="human-image">
                   <img 
-                    src="https://storage.googleapis.com/songram-website/Songs/Artist_Performing.png" 
+                    src="https://storage.googleapis.com/songram-website-media/Artist_Performing.png" 
                     alt="Person enjoying music" 
                     className="rounded-2xl w-full aspect-[2/3] object-cover"
                   />
