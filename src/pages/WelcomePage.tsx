@@ -338,8 +338,8 @@ const WelcomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Create music with <span className="text-gradient font-medium">agentic AI</span> that feels like you. Share your sound with the world. 
-            Connect with creators who get it.
+            Create music with the support of agentic AI and <span className="text-gradient font-medium">keep your creativity.</span>
+        
           </motion.p>
           
           <motion.div 
