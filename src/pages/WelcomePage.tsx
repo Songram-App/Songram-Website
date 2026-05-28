@@ -12,7 +12,9 @@ import {
   IoLogoTiktok,
   IoLogoLinkedin,
   IoLogoApple,
+  IoLogoAndroid,
   IoLogoWindows,
+  IoPhonePortrait,
   IoBulbOutline,
   IoLayersOutline,
   IoColorWandOutline,
@@ -708,7 +710,7 @@ const WelcomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Desktop App Section */}
+      {/* Desktop + Mobile App Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -719,10 +721,10 @@ const WelcomePage: React.FC = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Take Songram to your desktop
+              Take Songram beyond the browser
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto mb-8">
-              More powerful tools, better performance, seamless workflow.
+              Desktop and mobile apps are coming soon with more powerful tools and a seamless workflow.
             </p>
             
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-6">
@@ -747,10 +749,32 @@ const WelcomePage: React.FC = () => {
                   <div className="font-medium text-sm">Windows</div>
                 </div>
               </button>
+
+              <button 
+                disabled
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed"
+              >
+                <IoPhonePortrait size={20} />
+                <div className="text-left">
+                  <div className="text-[10px] text-gray-500">Coming soon on</div>
+                  <div className="font-medium text-sm">iOS</div>
+                </div>
+              </button>
+
+              <button 
+                disabled
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed"
+              >
+                <IoLogoAndroid size={20} />
+                <div className="text-left">
+                  <div className="text-[10px] text-gray-500">Coming soon on</div>
+                  <div className="font-medium text-sm">Android</div>
+                </div>
+              </button>
             </div>
             
             <p className="text-sm text-gray-500">
-              Currently in private alpha. <button onClick={() => setShowSignupModal(true)} className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Join the waitlist</button> for early access.
+              Songram is live in public beta on web. <a href="https://songram.app/login" className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</a>.
             </p>
           </motion.div>
         </div>
@@ -773,14 +797,11 @@ const WelcomePage: React.FC = () => {
                 Ready to make your next hit?
               </h2>
               <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
-                Join the waitlist and be among the first to create with Songram.
+                Songram is live in public beta. Start creating with agentic AI now.
               </p>
-              <button
-                onClick={() => setShowSignupModal(true)}
-                className="btn-primary"
-              >
-                Join Waitlist
-              </button>
+              <a href="https://songram.app/login" className="btn-primary inline-block">
+                Start Creating
+              </a>
             </div>
           </motion.div>
         </div>
@@ -876,13 +897,13 @@ const WelcomePage: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">You're on the list!</h3>
-                  <p className="text-gray-400 text-sm">We'll notify you when Songram launches.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">You are all set.</h3>
+                  <p className="text-gray-400 text-sm">Songram is live. We will keep you posted on major updates.</p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold text-white mb-2">Join the Waitlist</h3>
-                  <p className="text-gray-400 mb-6 text-sm">Be the first to experience AI-powered music creation.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">Get Songram Updates</h3>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
                   
                   <form 
                     action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"
@@ -904,7 +925,7 @@ const WelcomePage: React.FC = () => {
                       <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
                     </div>
                     <button type="submit" disabled={isSubmitting} className="w-full btn-primary-lg disabled:opacity-50">
-                      {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                      {isSubmitting ? 'Submitting...' : 'Get Updates'}
                     </button>
                   </form>
                 </>

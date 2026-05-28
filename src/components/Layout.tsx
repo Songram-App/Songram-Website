@@ -302,13 +302,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">You're on the list!</h3>
-                  <p className="text-gray-400">We'll notify you when Songram launches.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">You are all set.</h3>
+                  <p className="text-gray-400">Songram is live. We will keep you posted on major updates.</p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-2xl font-bold text-white mb-2">Join the Waitlist</h3>
-                  <p className="text-gray-400 mb-6">Be the first to experience AI-powered music creation.</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">Get Songram Updates</h3>
+                  <p className="text-gray-400 mb-6">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
                   
                   <form 
                     action="https://songram.us14.list-manage.com/subscribe/post?u=d51c3c1c7b33f1ed46b5e853e&amp;id=d392f30a24&amp;f_id=0006a3e5f0"
@@ -339,10 +339,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </svg>
-                          Joining...
+                          Submitting...
                         </div>
                       ) : (
-                        'Join Waitlist'
+                        'Get Updates'
                       )}
                     </button>
                   </form>

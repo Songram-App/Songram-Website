@@ -78,7 +78,7 @@ const PricingPage: React.FC = () => {
       price: '$10',
       period: 'per month',
       credits: '5,000 credits',
-      description: 'Includes Lyric Assistant, voice conversations, album cover generation, full instrumental track generation, real-time music streaming, stem separation, mixing, and mastering tools.',
+      description: 'Includes Lyric Assistant, voice conversations, album cover generation, full instrumental track generation, real-time music streaming, CMM complementary generation, stem separation, mixing, and mastering tools.',
       features: [
         { text: '5,000 credits per month', icon: <IoFlash size={16} /> },
         { text: 'Lyric Assistant & voice chat', icon: <IoText size={16} /> },
@@ -95,7 +95,7 @@ const PricingPage: React.FC = () => {
       price: '$20',
       period: 'per month',
       credits: '10,000 credits',
-      description: 'Everything in Basic, plus higher generation limits, faster processing, priority access to new features, advanced collaboration tools, and the full creator experience.',
+      description: 'Everything in Basic, plus higher generation limits, faster processing, priority access to new features, advanced collaboration tools, and more CMM generation capacity.',
       features: [
         { text: '10,000 credits per month', icon: <IoRocket size={16} /> },
         { text: 'Everything in Basic', icon: <IoCheckmark size={16} /> },
@@ -126,6 +126,8 @@ const PricingPage: React.FC = () => {
       features: [
         { name: 'AI stem separation', free: true, basic: true, premium: true },
         { name: 'AI mixing & mastering', free: true, basic: true, premium: true },
+        { name: 'CMM complementary generation', free: true, basic: true, premium: true },
+        { name: 'Generation quality presets', free: '—', basic: 'Standard', premium: 'High / Best' },
         { name: 'Real-time streaming', free: false, basic: true, premium: true },
         { name: 'Advanced editing tools', free: false, basic: true, premium: true },
       ]
@@ -144,6 +146,7 @@ const PricingPage: React.FC = () => {
     { action: 'AI cover art', cost: '300 credits' },
     { action: 'Lyrics Assistant', cost: '50 credits' },
     { action: 'AI music track (instrumental)', cost: '800 credits' },
+    { action: 'AI CMM generation (complement / transform / variation)', cost: '700 credits' },
     { action: 'AI stem separation', cost: '500 credits' },
   ];
 
@@ -415,7 +418,7 @@ const PricingPage: React.FC = () => {
                 <span className="text-white">$1 = 375 credits</span> · Top-ups never expire
               </p>
               <p className="text-gray-500">
-                Free: 800/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing & mastering included</span>
+                Free: 800/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing, mastering, and CMM included</span>
               </p>
             </div>
           </motion.div>
@@ -507,15 +510,15 @@ const PricingPage: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">You're on the list!</h3>
-                  <p className="text-gray-400 text-sm">We'll notify you when Songram launches.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">You are all set.</h3>
+                  <p className="text-gray-400 text-sm">Songram is live. We'll keep you posted on product updates.</p>
                 </div>
               ) : (
                 <>
                   <h3 className="text-xl font-bold text-white mb-2">
                     Join Songram {selectedPlan === 'premium' ? 'Premium' : selectedPlan === 'basic' ? 'Basic' : 'Free'}
                   </h3>
-                  <p className="text-gray-400 mb-6 text-sm">Be the first to experience AI-powered music creation.</p>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for updates and onboarding tips.</p>
                   
                   <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
                     <div className="flex items-center gap-2 text-white">
@@ -543,7 +546,7 @@ const PricingPage: React.FC = () => {
                       <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
                     </div>
                     <button type="submit" disabled={isSubmitting} className="w-full btn-primary-lg disabled:opacity-50">
-                      {isSubmitting ? 'Joining...' : 'Get Early Access'}
+                      {isSubmitting ? 'Submitting...' : 'Get Updates'}
                     </button>
                   </form>
                 </>

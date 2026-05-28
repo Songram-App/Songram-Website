@@ -7,12 +7,14 @@ import PricingPage from './pages/PricingPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import ScrollToTop from './components/ScrollToTop';
+import LaunchCountdownBanner from './components/LaunchCountdownBanner';
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <ScrollToTop />
+        <LaunchCountdownBanner />
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/about" element={<AboutPage />} />

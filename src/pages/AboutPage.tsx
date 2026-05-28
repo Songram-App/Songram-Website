@@ -231,13 +231,13 @@ const AboutPage: React.FC = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">You're on the list!</h3>
-                  <p className="text-gray-400 text-sm">We'll notify you when Songram launches.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">You are all set.</h3>
+                  <p className="text-gray-400 text-sm">Songram is live. We will keep you posted on major updates.</p>
                 </div>
               ) : (
                 <>
-                  <h3 className="text-xl font-bold text-white mb-2">Join the Waitlist</h3>
-                  <p className="text-gray-400 mb-6 text-sm">Be the first to experience AI-powered music creation.</p>
+                  <h3 className="text-xl font-bold text-white mb-2">Get Songram Updates</h3>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
                   
                   <form action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"
                     method="post" onSubmit={handleFormSubmit} className="space-y-4">
@@ -251,7 +251,7 @@ const AboutPage: React.FC = () => {
                       <input type="text" name="b_6672acc5c2e3d9aa757c7ab19_83ae707f97" tabIndex={-1} defaultValue="" />
                     </div>
                     <button type="submit" disabled={isSubmitting} className="w-full btn-primary-lg disabled:opacity-50">
-                      {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                      {isSubmitting ? 'Submitting...' : 'Get Updates'}
                     </button>
                   </form>
                 </>
