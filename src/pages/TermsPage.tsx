@@ -24,6 +24,7 @@ const TermsPage: React.FC = () => {
     { path: '/about', label: 'About' },
     { path: '/team', label: 'Team' },
     { path: '/pricing', label: 'Pricing' },
+    { path: '/faq', label: 'FAQ' },
   ];
 
   return (
@@ -186,6 +187,7 @@ const TermsPage: React.FC = () => {
                   <div>
                     <h3 className="text-lg font-semibold text-white mb-2">Your Content</h3>
                     <p>You retain ownership of the original music and content you create. By using Songram, you grant us a limited license to host, display, and process your content to provide our services.</p>
+                    <p className="mt-4">You may not upload copyrighted songs, recordings, samples, stems, or other audio unless you own the rights or have explicit permission/license from the rights holder. You are responsible for ensuring any content you upload complies with applicable copyright laws.</p>
                   </div>
                   
                   <div>
