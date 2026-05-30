@@ -15,14 +15,12 @@ import {
   IoShieldCheckmarkOutline,
   IoPeople,
   IoKeypadOutline,
-  IoBugOutline,
   IoLogoInstagram,
   IoLogoTiktok,
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
-import reportBugGuideImage from '../assets/images/report-bug-guide.png';
 
-type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators' | 'Support';
+type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators';
 
 interface FAQItem {
   question: string;
@@ -30,10 +28,6 @@ interface FAQItem {
   category: FAQCategory;
   icon: IconType;
   keywords: string[];
-  image?: {
-    src: string;
-    alt: string;
-  };
 }
 
 const faqItems: FAQItem[] = [
@@ -184,17 +178,6 @@ const faqItems: FAQItem[] = [
     icon: IoKeypadOutline,
     keywords: ['midi', 'keyboard', 'piano', 'editing', 'playback'],
   },
-  {
-    question: 'How do I report a bug?',
-    answer: 'Open Songram, go to Settings in the left sidebar, scroll to Help & Support, then select Report a bug.',
-    category: 'Support',
-    icon: IoBugOutline,
-    keywords: ['bug', 'report bug', 'settings', 'help support', 'issue', 'problem'],
-    image: {
-      src: reportBugGuideImage,
-      alt: 'Songram settings page showing the Report a bug option under Help and Support.',
-    },
-  },
 ];
 
 const faqCategories: Array<{ name: FAQCategory | 'All'; description: string; icon: IconType }> = [
@@ -204,7 +187,6 @@ const faqCategories: Array<{ name: FAQCategory | 'All'; description: string; ico
   { name: 'Studio', description: 'Explore stems, editing, exports, and MIDI.', icon: IoConstructOutline },
   { name: 'Rights', description: 'Review ownership, privacy, and commercial use.', icon: IoShieldCheckmarkOutline },
   { name: 'Creators', description: 'See who Songram is built for.', icon: IoPeople },
-  { name: 'Support', description: 'Find help for bugs, issues, and product support.', icon: IoBugOutline },
 ];
 
 const navLinks = [
@@ -218,11 +200,12 @@ const FAQPage = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<FAQCategory | 'All'>('All');
-  const [openQuestion, setOpenQuestion] = useState(faqItems[0].question);
+  const [openQuestion, setOpenQuestion] = useState<string | null>(null);
   const hasActiveSearch = searchTerm.trim().length > 0;
 
   const filteredItems = useMemo(() => {
     const normalizedSearch = searchTerm.trim().toLowerCase();
+    const words = normalizedSearch.split(/\s+/).filter(Boolean);
 
     return faqItems.filter((item) => {
       const matchesCategory = hasActiveSearch || selectedCategory === 'All' || item.category === selectedCategory;
@@ -238,7 +221,7 @@ const FAQPage = () => {
         ...item.keywords,
       ].join(' ').toLowerCase();
 
-      return matchesCategory && searchableContent.includes(normalizedSearch);
+      return matchesCategory && words.every((word) => searchableContent.includes(word));
     });
   }, [hasActiveSearch, searchTerm, selectedCategory]);
 
@@ -308,142 +291,116 @@ const FAQPage = () => {
         </AnimatePresence>
       </nav>
 
-      <main className="pt-36 pb-20 px-4 sm:px-6 lg:px-8">
-        <section className="max-w-6xl mx-auto">
+      <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+        <section className="max-w-3xl mx-auto">
           <motion.div
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] px-5 py-12 sm:px-8 lg:px-12 text-center"
+            className="mb-12 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(136,99,237,0.28),transparent_42%)]" />
-            <div className="relative">
-              <p className="text-primary-400 text-sm font-medium mb-3">Songram Support</p>
-              <h1 className="text-2xl sm:text-4xl font-bold text-white mb-4">
-                Hello. How can we <span className="text-gradient">help you?</span>
-              </h1>
-              <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-                Search common questions about Songram, AI music creation, ownership, publishing, and studio tools.
-              </p>
+            <p className="text-primary-400 text-sm font-medium mb-3 tracking-wide uppercase">Support</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Frequently asked questions
+            </h1>
+            <p className="text-gray-500 max-w-xl mx-auto mb-8">
+              Everything you need to know about Songram.
+            </p>
 
-              <label htmlFor="faq-search" className="sr-only">Search FAQ answers</label>
-              <div className="max-w-2xl mx-auto flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 text-gray-900 shadow-2xl shadow-primary-950/30">
-                <IoSearch className="text-primary-500 flex-shrink-0" size={20} aria-hidden="true" />
+            {/* Search bar */}
+            <div className="max-w-xl mx-auto">
+              <label htmlFor="faq-search" className="sr-only">Search FAQ</label>
+              <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 focus-within:border-white/25 transition-colors duration-200">
+                <IoSearch className="text-gray-500 flex-shrink-0" size={16} aria-hidden="true" />
                 <input
                   id="faq-search"
                   type="search"
                   value={searchTerm}
-                  onChange={(event) => setSearchTerm(event.target.value)}
-                  placeholder="Search for answers"
-                  className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-500 outline-none"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search questions..."
+                  className="w-full bg-transparent text-sm text-white placeholder-gray-600 outline-none"
                 />
               </div>
             </div>
           </motion.div>
 
-          <AnimatePresence>
-            {!hasActiveSearch && (
-              <motion.div
-                className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.2 }}
-              >
-                {faqCategories.map((category) => {
-                  const Icon = category.icon;
-                  const isSelected = selectedCategory === category.name;
+          {/* Category pills */}
+          <div className="flex flex-wrap gap-2 justify-center mb-10">
+            {faqCategories.map((category) => {
+              const isSelected = selectedCategory === category.name;
+              return (
+                <button
+                  key={category.name}
+                  type="button"
+                  onClick={() => setSelectedCategory(category.name)}
+                  className={`px-4 py-1.5 rounded-full text-sm transition-all duration-200 ${
+                    isSelected
+                      ? 'bg-white text-black font-medium'
+                      : 'text-gray-400 hover:text-white border border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  {category.name}
+                </button>
+              );
+            })}
+          </div>
 
-                  return (
-                    <button
-                      key={category.name}
-                      type="button"
-                      onClick={() => setSelectedCategory(category.name)}
-                      className={`group rounded-2xl border p-6 text-left transition-all duration-300 hover:-translate-y-1 ${
-                        isSelected
-                          ? 'border-primary-500/60 bg-primary-500/10 shadow-glow'
-                          : 'border-white/10 bg-white/[0.03] hover:border-primary-400/40 hover:bg-white/[0.06]'
-                      }`}
-                      aria-pressed={isSelected}
-                    >
-                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary-400/30 bg-primary-500/10 text-primary-300 group-hover:text-primary-200">
-                        <Icon size={24} aria-hidden="true" />
-                      </div>
-                      <h2 className="text-base font-semibold text-white mb-2">{category.name}</h2>
-                      <p className="text-sm leading-relaxed text-gray-400">{category.description}</p>
-                    </button>
-                  );
-                })}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <section className={`${hasActiveSearch ? 'mt-8' : 'mt-12'} max-w-4xl mx-auto`} aria-label="Frequently asked questions">
-            <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-sm text-primary-400 font-medium">Frequently Asked Questions</p>
-                <h2 className="text-2xl font-bold text-white">Answers for music creators</h2>
-              </div>
-              <p className="text-sm text-gray-500">
-                {filteredItems.length} {filteredItems.length === 1 ? 'answer' : 'answers'} found
-              </p>
-            </div>
-
+          {/* Accordion */}
+          <motion.div
+            className="divide-y divide-white/[0.08]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
             {filteredItems.length > 0 ? (
-              <div className="space-y-3">
-                {filteredItems.map((item) => {
-                  const Icon = item.icon;
-                  const isOpen = openQuestion === item.question;
-
-                  return (
-                    <article key={item.question} className="rounded-2xl border border-white/10 bg-zinc-900/40 overflow-hidden">
-                      <button
-                        type="button"
-                        onClick={() => setOpenQuestion(isOpen ? '' : item.question)}
-                        className="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-white/[0.03] transition-colors"
-                        aria-expanded={isOpen}
+              filteredItems.map((item) => {
+                const isOpen = openQuestion === item.question;
+                return (
+                  <div key={item.question}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenQuestion(isOpen ? null : item.question)}
+                      className="flex w-full items-center justify-between py-5 text-left group"
+                      aria-expanded={isOpen}
+                    >
+                      <span className={`text-base transition-colors duration-200 ${isOpen ? 'text-white' : 'text-gray-300 group-hover:text-white'}`}>
+                        {item.question}
+                      </span>
+                      <span
+                        className={`ml-6 flex-shrink-0 text-gray-500 group-hover:text-white transition-all duration-300 ${isOpen ? 'rotate-90 text-white' : ''}`}
+                        aria-hidden="true"
                       >
-                        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-500/10 text-primary-300">
-                          <Icon size={20} aria-hidden="true" />
-                        </span>
-                        <span className="flex-1 font-medium text-white">{item.question}</span>
-                        <span className="text-primary-300 text-xl leading-none">{isOpen ? '-' : '+'}</span>
-                      </button>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4 2L9 7L4 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </button>
 
-                      <AnimatePresence initial={false}>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <div className="px-5 pb-5 pl-[4.75rem]">
-                              <p className="text-sm leading-relaxed text-gray-400">
-                                {item.answer}
-                              </p>
-                              {item.image && (
-                                <img
-                                  src={item.image.src}
-                                  alt={item.image.alt}
-                                  className="mt-4 w-full rounded-xl border border-white/10 shadow-2xl shadow-black/30"
-                                  loading="lazy"
-                                />
-                              )}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </article>
-                  );
-                })}
-              </div>
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="answer"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: 'easeInOut' }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <p className="pb-5 text-gray-400 text-sm leading-relaxed">
+                            {item.answer}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })
             ) : (
-              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-center">
-                <p className="text-white font-medium mb-2">No answers found</p>
-                <p className="text-gray-400 text-sm">Try a different keyword or choose another category.</p>
+              <div className="py-16 text-center">
+                <p className="text-gray-500 text-sm">No answers found for this category.</p>
               </div>
             )}
-          </section>
+          </motion.div>
         </section>
       </main>
 
