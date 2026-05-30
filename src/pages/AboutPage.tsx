@@ -125,7 +125,7 @@ const AboutPage: React.FC = () => {
             <div className="space-y-5 text-gray-300 leading-relaxed">
               <p>
                 Over the past decade, social media has been dominated by photo-first platforms. And while a picture may be worth a thousand words, 
-                <span className="text-primary-400"> music is a universal language that speaks directly to the soul</span>—a language that can express emotions that words and images never could.
+                <span className="text-primary-400"> music is a universal language that speaks directly to the soul</span>, a language that can express emotions that words and images never could.
               </p>
 
               <p>
@@ -138,7 +138,7 @@ const AboutPage: React.FC = () => {
               </p>
 
               <p>
-                Collaborate, explore, and share with a global community that thrives on sound. Every beat, every lyric, every playlist is a reflection of you—and a bridge to someone else.
+                Collaborate, explore, and share with a global community that thrives on sound. Every beat, every lyric, every playlist is a reflection of you, and a bridge to someone else.
               </p>
             </div>
 
