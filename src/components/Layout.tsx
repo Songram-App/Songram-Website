@@ -247,6 +247,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
                 <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
                 <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
+                <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
               </ul>
             </div>
 
