@@ -51,7 +51,6 @@ const AboutPage: React.FC = () => {
     { path: '/about', label: 'About' },
     { path: '/team', label: 'Team' },
     { path: '/pricing', label: 'Pricing' },
-    { path: '/faq', label: 'FAQ' },
   ];
 
   return (
@@ -189,6 +188,7 @@ const AboutPage: React.FC = () => {
               <ul className="space-y-3">
                 <li><Link to="/" className="text-gray-400 hover:text-white transition-colors text-sm">Features</Link></li>
                 <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors text-sm">Pricing</Link></li>
+                <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors text-sm">FAQ</Link></li>
                 <li><Link to="/about" className="text-primary-400 text-sm">About</Link></li>
                 <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors text-sm">Team</Link></li>
               </ul>

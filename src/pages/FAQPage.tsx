@@ -15,12 +15,14 @@ import {
   IoShieldCheckmarkOutline,
   IoPeople,
   IoKeypadOutline,
+  IoBugOutline,
   IoLogoInstagram,
   IoLogoTiktok,
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
+import reportBugGuideImage from '../assets/images/report-bug-guide.png';
 
-type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators';
+type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators' | 'Support';
 
 interface FAQItem {
   question: string;
@@ -28,6 +30,10 @@ interface FAQItem {
   category: FAQCategory;
   icon: IconType;
   keywords: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
 }
 
 const faqItems: FAQItem[] = [
@@ -178,6 +184,17 @@ const faqItems: FAQItem[] = [
     icon: IoKeypadOutline,
     keywords: ['midi', 'keyboard', 'piano', 'editing', 'playback'],
   },
+  {
+    question: 'How do I report a bug?',
+    answer: 'Open Songram, go to Settings in the left sidebar, scroll to Help & Support, then select Report a bug.',
+    category: 'Support',
+    icon: IoBugOutline,
+    keywords: ['bug', 'report bug', 'settings', 'help support', 'issue', 'problem'],
+    image: {
+      src: reportBugGuideImage,
+      alt: 'Songram settings page showing the Report a bug option under Help and Support.',
+    },
+  },
 ];
 
 const faqCategories: Array<{ name: FAQCategory | 'All'; description: string; icon: IconType }> = [
@@ -187,6 +204,7 @@ const faqCategories: Array<{ name: FAQCategory | 'All'; description: string; ico
   { name: 'Studio', description: 'Explore stems, editing, exports, and MIDI.', icon: IoConstructOutline },
   { name: 'Rights', description: 'Review ownership, privacy, and commercial use.', icon: IoShieldCheckmarkOutline },
   { name: 'Creators', description: 'See who Songram is built for.', icon: IoPeople },
+  { name: 'Support', description: 'Find help for bugs, issues, and product support.', icon: IoBugOutline },
 ];
 
 const navLinks = [
@@ -194,7 +212,6 @@ const navLinks = [
   { path: '/about', label: 'About' },
   { path: '/team', label: 'Team' },
   { path: '/pricing', label: 'Pricing' },
-  { path: '/faq', label: 'FAQ' },
 ];
 
 const FAQPage = () => {
@@ -400,9 +417,19 @@ const FAQPage = () => {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.2 }}
                           >
-                            <p className="px-5 pb-5 pl-[4.75rem] text-sm leading-relaxed text-gray-400">
-                              {item.answer}
-                            </p>
+                            <div className="px-5 pb-5 pl-[4.75rem]">
+                              <p className="text-sm leading-relaxed text-gray-400">
+                                {item.answer}
+                              </p>
+                              {item.image && (
+                                <img
+                                  src={item.image.src}
+                                  alt={item.image.alt}
+                                  className="mt-4 w-full rounded-xl border border-white/10 shadow-2xl shadow-black/30"
+                                  loading="lazy"
+                                />
+                              )}
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>

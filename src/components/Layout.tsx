@@ -72,7 +72,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { path: '/about', label: 'About' },
     { path: '/team', label: 'Team' },
     { path: '/pricing', label: 'Pricing' },
-    { path: '/faq', label: 'FAQ' },
   ];
 
   return (
@@ -245,6 +244,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <ul className="space-y-3">
                 <li><Link to="/" className="text-gray-400 hover:text-white transition-colors">Features</Link></li>
                 <li><Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link to="/faq" className="text-gray-400 hover:text-white transition-colors">FAQ</Link></li>
                 <li><Link to="/about" className="text-gray-400 hover:text-white transition-colors">About</Link></li>
                 <li><Link to="/team" className="text-gray-400 hover:text-white transition-colors">Team</Link></li>
               </ul>
