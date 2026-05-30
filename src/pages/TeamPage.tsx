@@ -84,6 +84,7 @@ const TeamPage: React.FC = () => {
     { path: '/about', label: 'About' },
     { path: '/team', label: 'Team' },
     { path: '/pricing', label: 'Pricing' },
+    { path: '/faq', label: 'FAQ' },
   ];
 
   return (

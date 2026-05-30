@@ -72,6 +72,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { path: '/about', label: 'About' },
     { path: '/team', label: 'Team' },
     { path: '/pricing', label: 'Pricing' },
+    { path: '/faq', label: 'FAQ' },
   ];
 
   return (
