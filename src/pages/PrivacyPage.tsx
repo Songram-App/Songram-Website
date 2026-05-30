@@ -191,10 +191,10 @@ const PrivacyPage: React.FC = () => {
               <div className="legal-text space-y-3">
                 <p>If you have any questions about this Privacy Policy, please reach out:</p>
                 <p>
-                  <span className="text-gray-500">Email — </span>
+                  <span className="text-gray-500">Email, </span>
                   <a href="mailto:team@songram.app" className="text-primary-400 hover:text-primary-300 transition-colors">team@songram.app</a>
                 </p>
-                <p><span className="text-gray-500">Location — </span>Vancouver, BC, Canada</p>
+                <p><span className="text-gray-500">Location, </span>Vancouver, BC, Canada</p>
                 <p className="text-gray-600 text-sm pt-4">
                   We will update this Privacy Policy as needed to reflect changes in our practices or applicable laws. Please review this policy periodically.
                 </p>

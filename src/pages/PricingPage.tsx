@@ -127,7 +127,7 @@ const PricingPage: React.FC = () => {
         { name: 'AI stem separation', free: true, basic: true, premium: true },
         { name: 'AI mixing & mastering', free: true, basic: true, premium: true },
         { name: 'CMM complementary generation', free: true, basic: true, premium: true },
-        { name: 'Generation quality presets', free: '—', basic: 'Standard', premium: 'High / Best' },
+        { name: 'Generation quality presets', free: ',', basic: 'Standard', premium: 'High / Best' },
         { name: 'Real-time streaming', free: false, basic: true, premium: true },
         { name: 'Advanced editing tools', free: false, basic: true, premium: true },
       ]
@@ -328,7 +328,7 @@ const PricingPage: React.FC = () => {
                               feature.free ? (
                                 <IoCheckmark className="inline text-primary-400" size={18} />
                               ) : (
-                                <span className="text-zinc-600">—</span>
+                                <span className="text-zinc-600">,</span>
                               )
                             ) : (
                               <span className="text-gray-300 text-sm">{feature.free}</span>
@@ -339,7 +339,7 @@ const PricingPage: React.FC = () => {
                               feature.basic ? (
                                 <IoCheckmark className="inline text-primary-400" size={18} />
                               ) : (
-                                <span className="text-zinc-600">—</span>
+                                <span className="text-zinc-600">,</span>
                               )
                             ) : (
                               <span className="text-gray-300 text-sm">{feature.basic}</span>
@@ -350,7 +350,7 @@ const PricingPage: React.FC = () => {
                               feature.premium ? (
                                 <IoCheckmark className="inline text-primary-400" size={18} />
                               ) : (
-                                <span className="text-zinc-600">—</span>
+                                <span className="text-zinc-600">,</span>
                               )
                             ) : (
                               <span className="text-white text-sm font-medium">{feature.premium}</span>
