@@ -15,9 +15,6 @@ import {
   IoLogoAndroid,
   IoLogoWindows,
   IoPhonePortrait,
-  IoBulbOutline,
-  IoLayersOutline,
-  IoColorWandOutline,
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
@@ -252,67 +249,37 @@ const WelcomePage: React.FC = () => {
           {/* Gradient overlay to fade out images - lighter to show more */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0D0D12]/50 via-[#0D0D12]/30 to-[#0D0D12]/80 z-10"></div>
           
-          {/* Floating album covers - more prominent */}
-          <div className="absolute inset-0 opacity-70">
-            {/* Row 1 - floating left */}
-            <div className="absolute top-[5%] left-[-2%] animate-float-slow">
+          {/* Floating album covers - edge only */}
+          <div className="absolute inset-0 opacity-50">
+            {/* Left edge */}
+            <div className="absolute top-[4%] left-[2%] md:left-[5%] animate-float-slow" style={{rotate: '-6deg'}}>
               <img 
                 src="https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg" 
                 alt="" 
-                className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
+                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
             </div>
-            <div className="absolute top-[8%] right-[8%] animate-float-slower">
-              <img 
-                src="https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg" 
-                alt="" 
-                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
-              />
-            </div>
-            <div className="absolute top-[18%] left-[22%] animate-float-medium">
+            <div className="absolute top-[48%] left-[4%] md:left-[7%] animate-float-medium" style={{rotate: '5deg'}}>
               <img 
                 src="https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.jpg" 
                 alt="" 
-                className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
+                className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
             </div>
-            
-            {/* Row 2 */}
-            <div className="absolute top-[38%] right-[-2%] animate-float-slow">
+
+            {/* Right edge */}
+            <div className="absolute top-[10%] right-[2%] md:right-[5%] animate-float-slower" style={{rotate: '7deg'}}>
+              <img 
+                src="https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg" 
+                alt="" 
+                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[3px]"
+              />
+            </div>
+            <div className="absolute top-[55%] right-[2%] md:right-[5%] animate-float-slow" style={{rotate: '-8deg'}}>
               <img 
                 src="https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20%20-%20album%20cover.jpg" 
                 alt="" 
-                className="w-52 h-52 md:w-72 md:h-72 rounded-2xl object-cover shadow-2xl blur-[2px]"
-              />
-            </div>
-            <div className="absolute top-[42%] left-[-5%] animate-float-medium">
-              <img 
-                src="https://storage.googleapis.com/songram-website-media/Front_Image.png" 
-                alt="" 
-                className="w-48 h-48 md:w-64 md:h-64 rounded-2xl object-cover shadow-2xl blur-[2px]"
-              />
-            </div>
-            
-            {/* Row 3 */}
-            <div className="absolute bottom-[20%] right-[12%] animate-float-slower">
-              <img 
-                src="https://storage.googleapis.com/songram-website-media/Mic_Image_1.png" 
-                alt="" 
-                className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[2px]"
-              />
-            </div>
-            <div className="absolute bottom-[12%] left-[5%] animate-float-slow">
-              <img 
-                src="https://storage.googleapis.com/songram-website-media/Tape_Untwinded.png" 
-                alt="" 
-                className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[2px]"
-              />
-            </div>
-            <div className="absolute bottom-[28%] left-[30%] animate-float-medium">
-              <img 
-                src="https://storage.googleapis.com/songram-website-media/Artist_Performing.png" 
-                alt="" 
-                className="w-36 h-36 md:w-48 md:h-48 rounded-2xl object-cover shadow-2xl blur-[2px]"
+                className="w-48 h-48 md:w-60 md:h-60 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
             </div>
           </div>
@@ -384,36 +351,74 @@ const WelcomePage: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="space-y-4">
-                <div className="human-image">
-                  <img 
-                    src="https://storage.googleapis.com/songram-website-media/Mic_Image_1.png" 
-                    alt="Person with headphones" 
-                    className="rounded-2xl w-full aspect-[2/3] object-cover"
-                  />
+              <div className="space-y-3 sm:space-y-4">
+                {/* Waveform card — tall */}
+                <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5 flex flex-col aspect-[2/3] overflow-hidden">
+                  <div className="flex-1 flex items-center gap-[2px]">
+                    {[3,7,12,18,9,22,15,8,20,14,17,25,11,19,15,10,22,13,17,8].map((h, i) => (
+                      <div key={i} className="flex-1 flex flex-col items-center gap-[2px]">
+                        <div className="w-full rounded-full bg-primary-500/80" style={{height: `${h}px`}} />
+                        <div className="w-full rounded-full bg-primary-500/30" style={{height: `${Math.round(h * 0.55)}px`}} />
+                      </div>
+                    ))}
+                  </div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider mt-4">Your sound</span>
+                  <h4 className="text-sm font-semibold text-white mt-1">Write the melody your way</h4>
                 </div>
-                <div className="human-image">
-                  <img 
-                    src="https://storage.googleapis.com/songram-website-media/Mic_Image_2.png" 
-                    alt="Musician playing guitar" 
-                    className="rounded-2xl w-full aspect-square object-cover"
-                  />
+                {/* BPM card — square */}
+                <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5 flex flex-col aspect-square overflow-hidden">
+                  <div className="flex-1 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-white leading-none">128</div>
+                      <div className="text-xs text-primary-400 tracking-widest uppercase mt-1.5">BPM</div>
+                      <div className="mt-3 flex gap-1.5 justify-center">
+                        {[1,1,1,0,1,1,0,1].map((on, i) => (
+                          <div key={i} className={`w-1.5 h-1.5 rounded-full ${on ? 'bg-primary-500' : 'bg-zinc-700'}`} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider">Your tempo</span>
+                  <h4 className="text-sm font-semibold text-white mt-1">Set the pace</h4>
                 </div>
               </div>
-              <div className="space-y-4 pt-8">
-                <div className="human-image">
-                  <img 
-                    src="https://storage.googleapis.com/songram-website-media/Tape_Untwinded.png" 
-                    alt="Artist in studio" 
-                    className="rounded-2xl w-full aspect-square object-cover"
-                  />
+              <div className="space-y-3 sm:space-y-4 pt-8">
+                {/* Key signature card — square */}
+                <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5 flex flex-col aspect-square overflow-hidden">
+                  <div className="flex-1 flex flex-col justify-center">
+                    <div className="text-4xl font-bold text-gradient leading-none mb-1">C♯</div>
+                    <div className="text-xs text-gray-500 uppercase tracking-wider mb-4">Minor</div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {['C♯','D♯','E','F♯','G♯','A','B'].map((n, i) => (
+                        <span key={i} className={`text-[10px] px-2 py-0.5 rounded-full border ${i === 0 ? 'border-primary-500/50 text-primary-400 bg-primary-500/10' : 'border-zinc-700 text-gray-500'}`}>
+                          {n}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider">Your key</span>
+                  <h4 className="text-sm font-semibold text-white mt-1">Compose without limits</h4>
                 </div>
-                <div className="human-image">
-                  <img 
-                    src="https://storage.googleapis.com/songram-website-media/Artist_Performing.png" 
-                    alt="Person enjoying music" 
-                    className="rounded-2xl w-full aspect-[2/3] object-cover"
-                  />
+                {/* Spectrum analyzer card — tall */}
+                <div className="rounded-2xl bg-zinc-900 border border-zinc-800 p-5 flex flex-col aspect-[2/3] overflow-hidden">
+                  <div className="flex-1 flex items-end gap-[3px] pb-2">
+                    {[45,78,62,90,55,85,70,48,82,66,75,52,60,88,70].map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 rounded-t-sm"
+                        style={{
+                          height: `${h}%`,
+                          background: i % 3 === 0
+                            ? 'linear-gradient(to top, rgb(109,40,217), rgb(167,139,250))'
+                            : i % 3 === 1
+                            ? 'linear-gradient(to top, rgb(109,40,217), rgb(192,132,252))'
+                            : 'linear-gradient(to top, rgb(88,28,220), rgb(139,92,246))'
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wider">Your frequency</span>
+                  <h4 className="text-sm font-semibold text-white mt-1">Sounds purely yours</h4>
                 </div>
               </div>
             </div>
@@ -579,59 +584,59 @@ const WelcomePage: React.FC = () => {
       {/* Agentic AI Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
+          {/* Header row */}
           <motion.div
-            className="text-center mb-14"
+            className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 pb-12 border-b border-zinc-800"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Your AI co-producer
-              <span className="text-gradient block">that actually thinks</span>
-            </h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Songram's agentic AI doesn't just generate sounds. It plans, decides, and iterates
-              like a seasoned producer working side-by-side with you.
+            <div>
+              <p className="text-[11px] text-primary-400 uppercase tracking-widest font-mono mb-3">AI Engine</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Your AI co-producer
+                <span className="text-gradient block">that actually thinks</span>
+              </h2>
+            </div>
+            <p className="text-gray-500 max-w-sm text-sm lg:text-right leading-relaxed">
+              Songram's agentic AI doesn't just generate sounds. It plans, decides, and iterates like a seasoned producer working side-by-side with you.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Steps — pixel-gap grid creates thin dividers */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[0.06]">
             {[
               {
-                icon: <IoBulbOutline size={22} />,
+                step: "01",
                 title: "Plans Your Production",
                 description: "Multi-step reasoning breaks your idea into beats, melody, arrangement, and mix decisions.",
               },
               {
-                icon: <IoColorWandOutline size={22} />,
+                step: "02",
                 title: "Decides Like a Producer",
                 description: "Understands genre, mood, and context to autonomously pick the right sounds, tempo, key, and structure.",
               },
               {
-                icon: <IoLayersOutline size={22} />,
+                step: "03",
                 title: "Refines With You",
                 description: "Iterates on your feedback, adjusting and polishing layers until your track sounds exactly right.",
               },
             ].map((card, i) => (
               <motion.div
                 key={i}
-                className="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-6 hover:border-primary-500/30 transition-colors duration-300"
+                className="bg-[#161621] p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="w-11 h-11 bg-primary-500/15 border border-primary-500/20 rounded-xl flex items-center justify-center text-primary-400 mb-5">
-                  {card.icon}
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{card.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{card.description}</p>
+                <div className="text-[10px] text-primary-500/50 font-mono tracking-widest mb-8">{card.step}</div>
+                <h3 className="text-base font-semibold text-white mb-3">{card.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{card.description}</p>
               </motion.div>
             ))}
           </div>
-
-
         </div>
       </section>
 
@@ -639,7 +644,7 @@ const WelcomePage: React.FC = () => {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
-            className="bg-zinc-900/50 border border-zinc-800 rounded-2xl p-8 md:p-12"
+            className="bg-[#161621] border border-white/[0.06] rounded-2xl p-8 md:p-12"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
