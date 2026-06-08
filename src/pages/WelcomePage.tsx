@@ -19,6 +19,7 @@ import {
 import validator from 'validator';
 import XLogo from '../components/XLogo';
 import DawPreview from '../components/DawPreview';
+import SEO from '../components/SEO';
 
 // Import videos from assets
 import CreateSectionVideo from '../assets/videos/Create Section Video_compressed.mp4';
@@ -167,6 +168,12 @@ const WelcomePage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Songram | Music Creation & Social Platform for Artists"
+        description="Create beats, share songs, connect with artists, and go viral. Songram is the ultimate AI-powered music workspace for modern music creators."
+        keywords="music creation, AI music, beat maker, music social media, song sharing, music collaboration, music platform, artist community, music production"
+        url="https://songram.app"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'

@@ -19,6 +19,7 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 
 const PricingPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -159,6 +160,12 @@ const PricingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Pricing - Songram Plans & Features"
+        description="Explore Songram's pricing plans. From free tiers to premium subscriptions, find the perfect plan for your music creation journey."
+        keywords="songram pricing, music app plans, music creation subscription, AI music pricing, beat maker cost"
+        url="https://songram.app/pricing"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'

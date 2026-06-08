@@ -13,6 +13,7 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 import EdirinAvatar from '../assets/images/Edirin_avatar.jpg';
 import SebastianAvatar from '../assets/images/sebastian_avatar.jpg';
 
@@ -88,6 +89,12 @@ const TeamPage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Meet the Team - Songram"
+        description="Meet the passionate team behind Songram. Our founders and team members are dedicated to building the future of music creation."
+        keywords="songram team, music startup founders, music technology team, songram founders"
+        url="https://songram.app/team"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'

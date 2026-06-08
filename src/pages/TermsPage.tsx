@@ -8,6 +8,7 @@ import {
   IoLogoTiktok
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 
 const TermsPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,6 +29,12 @@ const TermsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen text-white">
+      <SEO
+        title="Terms of Service - Songram"
+        description="Read Songram's terms of service. Understand your rights and responsibilities when using our music creation platform."
+        keywords="songram terms, music app terms of service, user agreement, platform rules"
+        url="https://songram.app/terms"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'

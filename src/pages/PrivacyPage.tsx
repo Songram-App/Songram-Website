@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { IoClose, IoMenu, IoLogoInstagram, IoLogoTiktok } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 
 const PrivacyPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,6 +24,12 @@ const PrivacyPage: React.FC = () => {
 
   return (
     <div className="min-h-screen text-white">
+      <SEO
+        title="Privacy Policy - Songram"
+        description="Read Songram's privacy policy. Learn how we collect, use, and protect your personal information and music data."
+        keywords="songram privacy, music app privacy policy, data protection, user privacy"
+        url="https://songram.app/privacy"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'

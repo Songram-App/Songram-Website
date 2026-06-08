@@ -19,6 +19,7 @@ import {
   IoLogoTiktok,
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 
 type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators';
 
@@ -227,6 +228,12 @@ const FAQPage = () => {
 
   return (
     <div className="min-h-screen text-white">
+      <SEO
+        title="FAQ - Frequently Asked Questions"
+        description="Find answers to common questions about Songram. Learn how to create music, upload tracks, use AI features, and more."
+        keywords="songram FAQ, music creation help, AI music questions, songram support, music app guide"
+        url="https://songram.app/faq"
+      />
       <nav className="fixed top-0 left-0 right-0 z-50 navbar-blur transition-all duration-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">

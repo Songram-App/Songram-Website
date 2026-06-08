@@ -9,6 +9,7 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from '../components/XLogo';
+import SEO from '../components/SEO';
 
 const AboutPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,6 +56,12 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="About Songram - Our Mission & Vision"
+        description="Learn about Songram's mission to revolutionize music creation. Discover how we're empowering artists with AI-powered tools to create, share, and go viral."
+        keywords="about songram, music creation platform, AI music tools, music startup, artist empowerment, music technology"
+        url="https://songram.app/about"
+      />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'
