@@ -234,6 +234,24 @@ const FAQPage = () => {
         keywords="songram FAQ, music creation help, AI music questions, songram support, music app guide"
         url="https://songram.app/faq"
       />
+      {/* FAQ Schema for rich results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faqItems.map((item) => ({
+              "@type": "Question",
+              "name": item.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer,
+              },
+            })),
+          }),
+        }}
+      />
       <nav className="fixed top-0 left-0 right-0 z-50 navbar-blur transition-all duration-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
