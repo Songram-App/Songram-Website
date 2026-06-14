@@ -33,7 +33,7 @@ const TermsPage: React.FC = () => {
         title="Terms of Service - Songram"
         description="Read Songram's terms of service. Understand your rights and responsibilities when using our music creation platform."
         keywords="songram terms, music app terms of service, user agreement, platform rules"
-        url="https://songram.app/terms"
+        url="https://www.songram.app/terms"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${

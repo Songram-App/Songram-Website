@@ -1,5 +1,5 @@
 # Robots.txt for Songram
-# https://songram.app
+# https://www.songram.app
 
 User-agent: *
 Allow: /
@@ -9,7 +9,7 @@ Disallow: /api/
 Disallow: /admin/
 
 # Sitemap location
-Sitemap: https://songram.app/sitemap.xml
+Sitemap: https://www.songram.app/sitemap.xml
 
 # Crawl delay (optional - be nice to servers)
 Crawl-delay: 1

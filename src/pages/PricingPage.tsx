@@ -164,7 +164,7 @@ const PricingPage: React.FC = () => {
         title="Pricing - Songram Plans & Features"
         description="Explore Songram's pricing plans. From free tiers to premium subscriptions, find the perfect plan for your music creation journey."
         keywords="songram pricing, music app plans, music creation subscription, AI music pricing, beat maker cost"
-        url="https://songram.app/pricing"
+        url="https://www.songram.app/pricing"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -186,7 +186,7 @@ const PricingPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -208,7 +208,7 @@ const PricingPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>
@@ -279,7 +279,7 @@ const PricingPage: React.FC = () => {
                   </div>
 
                   <a
-                    href="https://songram.app/login"
+                    href="https://www.songram.app/login"
                     className={`w-full py-2.5 rounded-lg font-medium text-sm transition-all block text-center ${
                       plan.popular ? 'btn-primary' : 'bg-white/5 text-white hover:bg-white/10'
                     }`}

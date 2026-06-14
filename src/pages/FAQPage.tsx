@@ -232,7 +232,7 @@ const FAQPage = () => {
         title="FAQ - Frequently Asked Questions"
         description="Find answers to common questions about Songram. Learn how to create music, upload tracks, use AI features, and more."
         keywords="songram FAQ, music creation help, AI music questions, songram support, music app guide"
-        url="https://songram.app/faq"
+        url="https://www.songram.app/faq"
       />
       {/* FAQ Schema for rich results */}
       <script
@@ -272,7 +272,7 @@ const FAQPage = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -307,7 +307,7 @@ const FAQPage = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>

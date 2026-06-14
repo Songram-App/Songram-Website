@@ -172,7 +172,7 @@ const WelcomePage: React.FC = () => {
         title="Songram | Music Creation & Social Platform for Artists"
         description="Create beats, share songs, connect with artists, and go viral. Songram is the ultimate AI-powered music workspace for modern music creators."
         keywords="music creation, AI music, beat maker, music social media, song sharing, music collaboration, music platform, artist community, music production"
-        url="https://songram.app"
+        url="https://www.songram.app"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -202,7 +202,7 @@ const WelcomePage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">
+              <a href="https://www.songram.app/login" className="btn-primary">
                 Get Started
               </a>
             </div>
@@ -238,7 +238,7 @@ const WelcomePage: React.FC = () => {
                   </Link>
                 ))}
                 <a
-                  href="https://songram.app/login"
+                  href="https://www.songram.app/login"
                   className="w-full btn-primary mt-4 block text-center"
                 >
                   Get Started
@@ -324,7 +324,7 @@ const WelcomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <a href="https://songram.app/login" className="btn-primary px-6 py-3">
+            <a href="https://www.songram.app/login" className="btn-primary px-6 py-3">
               Start Creating
             </a>
             <a href="#features" className="btn-secondary px-6 py-3">
@@ -786,7 +786,7 @@ const WelcomePage: React.FC = () => {
             </div>
             
             <p className="text-sm text-gray-500">
-              Songram is live in public beta on web. <a href="https://songram.app/login" className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</a>.
+              Songram is live in public beta on web. <a href="https://www.songram.app/login" className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</a>.
             </p>
           </motion.div>
         </div>
@@ -811,7 +811,7 @@ const WelcomePage: React.FC = () => {
               <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
                 Songram is live in public beta. Start creating with agentic AI now.
               </p>
-              <a href="https://songram.app/login" className="btn-primary inline-block">
+              <a href="https://www.songram.app/login" className="btn-primary inline-block">
                 Start Creating
               </a>
             </div>

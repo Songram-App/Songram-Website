@@ -28,7 +28,7 @@ const PrivacyPage: React.FC = () => {
         title="Privacy Policy - Songram"
         description="Read Songram's privacy policy. Learn how we collect, use, and protect your personal information and music data."
         keywords="songram privacy, music app privacy policy, data protection, user privacy"
-        url="https://songram.app/privacy"
+        url="https://www.songram.app/privacy"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${

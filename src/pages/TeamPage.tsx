@@ -93,7 +93,7 @@ const TeamPage: React.FC = () => {
         title="Meet the Team - Songram"
         description="Meet the passionate team behind Songram. Our founders and team members are dedicated to building the future of music creation."
         keywords="songram team, music startup founders, music technology team, songram founders"
-        url="https://songram.app/team"
+        url="https://www.songram.app/team"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -115,7 +115,7 @@ const TeamPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -137,7 +137,7 @@ const TeamPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>

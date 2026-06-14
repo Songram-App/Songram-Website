@@ -60,7 +60,7 @@ const AboutPage: React.FC = () => {
         title="About Songram - Our Mission & Vision"
         description="Learn about Songram's mission to revolutionize music creation. Discover how we're empowering artists with AI-powered tools to create, share, and go viral."
         keywords="about songram, music creation platform, AI music tools, music startup, artist empowerment, music technology"
-        url="https://songram.app/about"
+        url="https://www.songram.app/about"
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -82,7 +82,7 @@ const AboutPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -104,7 +104,7 @@ const AboutPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>
