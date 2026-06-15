@@ -8,6 +8,7 @@ interface SEOProps {
   url?: string;
   type?: string;
   noindex?: boolean;
+  structuredData?: object;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -18,6 +19,7 @@ const SEO: React.FC<SEOProps> = ({
   url = 'https://www.songram.app',
   type = 'website',
   noindex = false,
+  structuredData,
 }) => {
   const fullTitle = title.includes('Songram') ? title : `${title} | Songram`;
 
@@ -44,6 +46,13 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
+
+      {/* Structured Data */}
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      )}
     </Helmet>
   );
 };

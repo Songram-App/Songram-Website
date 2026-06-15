@@ -34,6 +34,25 @@ const TermsPage: React.FC = () => {
         description="Read Songram's terms of service. Understand your rights and responsibilities when using our music creation platform."
         keywords="songram terms, music app terms of service, user agreement, platform rules"
         url="https://www.songram.app/terms"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Terms of Service",
+          "description": "Songram's terms of service governing the use of our AI-powered music creation platform.",
+          "url": "https://www.songram.app/terms",
+          "inLanguage": "en-US",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Songram",
+            "url": "https://www.songram.app"
+          },
+          "dateModified": "2026-03-20",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Songram",
+            "url": "https://www.songram.app"
+          }
+        }}
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${

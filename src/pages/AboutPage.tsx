@@ -82,7 +82,7 @@ const AboutPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -104,7 +104,7 @@ const AboutPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>

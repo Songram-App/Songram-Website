@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import WelcomePage from './pages/WelcomePage';
 import AboutPage from './pages/AboutPage';
@@ -7,6 +7,7 @@ import PricingPage from './pages/PricingPage';
 import FAQPage from './pages/FAQPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
+import NotFoundPage from './pages/NotFoundPage';
 import ScrollToTop from './components/ScrollToTop';
 import LaunchCountdownBanner from './components/LaunchCountdownBanner';
 
@@ -24,7 +25,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

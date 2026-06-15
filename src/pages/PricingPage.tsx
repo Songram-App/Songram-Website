@@ -186,7 +186,7 @@ const PricingPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://www.songram.app/login" className="btn-primary">Get Started</a>
+              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
             </div>
 
             <div className="md:hidden">
@@ -208,7 +208,7 @@ const PricingPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://www.songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </a>
               </div>
@@ -279,7 +279,7 @@ const PricingPage: React.FC = () => {
                   </div>
 
                   <a
-                    href="https://www.songram.app/login"
+                    href="https://songram.app/login"
                     className={`w-full py-2.5 rounded-lg font-medium text-sm transition-all block text-center ${
                       plan.popular ? 'btn-primary' : 'bg-white/5 text-white hover:bg-white/10'
                     }`}

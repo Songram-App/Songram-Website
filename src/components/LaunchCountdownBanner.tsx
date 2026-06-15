@@ -83,7 +83,7 @@ const LaunchCountdownBanner: React.FC = () => {
           <div className="flex justify-center sm:justify-end">
             {countdown.isLive ? (
               <a
-                href="https://www.songram.app/login"
+                href="https://songram.app/login"
                 className="inline-flex items-center justify-center rounded-md px-3 py-1.5 text-xs font-medium bg-primary-500 text-white hover:bg-primary-400 transition-colors"
               >
                 Open Songram

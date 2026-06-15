@@ -29,6 +29,25 @@ const PrivacyPage: React.FC = () => {
         description="Read Songram's privacy policy. Learn how we collect, use, and protect your personal information and music data."
         keywords="songram privacy, music app privacy policy, data protection, user privacy"
         url="https://www.songram.app/privacy"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Privacy Policy",
+          "description": "Songram's privacy policy explaining how we collect, use, and protect your personal data.",
+          "url": "https://www.songram.app/privacy",
+          "inLanguage": "en-US",
+          "isPartOf": {
+            "@type": "WebSite",
+            "name": "Songram",
+            "url": "https://www.songram.app"
+          },
+          "dateModified": "2026-03-20",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Songram",
+            "url": "https://www.songram.app"
+          }
+        }}
       />
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
