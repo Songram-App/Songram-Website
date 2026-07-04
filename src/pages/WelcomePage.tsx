@@ -170,8 +170,8 @@ const WelcomePage: React.FC = () => {
     <div className="min-h-screen">
       <SEO
         title="Songram | Music Creation & Social Platform for Artists"
-        description="Create beats, share songs, connect with artists, and go viral. Songram is the ultimate AI-powered music workspace for modern music creators."
-        keywords="music creation, AI music, beat maker, music social media, song sharing, music collaboration, music platform, artist community, music production"
+        description="Turn ideas into complete songs instantly. AI generates vocals, beats & lyrics from your description. No music experience needed. Start free."
+        keywords="AI song generator, create songs online, free music maker, AI music creator, make songs with AI, text to song, AI vocals"
         url="https://www.songram.app"
       />
       {/* Navigation */}

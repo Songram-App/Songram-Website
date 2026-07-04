@@ -79,7 +79,7 @@ const PricingPage: React.FC = () => {
       price: '$10',
       period: 'per month',
       credits: '5,000 credits',
-      description: 'Includes Lyric Assistant, voice conversations, album cover generation, full instrumental track generation, real-time music streaming, CMM complementary generation, stem separation, mixing, and mastering tools.',
+      description: 'Includes Lyric Assistant, voice conversations, album cover generation, full instrumental track generation, real-time music streaming, stem separation, mixing, and mastering tools.',
       features: [
         { text: '5,000 credits per month', icon: <IoFlash size={16} /> },
         { text: 'Lyric Assistant & voice chat', icon: <IoText size={16} /> },
@@ -96,7 +96,7 @@ const PricingPage: React.FC = () => {
       price: '$20',
       period: 'per month',
       credits: '10,000 credits',
-      description: 'Everything in Basic, plus higher generation limits, faster processing, priority access to new features, advanced collaboration tools, and more CMM generation capacity.',
+      description: 'Everything in Basic, plus higher generation limits, faster processing, priority access to new features, and advanced collaboration tools.',
       features: [
         { text: '10,000 credits per month', icon: <IoRocket size={16} /> },
         { text: 'Everything in Basic', icon: <IoCheckmark size={16} /> },
@@ -127,7 +127,6 @@ const PricingPage: React.FC = () => {
       features: [
         { name: 'AI stem separation', free: true, basic: true, premium: true },
         { name: 'AI mixing & mastering', free: true, basic: true, premium: true },
-        { name: 'CMM complementary generation', free: true, basic: true, premium: true },
         { name: 'Generation quality presets', free: ',', basic: 'Standard', premium: 'High / Best' },
         { name: 'Real-time streaming', free: false, basic: true, premium: true },
         { name: 'Advanced editing tools', free: false, basic: true, premium: true },
@@ -146,8 +145,7 @@ const PricingPage: React.FC = () => {
   const creditCosts = [
     { action: 'AI cover art', cost: '300 credits' },
     { action: 'Lyrics Assistant', cost: '50 credits' },
-    { action: 'AI music track (instrumental)', cost: '800 credits' },
-    { action: 'AI CMM generation (complement / transform / variation)', cost: '700 credits' },
+    { action: 'AI music track (instrumental)', cost: '5 credits' },
     { action: 'AI stem separation', cost: '500 credits' },
   ];
 
@@ -161,9 +159,9 @@ const PricingPage: React.FC = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="Pricing - Songram Plans & Features"
-        description="Explore Songram's pricing plans. From free tiers to premium subscriptions, find the perfect plan for your music creation journey."
-        keywords="songram pricing, music app plans, music creation subscription, AI music pricing, beat maker cost"
+        title="Songram Pricing - Free Plan + Pro Features | AI Music Creator"
+        description="Start creating songs free. Upgrade for unlimited AI generations, custom vocals & priority processing. Plans from $0/month."
+        keywords="songram pricing, free AI music maker, music subscription, AI song generator cost, pro music tools"
         url="https://www.songram.app/pricing"
       />
       {/* Navigation */}
@@ -425,7 +423,7 @@ const PricingPage: React.FC = () => {
                 <span className="text-white">$1 = 375 credits</span> · Top-ups never expire
               </p>
               <p className="text-gray-500">
-                Free: 800/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing, mastering, and CMM included</span>
+                Free: 800/day · Plans: monthly refresh · <span className="text-primary-400">AI mixing & mastering included</span>
               </p>
             </div>
           </motion.div>

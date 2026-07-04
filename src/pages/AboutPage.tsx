@@ -57,9 +57,9 @@ const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="About Songram - Our Mission & Vision"
-        description="Learn about Songram's mission to revolutionize music creation. Discover how we're empowering artists with AI-powered tools to create, share, and go viral."
-        keywords="about songram, music creation platform, AI music tools, music startup, artist empowerment, music technology"
+        title="About Songram - AI Music Creation Platform"
+        description="Create complete songs in minutes with AI. No music experience needed. Generate vocals, beats, and lyrics from a simple description. Try free today."
+        keywords="AI music generator, create songs online, music creation app, AI song maker, beat maker, lyrics generator, music production"
         url="https://www.songram.app/about"
       />
       {/* Navigation */}
@@ -114,51 +114,78 @@ const AboutPage: React.FC = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto">
+      <main className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
           {/* Hero */}
-          <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              The Future of Music Is
-              <span className="text-gradient block">Personal and Social</span>
+          <motion.div className="mb-32" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-[1.1] mb-8">
+              Ideas become songs.<br />
+              No experience needed.
             </h1>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Where musical expression meets social connection.
+            <p className="text-xl sm:text-2xl text-gray-400 max-w-3xl leading-relaxed">
+              Songram is a music creation platform that turns imagination into sound. We're building tools so anyone can make real music—whether it's your first song or your hundredth.
             </p>
+            <div className="mt-10">
+              <a href="https://songram.app/login" className="text-white hover:text-primary-400 transition-colors text-lg">
+                Start creating →
+              </a>
+            </div>
           </motion.div>
 
-          {/* Story Content */}
-          <motion.div className="space-y-6" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-            <div className="space-y-5 text-gray-300 leading-relaxed">
-              <p>
-                Over the past decade, social media has been dominated by photo-first platforms. And while a picture may be worth a thousand words, 
-                <span className="text-primary-400"> music is a universal language that speaks directly to the soul</span>, a language that can express emotions that words and images never could.
-              </p>
+          {/* Our Story Section */}
+          <motion.section className="mb-32" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+            <p className="text-gray-500 text-sm font-medium tracking-wider uppercase mb-6">Our Story</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] mb-8">
+              <span className="text-primary-400">Created for</span><br />
+              <span className="text-gray-500">everyone who<br />feels music</span>
+            </h2>
+            <p className="text-xl text-gray-400 max-w-2xl leading-relaxed">
+              Songram was built for people who hear melodies in their head but never had the tools to bring them to life. You don't need to be a musician. You just need ideas.
+            </p>
+          </motion.section>
 
-              <p>
-                <span className="text-primary-400">Songram bridges the gap between the thoughts in your mind and the song that captures them</span>, even if you've never made music before.
-              </p>
-
-              <p>
-                Songram was built for those who feel music deeply but never had the tools to create it. 
-                <span className="text-primary-400"> You don't need to be a musician. You just need to be someone who loves music.</span>
-              </p>
-
-              <p>
-                Collaborate, explore, and share with a global community that thrives on sound. Every beat, every lyric, every playlist is a reflection of you, and a bridge to someone else.
-              </p>
+          {/* What We Do Section */}
+          <motion.section className="mb-32" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+            <p className="text-gray-500 text-sm font-medium tracking-wider uppercase mb-6">What We Do</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.15] mb-12">
+              Everything you need<br />
+              <span className="text-gray-500">to make music</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-3">Full Song Generation</h3>
+                <p className="text-gray-500 leading-relaxed">Describe a vibe, get a complete track with vocals, instruments, and lyrics in under 3 minutes.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-3">Professional Studio</h3>
+                <p className="text-gray-500 leading-relaxed">Full DAW with multi-track editing, mixing, and effects. Import your own audio or use AI clips.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-3">AI Conductor</h3>
+                <p className="text-gray-500 leading-relaxed">Voice-controlled assistant that helps arrange, mix, and refine your music through conversation.</p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-white mb-3">Share & Discover</h3>
+                <p className="text-gray-500 leading-relaxed">Post your songs, build a following, and discover music from creators around the world.</p>
+              </div>
             </div>
+          </motion.section>
 
-            <div className="text-center pt-6">
-              <p className="text-lg font-semibold text-white mb-4">
-                This is the future of social music.<br />
-                <span className="text-gradient">Built for everyone.</span>
-              </p>
-              <Link to="/team" className="btn-primary">
-                Meet the Team
+          {/* CTA Section */}
+          <motion.section className="mb-16" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] mb-8">
+              <span className="text-primary-400">Ready to make</span><br />
+              <span className="text-gray-500">your first song?</span>
+            </h2>
+            <div className="flex flex-col sm:flex-row items-start gap-6">
+              <a href="https://songram.app/login" className="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors">
+                Start Creating Free
+              </a>
+              <Link to="/team" className="text-gray-400 hover:text-white transition-colors py-4">
+                Meet the team →
               </Link>
             </div>
-          </motion.div>
+          </motion.section>
         </div>
       </main>
 

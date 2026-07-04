@@ -229,9 +229,9 @@ const FAQPage = () => {
   return (
     <div className="min-h-screen text-white">
       <SEO
-        title="FAQ - Frequently Asked Questions"
-        description="Find answers to common questions about Songram. Learn how to create music, upload tracks, use AI features, and more."
-        keywords="songram FAQ, music creation help, AI music questions, songram support, music app guide"
+        title="FAQ - How Songram AI Music Creator Works"
+        description="How to create songs with AI, export your music, use the studio, and more. Get answers to common questions about Songram."
+        keywords="how to make songs with AI, songram help, AI music tutorial, create music online FAQ"
         url="https://www.songram.app/faq"
       />
       {/* FAQ Schema for rich results */}
