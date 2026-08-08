@@ -20,6 +20,7 @@ import {
 } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
 import SEO from '../components/SEO';
+import { getAppUrl } from '../utils/maintenance';
 
 type FAQCategory = 'Basics' | 'Creation' | 'Studio' | 'Rights' | 'Creators';
 
@@ -272,7 +273,7 @@ const FAQPage = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <Link to={getAppUrl()} className="btn-primary">Get Started</Link>
             </div>
 
             <div className="md:hidden">
@@ -307,9 +308,9 @@ const FAQPage = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <Link to={getAppUrl()} className="w-full btn-primary mt-4 block text-center">
                   Get Started
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}

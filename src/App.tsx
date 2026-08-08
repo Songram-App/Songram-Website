@@ -8,6 +8,7 @@ import FAQPage from './pages/FAQPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import MaintenancePage from './pages/MaintenancePage';
 import ScrollToTop from './components/ScrollToTop';
 import LaunchCountdownBanner from './components/LaunchCountdownBanner';
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
+          <Route path="/maintenance" element={<MaintenancePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

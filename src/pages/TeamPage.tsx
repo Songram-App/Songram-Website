@@ -16,6 +16,7 @@ import XLogo from '../components/XLogo';
 import SEO from '../components/SEO';
 import EdirinAvatar from '../assets/images/Edirin_avatar.jpg';
 import SebastianAvatar from '../assets/images/sebastian_avatar.jpg';
+import { getAppUrl } from '../utils/maintenance';
 
 const TeamPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -115,7 +116,7 @@ const TeamPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <Link to={getAppUrl()} className="btn-primary">Get Started</Link>
             </div>
 
             <div className="md:hidden">
@@ -137,9 +138,9 @@ const TeamPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <Link to={getAppUrl()} className="w-full btn-primary mt-4 block text-center">
                   Get Started
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}

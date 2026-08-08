@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getAppUrl } from '../utils/maintenance';
 
 const LAUNCH_DATE = new Date('2026-05-31T00:00:00');
 
@@ -73,22 +75,15 @@ const LaunchCountdownBanner: React.FC = () => {
       <div ref={bannerRef} className="pointer-events-auto w-full border-b border-white/10 bg-zinc-950/90 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.25)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-1.5 grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-3">
           <div className="flex justify-center sm:justify-start">
-            <span className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.1em] text-primary-300 whitespace-nowrap">Launch</span>
+            <span className="text-[12px] sm:text-[13px] font-semibold uppercase tracking-[0.1em] text-primary-300 whitespace-nowrap">Status</span>
           </div>
 
           <p className="text-sm sm:text-base text-gray-100 font-medium text-center whitespace-nowrap">
-            {countdown.isLive ? 'Beta is live.' : `Public beta launches ${launchDateLabel}.`}
+            {countdown.isLive ? 'Songram is undergoing scheduled maintenance.' : `Public beta launches ${launchDateLabel}.`}
           </p>
 
           <div className="flex justify-center sm:justify-end">
-            {countdown.isLive ? (
-              <a
-                href="https://songram.app/login"
-                className="inline-flex items-center justify-center rounded-md px-3 py-1.5 text-xs font-medium bg-primary-500 text-white hover:bg-primary-400 transition-colors"
-              >
-                Open Songram
-              </a>
-            ) : (
+            {!countdown.isLive && (
               <div className="flex items-center gap-1.5 text-white">
                 <TimeBlock label="D" value={countdown.days} />
                 <TimeBlock label="H" value={countdown.hours} />
