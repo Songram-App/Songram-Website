@@ -9,6 +9,7 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from './XLogo';
+import { getAppUrl } from '../utils/maintenance';
 
 interface LayoutProps {
   children: ReactNode;
@@ -116,12 +117,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   {link.label}
                 </Link>
               ))}
-              <button
-                onClick={() => setShowSignupModal(true)}
+              <Link
+                to={getAppUrl()}
                 className="btn-primary"
               >
                 Get Started
-              </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -175,12 +176,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 >
                   Terms
                 </Link>
-                <button
-                  onClick={() => { setShowSignupModal(true); setIsMobileMenuOpen(false); }}
+                <Link
+                  to={getAppUrl()}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full btn-primary mt-4"
                 >
                   Get Started
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}

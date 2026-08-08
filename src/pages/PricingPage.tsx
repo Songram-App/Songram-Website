@@ -20,6 +20,7 @@ import {
 import validator from 'validator';
 import XLogo from '../components/XLogo';
 import SEO from '../components/SEO';
+import { getAppUrl } from '../utils/maintenance';
 
 const PricingPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -184,7 +185,7 @@ const PricingPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <a href="https://songram.app/login" className="btn-primary">Get Started</a>
+              <Link to={getAppUrl()} className="btn-primary">Get Started</Link>
             </div>
 
             <div className="md:hidden">
@@ -206,9 +207,9 @@ const PricingPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <a href="https://songram.app/login" className="w-full btn-primary mt-4 block text-center">
+                <Link to={getAppUrl()} className="w-full btn-primary mt-4 block text-center">
                   Get Started
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -276,14 +277,14 @@ const PricingPage: React.FC = () => {
                     ))}
                   </div>
 
-                  <a
-                    href="https://songram.app/login"
+                  <Link
+                    to={getAppUrl()}
                     className={`w-full py-2.5 rounded-lg font-medium text-sm transition-all block text-center ${
                       plan.popular ? 'btn-primary' : 'bg-white/5 text-white hover:bg-white/10'
                     }`}
                   >
                     {plan.buttonText}
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             ))}
