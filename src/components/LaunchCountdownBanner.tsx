@@ -1,6 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getAppUrl } from '../utils/maintenance';
 
 const LAUNCH_DATE = new Date('2026-05-31T00:00:00');
 
