@@ -12,10 +12,6 @@
 }
 
 @layer base {
-  :root {
-    --launch-banner-height: 0px;
-  }
-
   html {
     font-family: 'Inter', system-ui, sans-serif;
     scroll-behavior: smooth;
@@ -40,9 +36,6 @@
     max-width: 100vw;
   }
 
-  nav.fixed.top-0.left-0.right-0 {
-    top: var(--launch-banner-height);
-  }
 }
 
 @layer components {

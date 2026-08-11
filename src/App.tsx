@@ -10,14 +10,12 @@ import TermsPage from './pages/TermsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import MaintenancePage from './pages/MaintenancePage';
 import ScrollToTop from './components/ScrollToTop';
-import LaunchCountdownBanner from './components/LaunchCountdownBanner';
 
 function App() {
   return (
     <ThemeProvider>
       <Router>
         <ScrollToTop />
-        <LaunchCountdownBanner />
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/about" element={<AboutPage />} />
