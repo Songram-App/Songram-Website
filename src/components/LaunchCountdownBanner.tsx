@@ -77,7 +77,7 @@ const LaunchCountdownBanner: React.FC = () => {
           </div>
 
           <p className="text-sm sm:text-base text-gray-100 font-medium text-center whitespace-nowrap">
-            {countdown.isLive ? 'Songram is undergoing scheduled maintenance.' : `Public beta launches ${launchDateLabel}.`}
+            {countdown.isLive ? 'Songram is live in public beta.' : `Public beta launches ${launchDateLabel}.`}
           </p>
 
           <div className="flex justify-center sm:justify-end">

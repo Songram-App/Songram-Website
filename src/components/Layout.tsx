@@ -9,7 +9,6 @@ import {
 } from 'react-icons/io5';
 import validator from 'validator';
 import XLogo from './XLogo';
-import { getAppUrl } from '../utils/maintenance';
 
 interface LayoutProps {
   children: ReactNode;
@@ -118,7 +117,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </Link>
               ))}
               <Link
-                to={getAppUrl()}
+                to="https://songram.app/login"
                 className="btn-primary"
               >
                 Get Started
@@ -177,7 +176,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   Terms
                 </Link>
                 <Link
-                  to={getAppUrl()}
+                  to="https://songram.app/login"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full btn-primary mt-4"
                 >

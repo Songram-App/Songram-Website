@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IoClose, IoMenu, IoLogoInstagram, IoLogoTiktok } from 'react-icons/io5';
 import XLogo from '../components/XLogo';
 import SEO from '../components/SEO';
-import { getAppUrl } from '../utils/maintenance';
+
 
 const PrivacyPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,7 +73,7 @@ const PrivacyPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to={getAppUrl()} className="btn-primary">Get Started</Link>
+              <Link to={'https://songram.app/login'} className="btn-primary">Get Started</Link>
             </div>
 
             <div className="md:hidden">

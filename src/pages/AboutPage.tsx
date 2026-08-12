@@ -10,7 +10,7 @@ import {
 import validator from 'validator';
 import XLogo from '../components/XLogo';
 import SEO from '../components/SEO';
-import { getAppUrl } from '../utils/maintenance';
+
 
 const AboutPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -83,7 +83,7 @@ const AboutPage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to={getAppUrl()} className="btn-primary">Get Started</Link>
+              <Link to={'https://songram.app/login'} className="btn-primary">Get Started</Link>
             </div>
 
             <div className="md:hidden">
@@ -105,7 +105,7 @@ const AboutPage: React.FC = () => {
                     {link.label}
                   </Link>
                 ))}
-                <Link to={getAppUrl()} className="w-full btn-primary mt-4 block text-center">
+                <Link to={'https://songram.app/login'} className="w-full btn-primary mt-4 block text-center">
                   Get Started
                 </Link>
               </div>
@@ -127,7 +127,7 @@ const AboutPage: React.FC = () => {
               Songram is a music creation platform that turns imagination into sound. We're building tools so anyone can make real music—whether it's your first song or your hundredth.
             </p>
             <div className="mt-10">
-              <Link to={getAppUrl()} className="text-white hover:text-primary-400 transition-colors text-lg">
+              <Link to={'https://songram.app/login'} className="text-white hover:text-primary-400 transition-colors text-lg">
                 Start creating →
               </Link>
             </div>
@@ -179,7 +179,7 @@ const AboutPage: React.FC = () => {
               <span className="text-gray-500">your first song?</span>
             </h2>
             <div className="flex flex-col sm:flex-row items-start gap-6">
-              <Link to={getAppUrl()} className="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors">
+              <Link to={'https://songram.app/login'} className="inline-block bg-white text-black font-semibold px-8 py-4 rounded-full hover:bg-gray-100 transition-colors">
                 Start Creating Free
               </Link>
               <Link to="/team" className="text-gray-400 hover:text-white transition-colors py-4">

@@ -20,7 +20,7 @@ import validator from 'validator';
 import XLogo from '../components/XLogo';
 import DawPreview from '../components/DawPreview';
 import SEO from '../components/SEO';
-import { getAppUrl } from '../utils/maintenance';
+
 
 // Import videos from assets
 import CreateSectionVideo from '../assets/videos/Create Section Video_compressed.mp4';
@@ -203,7 +203,7 @@ const WelcomePage: React.FC = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link to={getAppUrl()} className="btn-primary">
+              <Link to={'https://songram.app/login'} className="btn-primary">
                 Get Started
               </Link>
             </div>
@@ -239,7 +239,7 @@ const WelcomePage: React.FC = () => {
                   </Link>
                 ))}
                 <Link
-                  to={getAppUrl()}
+                  to={'https://songram.app/login'}
                   className="w-full btn-primary mt-4 block text-center"
                 >
                   Get Started
@@ -325,7 +325,7 @@ const WelcomePage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Link to={getAppUrl()} className="btn-primary px-6 py-3">
+            <Link to={'https://songram.app/login'} className="btn-primary px-6 py-3">
               Start Creating
             </Link>
             <a href="#features" className="btn-secondary px-6 py-3">
@@ -787,7 +787,7 @@ const WelcomePage: React.FC = () => {
             </div>
             
             <p className="text-sm text-gray-500">
-              Songram is live in public beta on web. <Link to={getAppUrl()} className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</Link>.
+              Songram is live in public beta on web. <Link to={'https://songram.app/login'} className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</Link>.
             </p>
           </motion.div>
         </div>
@@ -812,7 +812,7 @@ const WelcomePage: React.FC = () => {
               <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
                 Songram is live in public beta. Start creating with agentic AI now.
               </p>
-              <Link to={getAppUrl()} className="btn-primary inline-block">
+              <Link to={'https://songram.app/login'} className="btn-primary inline-block">
                 Start Creating
               </Link>
             </div>
