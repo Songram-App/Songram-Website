@@ -96,9 +96,9 @@ const WelcomePage: React.FC = () => {
       likes: "3.1K",
       plays: "47K",
       cover:
-        "https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Cloud Nine Cruise - album cover.jpg",
       audio:
-        "https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20audio.wav",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Cloud Nine Cruise - audio.wav",
     },
     {
       title: "Groove Ijo",
@@ -107,8 +107,8 @@ const WelcomePage: React.FC = () => {
       likes: "1.8K",
       plays: "23K",
       cover:
-        "https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg",
-      audio: "https://storage.googleapis.com/songram-website-media/Groove%20Ijo-%20audio.wav",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Groove Ijo - album cover.jpg",
+      audio: "https://songramstorageprod.blob.core.windows.net/songram-website-media/Groove Ijo - audio.wav",
     },
     {
       title: "Pink Sounds in Space",
@@ -117,9 +117,9 @@ const WelcomePage: React.FC = () => {
       likes: "4.2K",
       plays: "89K",
       cover:
-        "https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.jpg",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Pink Sounds in Space - audio.jpg",
       audio:
-        "https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.wav",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Pink Sounds in Space - audio.wav",
     },
     {
       title: "Pulse Sight",
@@ -128,8 +128,8 @@ const WelcomePage: React.FC = () => {
       likes: "2.6K",
       plays: "35K",
       cover:
-        "https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20%20-%20album%20cover.jpg",
-      audio: "https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20-%20audio.wav",
+        "https://songramstorageprod.blob.core.windows.net/songram-website-media/Pulse Sight  - album cover.jpg",
+      audio: "https://songramstorageprod.blob.core.windows.net/songram-website-media/Pulse Sight - audio.wav",
     },
   ];
 
@@ -262,14 +262,14 @@ const WelcomePage: React.FC = () => {
             {/* Left edge */}
             <div className="absolute top-[4%] left-[2%] md:left-[5%] animate-float-slow" style={{rotate: '-6deg'}}>
               <img 
-                src="https://storage.googleapis.com/songram-website-media/Cloud%20Nine%20Cruise%20-%20album%20cover.jpg" 
+                src="https://songramstorageprod.blob.core.windows.net/songram-website-media/Cloud Nine Cruise - album cover.jpg" 
                 alt="" 
                 className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
             </div>
             <div className="absolute top-[48%] left-[4%] md:left-[7%] animate-float-medium" style={{rotate: '5deg'}}>
               <img 
-                src="https://storage.googleapis.com/songram-website-media/Pink%20Sounds%20in%20Space%20-%20audio.jpg" 
+                src="https://songramstorageprod.blob.core.windows.net/songram-website-media/Pink Sounds in Space - audio.jpg" 
                 alt="" 
                 className="w-40 h-40 md:w-52 md:h-52 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
@@ -278,14 +278,14 @@ const WelcomePage: React.FC = () => {
             {/* Right edge */}
             <div className="absolute top-[10%] right-[2%] md:right-[5%] animate-float-slower" style={{rotate: '7deg'}}>
               <img 
-                src="https://storage.googleapis.com/songram-website-media/Groove%20Ijo%20-%20album%20cover.jpg" 
+                src="https://songramstorageprod.blob.core.windows.net/songram-website-media/Groove Ijo - album cover.jpg" 
                 alt="" 
                 className="w-44 h-44 md:w-56 md:h-56 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
             </div>
             <div className="absolute top-[55%] right-[2%] md:right-[5%] animate-float-slow" style={{rotate: '-8deg'}}>
               <img 
-                src="https://storage.googleapis.com/songram-website-media/Pulse%20Sight%20%20-%20album%20cover.jpg" 
+                src="https://songramstorageprod.blob.core.windows.net/songram-website-media/Pulse Sight  - album cover.jpg" 
                 alt="" 
                 className="w-48 h-48 md:w-60 md:h-60 rounded-2xl object-cover shadow-2xl blur-[3px]"
               />
