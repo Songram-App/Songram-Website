@@ -850,6 +850,11 @@ const WelcomePage: React.FC = () => {
                   <IoLogoLinkedin size={18} />
                 </a>
               </div>
+              <div className="mt-6">
+                <a href="https://www.producthunt.com/products/songram?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-songram" target="_blank" rel="noopener noreferrer">
+                  <img alt="Songram - Instagram, but for songs. | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1237892&theme=light&t=1788243947145" />
+                </a>
+              </div>
             </div>
 
             <div>
