@@ -737,31 +737,35 @@ const WelcomePage: React.FC = () => {
               Take Songram beyond the browser
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto mb-8">
-              Desktop and mobile apps are coming soon with more powerful tools and a seamless workflow.
+              Download Songram for desktop, with mobile apps coming soon.
             </p>
             
             <div className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-6">
-              <button 
-                disabled
-                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed"
+              <a
+                href="https://github.com/Songram-App/Songram-POC/releases/latest/download/Songram-macOS-Apple-Silicon.zip"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 transition-colors hover:border-primary-400/60 hover:bg-white/10"
               >
                 <IoLogoApple size={20} />
                 <div className="text-left">
                   <div className="text-[10px] text-gray-500">Download for</div>
                   <div className="font-medium text-sm">macOS</div>
                 </div>
-              </button>
+              </a>
               
-              <button 
-                disabled
-                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-400 cursor-not-allowed"
+              <a
+                href="https://github.com/Songram-App/Songram-POC/releases/latest/download/Songram-Windows-x64-Setup.exe"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 transition-colors hover:border-primary-400/60 hover:bg-white/10"
               >
                 <IoLogoWindows size={20} />
                 <div className="text-left">
                   <div className="text-[10px] text-gray-500">Download for</div>
                   <div className="font-medium text-sm">Windows</div>
                 </div>
-              </button>
+              </a>
 
               <button 
                 disabled
