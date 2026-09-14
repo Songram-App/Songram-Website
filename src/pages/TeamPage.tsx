@@ -292,7 +292,7 @@ const TeamPage: React.FC = () => {
               ) : (
                 <>
                   <h3 className="text-xl font-bold text-white mb-2">Get Songram Updates</h3>
-                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in beta. Enter your email for feature drops and release notes.</p>
                   
                   <form action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"
                     method="post" onSubmit={handleFormSubmit} className="space-y-4">

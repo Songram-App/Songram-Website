@@ -35,6 +35,7 @@ const WelcomePage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [showBetaBanner, setShowBetaBanner] = useState(true);
   
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [modalVideoIndex] = useState(0);
@@ -175,8 +176,36 @@ const WelcomePage: React.FC = () => {
         keywords="AI song generator, create songs online, free music maker, AI music creator, make songs with AI, text to song, AI vocals"
         url="https://www.songram.app"
       />
+      
+      {/* Beta Testing Banner */}
+      <AnimatePresence>
+        {showBetaBanner && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="fixed top-0 left-0 right-0 z-[60] bg-gray-900/95 backdrop-blur-sm border-b border-white/5 text-white"
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+              <div className="flex items-center justify-center">
+                <span className="text-sm font-normal text-gray-300 text-center">
+                  Beta Testing
+                </span>
+                <button
+                  onClick={() => setShowBetaBanner(false)}
+                  className="absolute right-4 p-1 hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close banner"
+                >
+                  <IoClose size={18} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`fixed ${showBetaBanner ? 'top-[44px]' : 'top-0'} left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled ? 'navbar-blur' : 'bg-transparent'
       }`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -251,7 +280,7 @@ const WelcomePage: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-[90vh] flex flex-col justify-center">
+      <section className={`${showBetaBanner ? 'pt-32 sm:pt-36' : 'pt-24 sm:pt-28'} pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden min-h-[90vh] flex flex-col justify-center transition-all duration-300`}>
         {/* Animated floating album covers background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Gradient overlay to fade out images - lighter to show more */}
@@ -791,7 +820,7 @@ const WelcomePage: React.FC = () => {
             </div>
             
             <p className="text-sm text-gray-500">
-              Songram is live in public beta on web. <Link to={'https://songram.app/login'} className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</Link>.
+              Songram is live in beta on web. <Link to={'https://songram.app/login'} className="text-primary-400 hover:text-primary-300 underline underline-offset-2">Start creating now</Link>.
             </p>
           </motion.div>
         </div>
@@ -814,7 +843,7 @@ const WelcomePage: React.FC = () => {
                 Ready to make your next hit?
               </h2>
               <p className="text-gray-400 mb-6 max-w-md mx-auto text-sm sm:text-base">
-                Songram is live in public beta. Start creating with agentic AI now.
+                Songram is live in beta. Start creating with agentic AI now.
               </p>
               <Link to={'https://songram.app/login'} className="btn-primary inline-block">
                 Start Creating
@@ -926,7 +955,7 @@ const WelcomePage: React.FC = () => {
               ) : (
                 <>
                   <h3 className="text-xl font-bold text-white mb-2">Get Songram Updates</h3>
-                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in beta. Enter your email for feature drops and release notes.</p>
                   
                   <form 
                     action="https://app.us18.list-manage.com/subscribe/post?u=6672acc5c2e3d9aa757c7ab19&id=83ae707f97&f_id=004ea5e6f0"

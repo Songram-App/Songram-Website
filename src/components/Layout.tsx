@@ -21,6 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [showBetaBanner, setShowBetaBanner] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -76,8 +77,35 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="min-h-screen text-white">
+      {/* Beta Testing Banner */}
+      <AnimatePresence>
+        {showBetaBanner && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="fixed top-0 left-0 right-0 z-[60] bg-gray-900/95 backdrop-blur-sm border-b border-white/5 text-white"
+          >
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+              <div className="flex items-center justify-center">
+                <span className="text-sm font-normal text-gray-300 text-center">
+                  Beta Testing
+                </span>
+                <button
+                  onClick={() => setShowBetaBanner(false)}
+                  className="absolute right-4 p-1 hover:bg-white/10 rounded-lg transition-colors"
+                  aria-label="Close banner"
+                >
+                  <IoClose size={18} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`fixed ${showBetaBanner ? 'top-[44px]' : 'top-0'} left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
           ? 'navbar-blur shadow-lg' 
           : 'bg-transparent'
@@ -99,6 +127,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 />
                 <span className="text-2xl font-bold text-gradient glow-text font-satoshi">Songram</span>
               </Link>
+              <span className="px-2 py-0.5 text-xs font-semibold bg-primary-500/20 text-primary-400 border border-primary-500/30 rounded-full animate-pulse">
+                BETA
+              </span>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -189,7 +220,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </nav>
 
       {/* Main Content */}
-      <main className="pt-16">
+      <main className={`transition-all duration-300 ${showBetaBanner ? 'pt-[108px]' : 'pt-16'}`}>
         {children}
       </main>
 
@@ -311,7 +342,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               ) : (
                 <>
                   <h3 className="text-2xl font-bold text-white mb-2">Get Songram Updates</h3>
-                  <p className="text-gray-400 mb-6">Songram is live in public beta. Enter your email for feature drops and release notes.</p>
+                  <p className="text-gray-400 mb-6">Songram is live in beta. Enter your email for feature drops and release notes.</p>
                   
                   <form 
                     action="https://songram.us14.list-manage.com/subscribe/post?u=d51c3c1c7b33f1ed46b5e853e&amp;id=d392f30a24&amp;f_id=0006a3e5f0"

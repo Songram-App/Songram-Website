@@ -525,7 +525,7 @@ const PricingPage: React.FC = () => {
                   <h3 className="text-xl font-bold text-white mb-2">
                     Join Songram {selectedPlan === 'premium' ? 'Premium' : selectedPlan === 'basic' ? 'Basic' : 'Free'}
                   </h3>
-                  <p className="text-gray-400 mb-6 text-sm">Songram is live in public beta. Enter your email for updates and onboarding tips.</p>
+                  <p className="text-gray-400 mb-6 text-sm">Songram is live in beta. Enter your email for updates and onboarding tips.</p>
                   
                   <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
                     <div className="flex items-center gap-2 text-white">
